@@ -1,0 +1,19 @@
+{
+  "author": "William Orr <will@worrbase.com> (http://worrbase.com/)",
+  "name": "imdb-api",
+  "description": "Queries unofficial imdb APIs to get movie and television information from imdb",
+  "version": "1.0.0",
+  "homepage": "https://github.com/worr/node-imdb-api",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/worr/node-imdb-api.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+	  "nodeunit": "0.x.x"
+  },
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
