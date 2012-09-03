@@ -29,7 +29,6 @@ function episodes(cb) {
 	}
 
 	function onEnd() {
-		console.log(episodeList);
 		return cb(null, JSON.parse(episodeList)[tvShow.title].episodes);
 	}
 
@@ -39,19 +38,25 @@ function episodes(cb) {
 }
 
 module.exports.get = function(name, cb) {
+	var responseData = "";
+
 	var myDeanclatworthy = deanclatworthy;
 	myDeanclatworthy.path += "?" + querystring.stringify({ q: name, yg: 0 });
 	return http.get(myDeanclatworthy, onResponse).on('error', onError);
 
 	function onResponse(res) {
-		return res.on('data', onData).on('error', onError);
+		return res.on('data', onData).on('error', onError).on('end', onEnd);
 	}
 
 	function onData(data) {
+		responseData += data;
+	}
+
+	function onEnd() {
 		var responseObject
 		
 		try {
-			responseObject = JSON.parse(data.toString('utf8'));
+			responseObject = JSON.parse(responseData);
 		} catch (e) {
 			return cb(e);
 		}
