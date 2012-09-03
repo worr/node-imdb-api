@@ -12,6 +12,9 @@ var poromenos = {
 };
 
 function episodes(cb) {
+	if (typeof(cb) !== "function")
+		throw new TypeError("cb must be a function");
+
 	tvShow = this;
 
 	var episodeList = "";
@@ -39,6 +42,9 @@ function episodes(cb) {
 
 module.exports.get = function(name, cb) {
 	var responseData = "";
+
+	if (typeof(cb) !== "function")
+		throw new TypeError("cb must be a function");
 
 	var myDeanclatworthy = deanclatworthy;
 	myDeanclatworthy.path += "?" + querystring.stringify({ q: name, yg: 0 });
