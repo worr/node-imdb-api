@@ -4,18 +4,18 @@ A non-scraping, functional node.js interface to imdb
 
 # Use
 
-1. Get an imdb object:
+Get an imdb object:
 
     var imdb = require('imdb');
 
-1. Call get.
+Call get.
 
     var movie;
     imdb.get('The Toxic Avenger', function(err, things) {
         movie = things;
     });
 
-1. DATA
+DATA
 
     console.log(movie);
 
@@ -36,7 +36,7 @@ A non-scraping, functional node.js interface to imdb
       episodes: null 
     }
 
-1. What is this episodes shit?
+What is this episodes shit?
 
 Well, it's a function! Give it a callback!
 
