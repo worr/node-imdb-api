@@ -45,21 +45,22 @@ Well, it's a function! Give it a callback!
             console.log(moreThings);
         });
     });
-null
-{ imdbid: 'tt0460649',
-  imdburl: 'http://www.imdb.com/title/tt0460649/',
-  genres: 'Comedy,Romance',
-  languages: 'English',
-  country: 'USA',
-  votes: '129900',
-  stv: 1,
-  series: 0,
-  rating: '8.6',
-  runtime: '25min(22episodes)',
-  title: 'How I Met Your Mother',
-  usascreens: 0,
-  ukscreens: 0,
-  episodes: [Function: episodes] }
+
+    null
+    { imdbid: 'tt0460649',
+      imdburl: 'http://www.imdb.com/title/tt0460649/',
+      genres: 'Comedy,Romance',
+      languages: 'English',
+      country: 'USA',
+      votes: '129900',
+      stv: 1,
+      series: 0,
+      rating: '8.6',
+      runtime: '25min(22episodes)',
+      title: 'How I Met Your Mother',
+      usascreens: 0,
+      ukscreens: 0,
+      episodes: [Function: episodes] }
     [ { season: 6, name: 'A Change of Heart', number: 18 },
       { season: 2, name: 'Aldrin Justice', number: 6 },
       { season: 6, name: 'Architect of Destruction', number: 5 },
