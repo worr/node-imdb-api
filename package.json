@@ -8,9 +8,12 @@
     "type": "git",
     "url": "git://github.com/worr/node-imdb-api.git"
   },
-  "dependencies": {},
+  "dependencies": {
+	  "node.extend": "1.x.x"
+  },
   "devDependencies": {
-	  "nodeunit": "0.x.x"
+	  "nodeunit": "0.x.x",
+	  "nock": "0.x.x"
   },
   "optionalDependencies": {},
   "engines": {
