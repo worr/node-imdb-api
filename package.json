@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git://github.com/worr/node-imdb-api.git"
   },
+  "license": [ { "type": "MIT" } ],
+  "repository" : { "type" : "git", "url": "https://github.com/worr/node-imdb-api" },
+  "scripts": { "test": "./node_modules/.bin/nodeunit test" },
   "dependencies": {
 	  "node.extend": "1.x.x"
   },
