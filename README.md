@@ -36,6 +36,34 @@ DATA
       episodes: null 
     }
 
+Furthermore if you already know the id you can call getById.
+
+    var movie;
+    imdb.getById('0090190', function(err, things) {
+        movie = things;
+    });
+
+DATA
+
+    console.log(movie);
+
+    { imdbid: 'tt0090190',
+      imdburl: 'http://www.imdb.com/title/tt0090190/',
+      genres: 'Action,Comedy,Horror,Sci-Fi',
+      languages: 'English',
+      country: 'USA',
+      votes: '11103',
+      stv: 0,
+      series: 0,
+      rating: '6.0',
+      runtime: '87min,Canada:78min,USA:82min(unratedversion:DirectorsCut),Argentina:87min(MardelPlataFilmFestival),USA:78min(R-ratedversion)',
+      title: 'The Toxic Avenger',
+      year: '1984',
+      usascreens: 0,
+      ukscreens: 0,
+      episodes: null
+    }
+
 What is this episodes shit?
 
 Well, it's a function! Give it a callback!
