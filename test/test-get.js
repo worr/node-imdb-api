@@ -1,3 +1,5 @@
+"use strict";
+
 var http = require('http');
 var nock = require('nock');
 var nodeunit = require('nodeunit');
