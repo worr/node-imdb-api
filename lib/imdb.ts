@@ -31,7 +31,7 @@ class Episode {
 	constructor (public season: number, public name: string, public number: number) { }
 }
 
-class Entry {
+class Movie {
 	private _episodes: Episode[] = [];
 	public imdbid: string;
 	public imdburl: string;
@@ -138,7 +138,7 @@ export function get(name: string, cb: Function) {
 			return cb(responseObject.error);
 		}
 
-		responseObject = new Entry(responseObject);
+		responseObject = new Movie(responseObject);
 		return cb(null, responseObject);
 	}
 
