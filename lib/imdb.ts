@@ -1,20 +1,34 @@
 "use strict";
 ///<reference path='../defs/node.d.ts'/>
-///<reference path='../defs/node.extend.d.ts'/>
 
 import http = module('http');
-import extend = module('node.extend');
 import querystring = module('querystring');
 
-var deanclatworthy = {
-	host: "www.deanclatworthy.com",
-	path: "/imdb/"
-};
+class ApiHost {
+	host: string;
+	path: string;
 
-var poromenos = {
-	host: "imdbapi.poromenos.org",
-	path: "/js/"
-};
+	constructor ();
+	constructor (host: string, path: string);
+	constructor (copy: ApiHost);
+	constructor (hc?: any, path?: string) {
+		if (hc) {
+			if (typeof(hc) === "object") {
+				this.host = hc.host;
+				this.path = hc.path;
+			} else {
+				this.host = hc;
+				this.path = path;
+			}
+		} else {
+			this.host = "";
+			this.path = "";
+		}
+	}
+}
+
+var deanclatworthy = new ApiHost("www.deanclatworthy.com", "/imdb/");
+var poromenos = new ApiHost("imdbapi.poromenos.org", "/js/");
 
 function episodes(cb: (Error, object) => void ) {
 	if (typeof(cb) !== "function")
@@ -25,7 +39,7 @@ function episodes(cb: (Error, object) => void ) {
 	var episodeList = "";
 	var myPoromenos;
 
-	myPoromenos = extend(myPoromenos, poromenos);
+	myPoromenos = new ApiHost(poromenos);
 	myPoromenos.path += "?" + querystring.stringify({ name: tvShow.title });
 
 	return http.get(myPoromenos, onResponse).on('error', onError);
@@ -62,7 +76,7 @@ export function get(name: string, cb: Function) {
 
 	var myDeanclatworthy;
 
-	myDeanclatworthy = extend(myDeanclatworthy, deanclatworthy);
+	myDeanclatworthy = new ApiHost(deanclatworthy);
 	myDeanclatworthy.path += "?" + querystring.stringify({ q: name, yg: 0 });
 
 	return http.get(myDeanclatworthy, onResponse).on('error', onError);
@@ -121,7 +135,7 @@ export function getById(id: string, cb: Function) {
 
 	var myDeanclatworthy;
 
-	myDeanclatworthy = extend(myDeanclatworthy, deanclatworthy);
+	myDeanclatworthy = new ApiHost(deanclatworthy);
 	myDeanclatworthy.path += "?" + querystring.stringify({ id: id});
 
 	return http.get(myDeanclatworthy, onResponse).on('error', onError);
