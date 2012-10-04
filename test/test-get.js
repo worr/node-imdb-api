@@ -16,7 +16,7 @@ module.exports.testGetSuccessful = function(test) {
 
 		test.ok(data);
 		test.equal(data.imdbid, 'tt0090191', "testing returned data");
-		test.equal(typeof(data.episodes), "object", "testing for null episodes");
+		test.equal(typeof(data.episodes), "function", "testing for null episodes");
 
 		test.done();
 	}

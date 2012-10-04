@@ -27,46 +27,82 @@ class ApiHost {
 	}
 }
 
-var deanclatworthy = new ApiHost("www.deanclatworthy.com", "/imdb/");
-var poromenos = new ApiHost("imdbapi.poromenos.org", "/js/");
+class Episode {
+	constructor (public season: number, public name: string, public number: number) { }
+}
 
-function episodes(cb: (Error, object) => void ) {
-	if (typeof(cb) !== "function")
-		throw new TypeError("cb must be a function");
+class Entry {
+	private _episodes: Episode[] = [];
+	public imdbid: string;
+	public imdburl: string;
+	public genres: string;
+	public languages: string;
+	public country: string;
+	public votes: string;
+	public stv: bool;
+	public series: bool;
+	public rating: string;
+	public runtime: string;
+	public title: string;
+	public usascreens: bool;
+	public ukscreens: bool;
 
-	var tvShow = this;
-
-	var episodeList = "";
-	var myPoromenos;
-
-	myPoromenos = new ApiHost(poromenos);
-	myPoromenos.path += "?" + querystring.stringify({ name: tvShow.title });
-
-	return http.get(myPoromenos, onResponse).on('error', onError);
-
-	function onResponse(res: any) {
-		return res.on('data', onData).on('error', onError).on('end', onEnd);
+	constructor (obj: Object) { 
+		for (var attr in obj) {
+			if (obj.hasOwnProperty(attr))
+				this[attr] = obj[attr];
+		}
 	}
+	
+	public episodes(cb: (Error, object) => Array) {
+		if (typeof(cb) !== "function")
+			throw new TypeError("cb must be a function");
 
-	function onData(data: any) {
-		return (episodeList += data.toString('utf8'));
-	}
+		if (this._episodes.length !== 0) {
+			return this._episodes;
+		}
 
-	function onEnd() {
-		var eps = episodeList;
+		var tvShow = this;
 
-		if (eps === "")
-			return cb(new Error("could not get episodes"), null);
+		var episodeList = "";
+		var myPoromenos;
 
-		eps = JSON.parse(eps)[tvShow.title].episodes;
+		myPoromenos = new ApiHost(poromenos);
+		myPoromenos.path += "?" + querystring.stringify({ name: tvShow.title });
 
-		return cb(null, eps);
-	}
+		return http.get(myPoromenos, onResponse).on('error', onError);
 
-	function onError(err: Error) {
-		return cb(err, null);
+		function onResponse(res: any) {
+			return res.on('data', onData).on('error', onError).on('end', onEnd);
+		}
+
+		function onData(data: any) {
+			return (episodeList += data.toString('utf8'));
+		}
+
+		function onEnd() {
+			var eps = episodeList;
+
+			if (eps === "")
+				return cb(new Error("could not get episodes"), null);
+
+			var episodes = [];
+			eps = JSON.parse(eps)[tvShow.title].episodes;
+			for (var i = 0; i < eps.length; i++) {
+				episodes[i] = new Episode(eps[i].season, eps[i].name, eps[i].number);
+			}
+
+			return cb(null, episodes);
+		}
+
+		function onError(err: Error) {
+			return cb(err, null);
+		}
 	}
 }
+
+var deanclatworthy = new ApiHost("www.deanclatworthy.com", "/imdb/");
+var poromenos = new ApiHost("imdbapi.poromenos.org", "/js/");
 
 export function get(name: string, cb: Function) {
 	var responseData = "";
@@ -101,13 +137,8 @@ export function get(name: string, cb: Function) {
 		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
 			return cb(responseObject.error);
 		}
-		
-		if (responseObject.stv === 1 || responseObject.series === 1) {
-			responseObject.episodes = episodes;
-		} else {
-			responseObject.episodes = null;
-		}
 
+		responseObject = new Entry(responseObject);
 		return cb(null, responseObject);
 	}
 
@@ -159,12 +190,6 @@ export function getById(id: string, cb: Function) {
 
 		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
 			return cb(responseObject.error);
-		}
-
-		if (responseObject.stv === 1 || responseObject.series === 1) {
-			responseObject.episodes = episodes;
-		} else {
-			responseObject.episodes = null;
 		}
 
 		return cb(null, responseObject);
