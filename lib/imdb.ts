@@ -1,8 +1,10 @@
 "use strict";
+///<reference path='../defs/node.d.ts'/>
+///<reference path='../defs/node.extend.d.ts'/>
 
-var http = require('http');
-var extend = require('node.extend');
-var querystring = require('querystring');
+import http = module('http');
+import extend = module('node.extend');
+import querystring = module('querystring');
 
 var deanclatworthy = {
 	host: "www.deanclatworthy.com",
@@ -14,7 +16,7 @@ var poromenos = {
 	path: "/js/"
 };
 
-function episodes(cb) {
+function episodes(cb: (Error, object) => void ) {
 	if (typeof(cb) !== "function")
 		throw new TypeError("cb must be a function");
 
@@ -40,7 +42,7 @@ function episodes(cb) {
 		var eps = episodeList;
 
 		if (eps === "")
-			return cb(new Error("could not get episodes"));
+			return cb(new Error("could not get episodes"), null);
 
 		eps = JSON.parse(eps)[tvShow.title].episodes;
 
@@ -48,11 +50,11 @@ function episodes(cb) {
 	}
 
 	function onError(err) {
-		return cb(err);
+		return cb(err, null);
 	}
 }
 
-module.exports.get = function(name, cb) {
+export function get(name: string, cb: Function) {
 	var responseData = "";
 
 	if (typeof(cb) !== "function")
@@ -100,7 +102,7 @@ module.exports.get = function(name, cb) {
 	}
 };
 
-module.exports.getById = function(id, cb) {
+export function getById(id: string, cb: Function) {
 	var responseData = "";
 
 	if (typeof(cb) !== "function")
