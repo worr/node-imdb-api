@@ -44,11 +44,11 @@ function episodes(cb: (Error, object) => void ) {
 
 	return http.get(myPoromenos, onResponse).on('error', onError);
 
-	function onResponse(res) {
+	function onResponse(res: any) {
 		return res.on('data', onData).on('error', onError).on('end', onEnd);
 	}
 
-	function onData(data) {
+	function onData(data: any) {
 		return (episodeList += data.toString('utf8'));
 	}
 
@@ -63,7 +63,7 @@ function episodes(cb: (Error, object) => void ) {
 		return cb(null, eps);
 	}
 
-	function onError(err) {
+	function onError(err: Error) {
 		return cb(err, null);
 	}
 }
@@ -81,11 +81,11 @@ export function get(name: string, cb: Function) {
 
 	return http.get(myDeanclatworthy, onResponse).on('error', onError);
 
-	function onResponse(res) {
+	function onResponse(res: any) {
 		return res.on('data', onData).on('error', onError).on('end', onEnd);
 	}
 
-	function onData(data) {
+	function onData(data: any) {
 		responseData += data;
 	}
 
@@ -111,7 +111,7 @@ export function get(name: string, cb: Function) {
 		return cb(null, responseObject);
 	}
 
-	function onError(err) {
+	function onError(err: Error) {
 		return cb(err);
 	}
 };
@@ -140,11 +140,11 @@ export function getById(id: string, cb: Function) {
 
 	return http.get(myDeanclatworthy, onResponse).on('error', onError);
 
-	function onResponse(res) {
+	function onResponse(res: any) {
 		return res.on('data', onData).on('error', onError).on('end', onEnd);
 	}
 
-	function onData(data) {
+	function onData(data: any) {
 		responseData += data;
 	}
 
@@ -170,7 +170,7 @@ export function getById(id: string, cb: Function) {
 		return cb(null, responseObject);
 	}
 
-	function onError(err) {
+	function onError(err: any) {
 		return cb(err);
 	}
 };
