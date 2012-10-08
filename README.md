@@ -6,7 +6,7 @@ A non-scraping, functional node.js interface to imdb
 
 Get an imdb object:
 
-    var imdb = require('imdb');
+    var imdb = require('imdb-api');
 
 Call get.
 
