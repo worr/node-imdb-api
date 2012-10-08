@@ -16,7 +16,7 @@
 	  "install": "make build"
   },
   "dependencies": {
-	  "node.extend": "1.x.x"
+	  "typescript": "0.8.x"
   },
   "devDependencies": {
 	  "nodeunit": "0.x.x",
