@@ -2,10 +2,11 @@
 
 libdir = lib
 
-objects = $(libdir)/imdb.js
+objects = lib/imdb.js
 
-$(objects): %.js: %.ts
+$(objects): lib/%.js: src/%.ts
 	tsc $<
+	mv $(<:ts=js) $@
 
 build: $(objects)
 
