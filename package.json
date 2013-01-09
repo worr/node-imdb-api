@@ -17,8 +17,7 @@
   "dependencies": {},
   "devDependencies": {
 	  "nodeunit": "0.x.x",
-	  "nock": "0.x.x",
-	  "typescript": "0.8.x"
+	  "nock": "0.x.x"
   },
   "optionalDependencies": {},
   "engines": {

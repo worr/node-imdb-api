@@ -30,7 +30,7 @@ module.exports.testGetByIdRateLimited = function(test) {
 	function testResults(err, data) {
 		test.ifError(data);
 
-		test.equal(err, 'rate limited', "testing error code");
+		test.deepEqual(err, new Error('rate limited'), "testing error code");
 
 		test.done();
 	}
