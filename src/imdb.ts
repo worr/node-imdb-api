@@ -135,7 +135,7 @@ export function get(name: string, cb: Function) {
 		}
 
 		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
-			return cb(new Error(responseObject.error));
+			return cb(responseObject.error);
 		}
 
 		responseObject = new Movie(responseObject);
@@ -143,7 +143,7 @@ export function get(name: string, cb: Function) {
 	}
 
 	function onError(err: Error) {
-		return cb(err, null);
+		return cb(err);
 	}
 };
 
@@ -189,7 +189,7 @@ export function getById(id: string, cb: Function) {
 		}
 
 		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
-			return cb(new Error(responseObject.error));
+			return cb(responseObject.error);
 		}
 
 		return cb(null, responseObject);
