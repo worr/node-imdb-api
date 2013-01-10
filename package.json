@@ -23,5 +23,6 @@
   "optionalDependencies": {},
   "engines": {
     "node": ">=0.8"
-  }
+  },
+  "keywords": [ "imdb", "movies", "search", "tv", "television" ]
 }
