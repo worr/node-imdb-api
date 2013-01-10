@@ -101,10 +101,17 @@ class Movie {
 	}
 }
 
+export class ImdbError {
+	public name: string = "imdb api error";
+
+	constructor(public message: string, public movie: string) {
+	}
+}
+
 var deanclatworthy = new ApiHost("www.deanclatworthy.com", "/imdb/");
 var poromenos = new ApiHost("imdbapi.poromenos.org", "/js/");
 
-export function get(name: string, cb: Function) {
+export function get(name: string, cb: (Error, any) => any) {
 	var responseData = "";
 
 	if (typeof(cb) !== "function")
@@ -131,11 +138,11 @@ export function get(name: string, cb: Function) {
 		try {
 			responseObject = JSON.parse(responseData);
 		} catch (e) {
-			return cb(e);
+			return cb(e, null);
 		}
 
 		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
-			return cb(new Error(responseObject.error));
+			return cb(new ImdbError(responseObject.error + ": " + name, name), null);
 		}
 
 		responseObject = new Movie(responseObject);
@@ -147,7 +154,7 @@ export function get(name: string, cb: Function) {
 	}
 };
 
-export function getById(id: string, cb: Function) {
+export function getById(id: string, cb: (Error, any) => any) {
 	var responseData = "";
 
 	if (typeof(cb) !== "function")
@@ -185,18 +192,18 @@ export function getById(id: string, cb: Function) {
 		try {
 			responseObject = JSON.parse(responseData);
 		} catch (e) {
-			return cb(e);
+			return cb(e, null);
 		}
 
 		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
-			return cb(new Error(responseObject.error));
+			return cb(new ImdbError(responseObject.error + ": " + name, name), null);
 		}
 
 		return cb(null, responseObject);
 	}
 
 	function onError(err: any) {
-		return cb(err);
+		return cb(err, null);
 	}
 };
 
