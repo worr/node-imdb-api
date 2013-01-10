@@ -30,7 +30,7 @@ module.exports.testGetRateLimited = function(test) {
 	function testResults(err, data) {
 		test.ifError(data);
 
-		test.deepEqual(err, new Error('rate limited'), "testing error code");
+		test.deepEqual(err, new imdb.ImdbError('rate limited: The Green Mile', 'The Green Mile'), "testing error code");
 
 		test.done();
 	}
@@ -43,6 +43,20 @@ module.exports.testGetUnsuccessful = function(test) {
 
 	function testResults(err, data) {
 		test.ifError(data);
+
+		test.done();
+	}
+}
+
+module.exports.testGetMadeupMovie = function(test) {
+	var scope = nock('http://www.deanclatworthy.com').get('/imdb/?q=asdfasdfasdf&yg=0').reply(200, { code: 1, error: "Film not found" });
+
+	return imdb.get('asdfasdfasdf', testResults);
+
+	function testResults(err, data) {
+		test.ifError(data);
+
+		test.deepEqual(err, new imdb.ImdbError('Film not found: asdfasdfasdf', 'asdfasdfasdf'), "testing film not found error");
 
 		test.done();
 	}

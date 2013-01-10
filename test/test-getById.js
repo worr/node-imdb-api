@@ -30,7 +30,7 @@ module.exports.testGetByIdRateLimited = function(test) {
 	function testResults(err, data) {
 		test.ifError(data);
 
-		test.deepEqual(err, new Error('rate limited'), "testing error code");
+		test.deepEqual(err, new imdb.ImdbError('rate limited: tt0090190', 'tt0090190'), "testing error code");
 
 		test.done();
 	}
@@ -47,3 +47,19 @@ module.exports.testGetByIdUnsuccessful = function(test) {
 		test.done();
 	}
 }
+
+module.exports.testGetMadeupMovie = function(test) {
+	var scope = nock('http://www.deanclatworthy.com').get('/imdb/?id=tt0090190').reply(200, { code: 1, error: "Film not found" });
+
+	return imdb.getById('tt0090190', testResults);
+
+	function testResults(err, data) {
+		test.ifError(data);
+
+		test.deepEqual(err, new imdb.ImdbError('Film not found: tt0090190', 'tt0090190'), "testing film not found error");
+
+		test.done();
+	}
+}
+
+

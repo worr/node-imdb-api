@@ -196,7 +196,7 @@ export function getById(id: string, cb: (Error, any) => any) {
 		}
 
 		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
-			return cb(new ImdbError(responseObject.error + ": " + name, name), null);
+			return cb(new ImdbError(responseObject.error + ": " + id, id), null);
 		}
 
 		return cb(null, responseObject);
