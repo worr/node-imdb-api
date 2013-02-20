@@ -108,7 +108,7 @@ export class ImdbError {
 	}
 }
 
-var deanclatworthy = new ApiHost("www.deanclatworthy.com", "/imdb/");
+var deanclatworthy = new ApiHost("deanclatworthy.com", "/imdb/");
 var poromenos = new ApiHost("imdbapi.poromenos.org", "/js/");
 
 export function get(name: string, cb: (Error, any) => any) {
