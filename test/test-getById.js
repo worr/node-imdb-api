@@ -7,7 +7,7 @@ var nodeunit = require('nodeunit');
 var imdb = require('../lib/imdb.js');
 
 module.exports.testGetByIdSuccessful = function(test) {
-	var scope = nock('http://www.deanclatworthy.com').get('/imdb/?id=tt0090191').reply(200, require('./data/toxic-avenger.json'));
+	var scope = nock('http://deanclatworthy.com').get('/imdb/?id=tt0090191').reply(200, require('./data/toxic-avenger.json'));
 
 	return imdb.getById('tt0090191', testResults);
 
@@ -23,7 +23,7 @@ module.exports.testGetByIdSuccessful = function(test) {
 }
 
 module.exports.testGetByIdRateLimited = function(test) {
-	var scope = nock('http://www.deanclatworthy.com').get('/imdb/?id=tt0090190').reply(200, { code: 2, error: "rate limited" });
+	var scope = nock('http://deanclatworthy.com').get('/imdb/?id=tt0090190').reply(200, { code: 2, error: "rate limited" });
 
 	return imdb.getById('tt0090190', testResults);
 
@@ -37,7 +37,7 @@ module.exports.testGetByIdRateLimited = function(test) {
 }
 
 module.exports.testGetByIdUnsuccessful = function(test) {
-	var scope = nock('http://www.deanclatworthy.com').get('/imdb/?id=tt0090190').reply(404);
+	var scope = nock('http://deanclatworthy.com').get('/imdb/?id=tt0090190').reply(404);
 
 	return imdb.getById('tt0090190', testResults);
 
@@ -49,7 +49,7 @@ module.exports.testGetByIdUnsuccessful = function(test) {
 }
 
 module.exports.testGetMadeupMovie = function(test) {
-	var scope = nock('http://www.deanclatworthy.com').get('/imdb/?id=tt0090190').reply(200, { code: 1, error: "Film not found" });
+	var scope = nock('http://deanclatworthy.com').get('/imdb/?id=tt0090190').reply(200, { code: 1, error: "Film not found" });
 
 	return imdb.getById('tt0090190', testResults);
 
