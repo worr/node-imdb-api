@@ -16,7 +16,8 @@ module.exports.testGetByIdSuccessful = function(test) {
 
 		test.ok(data);
 		test.equal(data.title, 'The Toxic Avenger', "testing returned data");
-		test.equal(typeof(data.episodes), "undefined", "testing for null episodes");
+		test.equal(data.series, false, "testing series bool");
+		test.equal(data.hasOwnProperty("episodes"), false, "should not have episodes");
 
 		test.done();
 	}

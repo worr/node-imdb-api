@@ -1,5 +1,3 @@
-"use strict";
-
 var http = require('http');
 var nock = require('nock');
 var nodeunit = require('nodeunit');
@@ -16,7 +14,8 @@ module.exports.testGetSuccessful = function(test) {
 
 		test.ok(data);
 		test.equal(data.imdbid, 'tt0090191', "testing returned data");
-		test.equal(typeof(data.episodes), "function", "testing for null episodes");
+		test.equal(data.series, false, "testing series bool");
+		test.equal(data.hasOwnProperty("episodes"), false, "should not have episodes");
 
 		test.done();
 	}
@@ -73,6 +72,7 @@ module.exports.testGetEpisodes = function(test) {
 
 		test.ok(data);
 		test.equal(typeof(data.episodes), "function", "testing for episodes function");
+		test.equal(data.series, true, "testing series bool");
 
 		return data.episodes(testEpisodes);
 	}

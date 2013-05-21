@@ -32,7 +32,6 @@ class Episode {
 }
 
 class Movie {
-	private _episodes: Episode[] = [];
 	public imdbid: string;
 	public imdburl: string;
 	public genres: string;
@@ -53,7 +52,15 @@ class Movie {
 				this[attr] = obj[attr];
 		}
 	}
-	
+}
+
+class TVShow extends Movie {
+	private _episodes: Episode[] = [];
+
+	constructor (object: Object) {
+		super(object);
+	}
+
 	public episodes(cb: (Error, object) => Array) {
 		if (typeof(cb) !== "function")
 			throw new TypeError("cb must be a function");
@@ -99,6 +106,7 @@ class Movie {
 			return cb(err, null);
 		}
 	}
+
 }
 
 export class ImdbError {
@@ -145,7 +153,11 @@ export function get(name: string, cb: (Error, any) => any) {
 			return cb(new ImdbError(responseObject.error + ": " + name, name), null);
 		}
 
-		responseObject = new Movie(responseObject);
+		if (responseObject.series === 0)
+			responseObject = new Movie(responseObject);
+		else
+			responseObject = new TVShow(responseObject);
+
 		return cb(null, responseObject);
 	}
 
