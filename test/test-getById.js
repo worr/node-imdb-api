@@ -31,7 +31,7 @@ module.exports.testGetByIdRateLimited = function(test) {
 	function testResults(err, data) {
 		test.ifError(data);
 
-		test.deepEqual(err, new imdb.ImdbError('rate limited: tt0090190', 'tt0090190'), "testing error code");
+		test.deepEqual(err, new imdb.ImdbError('rate limited: tt0090190', { id: 'tt0090190', name: null }), "testing error code");
 
 		test.done();
 	}
@@ -57,7 +57,7 @@ module.exports.testGetMadeupMovie = function(test) {
 	function testResults(err, data) {
 		test.ifError(data);
 
-		test.deepEqual(err, new imdb.ImdbError('Film not found: tt0090190', 'tt0090190'), "testing film not found error");
+		test.deepEqual(err, new imdb.ImdbError('Film not found: tt0090190', { id: 'tt0090190', name: null }), "testing film not found error");
 
 		test.done();
 	}

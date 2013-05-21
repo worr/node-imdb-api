@@ -4,6 +4,11 @@
 import http = module('http');
 import querystring = module('querystring');
 
+export interface MovieRequest {
+	name: string;
+	id: string;
+}
+
 class ApiHost {
 	host: string;
 	path: string;
@@ -112,14 +117,14 @@ export class TVShow extends Movie {
 export class ImdbError {
 	public name: string = "imdb api error";
 
-	constructor(public message: string, public movie: string) {
+	constructor(public message: string, public movie: MovieRequest) {
 	}
 }
 
 var deanclatworthy = new ApiHost("deanclatworthy.com", "/imdb/");
 var poromenos = new ApiHost("imdbapi.poromenos.org", "/js/");
 
-export function get(name: string, cb: (Error, any) => any) {
+export function getReq(req: MovieRequest, cb: (Error, any) => any) {
 	var responseData = "";
 
 	if (typeof(cb) !== "function")
@@ -128,7 +133,12 @@ export function get(name: string, cb: (Error, any) => any) {
 	var myDeanclatworthy;
 
 	myDeanclatworthy = new ApiHost(deanclatworthy);
-	myDeanclatworthy.path += "?" + querystring.stringify({ q: name, yg: 0 });
+
+	if (req.name !== null) {
+		myDeanclatworthy.path += "?" + querystring.stringify({ q: req.name, yg: 0 });
+	} else if (req.id !== null) {
+		myDeanclatworthy.path += "?" + querystring.stringify({ id: req.id });
+	}
 
 	return http.get(myDeanclatworthy, onResponse).on('error', onError);
 
@@ -150,7 +160,7 @@ export function get(name: string, cb: (Error, any) => any) {
 		}
 
 		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
-			return cb(new ImdbError(responseObject.error + ": " + name, name), null);
+			return cb(new ImdbError(responseObject.error + ": " + (req.name === null ? req.id : req.name), req), null);
 		}
 
 		if (responseObject.series === 0)
@@ -164,14 +174,14 @@ export function get(name: string, cb: (Error, any) => any) {
 	function onError(err: Error) {
 		return cb(err, null);
 	}
+
+}
+
+export function get(name: string, cb: (Error, any) => any) {
+	return getReq({id: null, name: name }, cb);
 };
 
 export function getById(id: string, cb: (Error, any) => any) {
-	var responseData = "";
-
-	if (typeof(cb) !== "function")
-		throw new TypeError("cb must be a function");
-
 	var intRegex = /^\d+$/;
 	if(intRegex.test(id)) {
 		// user give us a raw id we need to prepend it with tt
@@ -183,39 +193,6 @@ export function getById(id: string, cb: (Error, any) => any) {
 		throw new TypeError("id must be a an imdb id (tt12345 or 12345)");
 	}
 
-	var myDeanclatworthy;
-
-	myDeanclatworthy = new ApiHost(deanclatworthy);
-	myDeanclatworthy.path += "?" + querystring.stringify({ id: id});
-
-	return http.get(myDeanclatworthy, onResponse).on('error', onError);
-
-	function onResponse(res: any) {
-		return res.on('data', onData).on('error', onError).on('end', onEnd);
-	}
-
-	function onData(data: any) {
-		responseData += data;
-	}
-
-	function onEnd() {
-		var responseObject;
-
-		try {
-			responseObject = JSON.parse(responseData);
-		} catch (e) {
-			return cb(e, null);
-		}
-
-		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
-			return cb(new ImdbError(responseObject.error + ": " + id, id), null);
-		}
-
-		return cb(null, responseObject);
-	}
-
-	function onError(err: any) {
-		return cb(err, null);
-	}
+	return getReq({ id: id, name: null }, cb);
 };
 
