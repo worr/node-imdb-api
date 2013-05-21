@@ -11,7 +11,7 @@ Get an imdb object:
 Call get.
 
     var movie;
-    imdb.get('The Toxic Avenger', function(err, things) {
+    imdb.getReq({ name: 'The Toxic Avenger' }, function(err, things) {
         movie = things;
     });
 
@@ -36,10 +36,10 @@ DATA
       episodes: null 
     }
 
-Furthermore if you already know the id you can call getById.
+Furthermore if you already know the id you can call getReq with different args:
 
     var movie;
-    imdb.getById('0090190', function(err, things) {
+    imdb.getReq({ id: '0090190' }, function(err, things) {
         movie = things;
     });
 
