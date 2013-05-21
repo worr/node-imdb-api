@@ -27,11 +27,11 @@ class ApiHost {
 	}
 }
 
-class Episode {
+export class Episode {
 	constructor (public season: number, public name: string, public number: number) { }
 }
 
-class Movie {
+export class Movie {
 	public imdbid: string;
 	public imdburl: string;
 	public genres: string;
@@ -54,7 +54,7 @@ class Movie {
 	}
 }
 
-class TVShow extends Movie {
+export class TVShow extends Movie {
 	private _episodes: Episode[] = [];
 
 	constructor (object: Object) {
