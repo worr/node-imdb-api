@@ -29,7 +29,7 @@ module.exports.testGetRateLimited = function(test) {
 	function testResults(err, data) {
 		test.ifError(data);
 
-		test.deepEqual(err, new imdb.ImdbError('rate limited: The Green Mile', { name:'The Green Mile', id: null }), "testing error code");
+		test.deepEqual(err, new imdb.ImdbError('rate limited: The Green Mile', { name:'The Green Mile', id: undefined }), "testing error code");
 
 		test.done();
 	}
@@ -55,7 +55,7 @@ module.exports.testGetMadeupMovie = function(test) {
 	function testResults(err, data) {
 		test.ifError(data);
 
-		test.deepEqual(err, new imdb.ImdbError('Film not found: asdfasdfasdf', { name:'asdfasdfasdf', id: null }), "testing film not found error");
+		test.deepEqual(err, new imdb.ImdbError('Film not found: asdfasdfasdf', { name:'asdfasdfasdf', id: undefined }), "testing film not found error");
 
 		test.done();
 	}

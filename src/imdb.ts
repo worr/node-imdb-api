@@ -134,9 +134,9 @@ export function getReq(req: MovieRequest, cb: (Error, any) => any) {
 
 	myDeanclatworthy = new ApiHost(deanclatworthy);
 
-	if (req.name !== null) {
+	if (req.name) {
 		myDeanclatworthy.path += "?" + querystring.stringify({ q: req.name, yg: 0 });
-	} else if (req.id !== null) {
+	} else if (req.id) {
 		myDeanclatworthy.path += "?" + querystring.stringify({ id: req.id });
 	}
 
@@ -160,7 +160,7 @@ export function getReq(req: MovieRequest, cb: (Error, any) => any) {
 		}
 
 		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
-			return cb(new ImdbError(responseObject.error + ": " + (req.name === null ? req.id : req.name), req), null);
+			return cb(new ImdbError(responseObject.error + ": " + (req.name ? req.name : req.id), req), null);
 		}
 
 		if (responseObject.series === 0)
@@ -178,7 +178,7 @@ export function getReq(req: MovieRequest, cb: (Error, any) => any) {
 }
 
 export function get(name: string, cb: (Error, any) => any) {
-	return getReq({id: null, name: name }, cb);
+	return getReq({id: undefined, name: name }, cb);
 };
 
 export function getById(id: string, cb: (Error, any) => any) {
@@ -193,6 +193,6 @@ export function getById(id: string, cb: (Error, any) => any) {
 		throw new TypeError("id must be a an imdb id (tt12345 or 12345)");
 	}
 
-	return getReq({ id: id, name: null }, cb);
+	return getReq({ id: id, name: undefined }, cb);
 };
 
