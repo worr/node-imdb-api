@@ -95,7 +95,7 @@ export class TVShow extends Movie {
 		function onEnd() {
 			var eps = episodeList;
 
-			if (eps === "")
+			if (eps === "" || eps === "null")
 				return cb(new Error("could not get episodes"), null);
 
 			var episodes = [];
