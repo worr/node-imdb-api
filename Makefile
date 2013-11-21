@@ -5,7 +5,7 @@ libdir = lib
 objects = lib/imdb.js
 
 $(objects): lib/%.js: src/%.ts
-	tsc $<
+	tsc -m commonjs $<
 	mv $(<:ts=js) $@
 
 build: $(objects)

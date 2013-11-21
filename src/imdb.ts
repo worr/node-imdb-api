@@ -1,8 +1,9 @@
+/// <reference path='../defs/node.d.ts'/>
 "use strict";
-///<reference path='../defs/node.d.ts'/>
 
-import http = module('http');
-import querystring = module('querystring');
+import events = require('events');
+import http = require('http');
+import querystring = require('querystring');
 
 export interface MovieRequest {
 	name: string;
@@ -43,13 +44,13 @@ export class Movie {
 	public languages: string;
 	public country: string;
 	public votes: string;
-	public stv: bool;
-	public series: bool;
+	public stv: boolean;
+	public series: boolean;
 	public rating: string;
 	public runtime: string;
 	public title: string;
-	public usascreens: bool;
-	public ukscreens: bool;
+	public usascreens: boolean;
+	public ukscreens: boolean;
 
 	constructor (obj: Object) { 
 		for (var attr in obj) {
