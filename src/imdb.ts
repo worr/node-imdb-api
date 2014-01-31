@@ -67,20 +67,18 @@ export class TVShow extends Movie {
 		super(object);
 	}
 
-	public episodes(cb: (Error, object) => Array) {
+	public episodes(cb: (Error, object) => any) {
 		if (typeof(cb) !== "function")
 			throw new TypeError("cb must be a function");
 
 		if (this._episodes.length !== 0) {
-			return this._episodes;
+			return cb(null, this._episodes);
 		}
 
 		var tvShow = this;
-
 		var episodeList = "";
-		var myPoromenos;
 
-		myPoromenos = new ApiHost(poromenos);
+		var myPoromenos = new ApiHost(poromenos);
 		myPoromenos.path += "?" + querystring.stringify({ name: tvShow.title });
 
 		return http.get(myPoromenos, onResponse).on('error', onError);
@@ -94,17 +92,18 @@ export class TVShow extends Movie {
 		}
 
 		function onEnd() {
-			var eps = episodeList;
-
-			if (eps === "" || eps === "null")
+			if (episodeList === "" || episodeList === "null")
 				return cb(new Error("could not get episodes"), null);
 
+			var eps: {season: number; name: string; number: number;}[] = [];
+			eps = JSON.parse(episodeList)[tvShow.title].episodes;
+
 			var episodes = [];
-			eps = JSON.parse(eps)[tvShow.title].episodes;
 			for (var i = 0; i < eps.length; i++) {
 				episodes[i] = new Episode(eps[i].season, eps[i].name, eps[i].number);
 			}
 
+			tvShow._episodes = episodes;
 			return cb(null, episodes);
 		}
 
@@ -131,9 +130,7 @@ export function getReq(req: MovieRequest, cb: (Error, any) => any) {
 	if (typeof(cb) !== "function")
 		throw new TypeError("cb must be a function");
 
-	var myDeanclatworthy;
-
-	myDeanclatworthy = new ApiHost(deanclatworthy);
+	var myDeanclatworthy = new ApiHost(deanclatworthy);
 
 	if (req.name) {
 		myDeanclatworthy.path += "?" + querystring.stringify({ q: req.name, yg: 0 });
