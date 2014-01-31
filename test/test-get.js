@@ -66,23 +66,27 @@ module.exports.testGetEpisodes = function(test) {
 
 	return imdb.get('How I Met Your Mother', testResults);
 
-	function testResults(err, data) {
+	function testResults(err, tvshow) {
 		var scope = nock('http://imdbapi.poromenos.org').get('/js/?name=How%20I%20Met%20Your%20Mother').reply(200, require('./data/how-I-met-your-mother-episodes.json'));
 		test.ifError(err);
 
-		test.ok(data);
-		test.equal(typeof(data.episodes), "function", "testing for episodes function");
-		test.equal(data.series, true, "testing series bool");
+		test.ok(tvshow);
+		test.equal(typeof(tvshow.episodes), "function", "testing for episodes function");
+		test.equal(tvshow.series, true, "testing series bool");
 
-		return data.episodes(testEpisodes);
+		return tvshow.episodes(function(err, data) { testEpisodes(err, data, tvshow); });
 	}
 
-	function testEpisodes(err, data) {
+	function testEpisodes(err, data, tvshow) {
 		test.ifError(err);
 
 		test.ok(data);
 		test.equal(data[0].season, 6, "testing a random value");
 		test.equal(data[0].number, 18, "testing another value");
+
+		test.equal(typeof(tvshow._episodes), "object", "testing type of _episodes");
+		test.equal(tvshow._episodes[0].season, 6, "testing cached value");
+		test.equal(tvshow._episodes[0].number, 18, "testing another cached value");
 
 		test.done();
 	}
