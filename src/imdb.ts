@@ -51,20 +51,35 @@ export class Movie {
 	public title: string;
 	public usascreens: boolean;
 	public ukscreens: boolean;
+	public year: number;
+
+	// Should really be protected
+	private _year_data: string;
 
 	constructor (obj: Object) { 
 		for (var attr in obj) {
-			if (obj.hasOwnProperty(attr))
+			if (attr === "year") {
+				this["_year_data"] = obj[attr];
+				if (obj["year"].match(/\d{4}\-(?:\d{4})/)) {
+					this[attr] = parseInt(obj[attr]);
+				}
+			} else if (obj.hasOwnProperty(attr)) {
 				this[attr] = obj[attr];
+			}
 		}
 	}
 }
 
 export class TVShow extends Movie {
 	private _episodes: Episode[] = [];
+	public start_year;
+	public end_year;
 
 	constructor (object: Object) {
 		super(object);
+		var years = this["_year_data"].split("-");
+		this.start_year = parseInt(years[0]) ? parseInt(years[0]) : null;
+		this.end_year = parseInt(years[1]) ? parseInt(years[1]) : null;
 	}
 
 	public episodes(cb: (Error, object) => any) {
@@ -80,6 +95,7 @@ export class TVShow extends Movie {
 
 		var myPoromenos = new ApiHost(poromenos);
 		myPoromenos.path += "?" + querystring.stringify({ name: tvShow.title });
+		myPoromenos.path += "&" + querystring.stringify({ year: tvShow.start_year });
 
 		return http.get(myPoromenos, onResponse).on('error', onError);
 

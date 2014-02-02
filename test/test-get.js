@@ -67,10 +67,13 @@ module.exports.testGetEpisodes = function(test) {
 	return imdb.get('How I Met Your Mother', testResults);
 
 	function testResults(err, tvshow) {
-		var scope = nock('http://imdbapi.poromenos.org').get('/js/?name=How%20I%20Met%20Your%20Mother').reply(200, require('./data/how-I-met-your-mother-episodes.json'));
+		var scope = nock('http://imdbapi.poromenos.org').get('/js/?name=How%20I%20Met%20Your%20Mother&year=2001').reply(200, require('./data/how-I-met-your-mother-episodes.json'));
 		test.ifError(err);
 
 		test.ok(tvshow);
+		test.equal(tvshow.start_year, 2001, "testing start_year");
+		test.equal(tvshow.end_year, null, "testing end_year");
+		test.equal(tvshow.year, null, "testing year is null");
 		test.equal(typeof(tvshow.episodes), "function", "testing for episodes function");
 		test.equal(tvshow.series, true, "testing series bool");
 
@@ -98,7 +101,7 @@ module.exports.testUnsuccessfulGetEpisodes = function(test) {
 	return imdb.get('How I Met Your Mother', testResults);
 
 	function testResults(err, data) {
-		var scope = nock('http://imdbapi.poromenos.org').get('/js/?name=How%20I%20Met%20Your%20Mother').reply(404);
+		var scope = nock('http://imdbapi.poromenos.org').get('/js/?name=How%20I%20Met%20Your%20Mother&year=2001').reply(404);
 
 		test.ifError(err);
 		test.ok(data);
