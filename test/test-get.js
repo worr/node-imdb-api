@@ -5,7 +5,7 @@ var nodeunit = require('nodeunit');
 var imdb = require('../lib/imdb.js');
 
 module.exports.testGetSuccessful = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=The%20Toxic%20Avenger&yg=0').reply(200, require('./data/toxic-avenger.json'));
+	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=The%20Toxic%20Avenger&year=&yg=0').reply(200, require('./data/toxic-avenger.json'));
 
 	return imdb.get('The Toxic Avenger', testResults);
 
@@ -22,7 +22,7 @@ module.exports.testGetSuccessful = function(test) {
 }
 
 module.exports.testGetRateLimited = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=The%20Green%20Mile&yg=0').reply(200, { code: 2, error: "rate limited" });
+	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=The%20Green%20Mile&year=&yg=0').reply(200, { code: 2, error: "rate limited" });
 
 	return imdb.get('The Green Mile', testResults);
 
@@ -36,7 +36,7 @@ module.exports.testGetRateLimited = function(test) {
 }
 
 module.exports.testGetUnsuccessful = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=The%20Green%20Mile&yg=0').reply(404);
+	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=The%20Green%20Mile&year=&yg=0').reply(404);
 
 	return imdb.get('The Green Mile', testResults);
 
@@ -48,7 +48,7 @@ module.exports.testGetUnsuccessful = function(test) {
 }
 
 module.exports.testGetMadeupMovie = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=asdfasdfasdf&yg=0').reply(200, { code: 1, error: "Film not found" });
+	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=asdfasdfasdf&year=&yg=0').reply(200, { code: 1, error: "Film not found" });
 
 	return imdb.get('asdfasdfasdf', testResults);
 
@@ -62,7 +62,7 @@ module.exports.testGetMadeupMovie = function(test) {
 }
 
 module.exports.testGetEpisodes = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=How%20I%20Met%20Your%20Mother&yg=0').reply(200, require('./data/how-I-met-your-mother.json'));
+	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=How%20I%20Met%20Your%20Mother&year=&yg=0').reply(200, require('./data/how-I-met-your-mother.json'));
 
 	return imdb.get('How I Met Your Mother', testResults);
 
@@ -96,7 +96,7 @@ module.exports.testGetEpisodes = function(test) {
 }
 
 module.exports.testUnsuccessfulGetEpisodes = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=How%20I%20Met%20Your%20Mother&yg=0').reply(200, require('./data/how-I-met-your-mother.json'));
+	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=How%20I%20Met%20Your%20Mother&year=&yg=0').reply(200, require('./data/how-I-met-your-mother.json'));
 
 	return imdb.get('How I Met Your Mother', testResults);
 
