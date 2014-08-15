@@ -2,6 +2,11 @@
 
 A non-scraping, functional node.js interface to imdb
 
+# PROBLEMS
+
+**deanclatworthy has gone down. I'm looking at alternatives and would
+appreciate suggestions/PRs**
+
 # Badges
 
 [![NPM version](https://badge.fury.io/js/imdb-api.png)](http://badge.fury.io/js/imdb-api)
@@ -9,8 +14,6 @@ A non-scraping, functional node.js interface to imdb
 [![Build Status](https://travis-ci.org/worr/node-imdb-api.png?branch=master)](https://travis-ci.org/worr/node-imdb-api)
 
 [![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](https://flattr.com/submit/auto?user_id=worr&url=https%3A%2F%2Fgithub.com%2Fworr%2Fnode-imdb-api%2F "node-imdb-api")
-
-[![Gittip](https://raw.github.com/gittip/www.gittip.com/master/www/assets/gittip.png)](https://www.gittip.com/worr)
 
 # Use
 
