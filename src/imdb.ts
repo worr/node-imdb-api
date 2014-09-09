@@ -8,6 +8,7 @@ import querystring = require('querystring');
 export interface MovieRequest {
 	name: string;
 	id: string;
+	year?: string;
 }
 
 class ApiHost {
@@ -149,7 +150,7 @@ export function getReq(req: MovieRequest, cb: (Error, any) => any) {
 	var myDeanclatworthy = new ApiHost(deanclatworthy);
 
 	if (req.name) {
-		myDeanclatworthy.path += "?" + querystring.stringify({ q: req.name, yg: 0 });
+		myDeanclatworthy.path += "?" + querystring.stringify({ q: req.name, year: req.year, yg: 0 });
 	} else if (req.id) {
 		myDeanclatworthy.path += "?" + querystring.stringify({ id: req.id });
 	}
