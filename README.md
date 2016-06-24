@@ -2,18 +2,22 @@
 
 A non-scraping, functional node.js interface to imdb
 
-# PROBLEMS
+## PROBLEMS
 
 **deanclatworthy has gone down. I'm looking at alternatives and would
 appreciate suggestions/PRs**
 
-# Badges
 
 [![NPM version](https://badge.fury.io/js/imdb-api.png)](http://badge.fury.io/js/imdb-api)
 
 [![Build Status](https://travis-ci.org/worr/node-imdb-api.png?branch=master)](https://travis-ci.org/worr/node-imdb-api)
 
 [![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](https://flattr.com/submit/auto?user_id=worr&url=https%3A%2F%2Fgithub.com%2Fworr%2Fnode-imdb-api%2F "node-imdb-api")
+
+# Installation:
+```bash
+npm install --save imdb-api
+```
 
 # Use
 
