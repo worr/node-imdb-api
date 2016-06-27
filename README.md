@@ -15,6 +15,11 @@ appreciate suggestions/PRs**
 
 [![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](https://flattr.com/submit/auto?user_id=worr&url=https%3A%2F%2Fgithub.com%2Fworr%2Fnode-imdb-api%2F "node-imdb-api")
 
+# Installation:
+```bash
+npm install --save imdb-api
+```
+
 # Use
 
 Get an imdb object:
