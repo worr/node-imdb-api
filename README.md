@@ -278,15 +278,13 @@ Well, it's a function! Give it a callback!
 
 ## Why? There are like 3 other interfaces to imdb in npm
 
-They all suck.
-
-Why? Most of them scrape imdb. imdb explicitly forbids scarping. Screen 
-scraping is slow, because you need to download the entire website.
+Most of them scrape imdb. imdb explicitly forbids scarping.
 
 And what happens when the site layout changes? Well then your screen scraping
-solution fails in interesting ways.
+solution fails in interesting ways. Screen scraping is also pretty slow,
+and we can't have that.
 
-## WOAH I looked at your code and you're using unofficial APIs! WTF DUDE
+## WOAH I looked at your code and you're using unofficial APIs!
 
 There isn't an official API to imdb. As soon as one is released (and I
 notice), I'll update the module.
