@@ -56,7 +56,7 @@ export class Movie {
 	// Should really be protected
 	private _year_data: string;
 
-	constructor (obj: Object) { 
+	constructor (obj: Object) {
 		for (var attr in obj) {
 			if (attr === "year") {
 				this["_year_data"] = obj[attr];
@@ -166,7 +166,7 @@ export function getReq(req: MovieRequest, cb: (Error, any) => any) {
 
 	function onEnd() {
 		var responseObject;
-		
+
 		try {
 			responseObject = JSON.parse(responseData);
 		} catch (e) {
@@ -209,4 +209,3 @@ export function getById(id: string, cb: (Error, any) => any) {
 
 	return getReq({ id: id, name: undefined }, cb);
 };
-

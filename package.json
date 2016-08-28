@@ -17,9 +17,9 @@
 	  "clean": "rm -rf node_modules lib"
   },
   "devDependencies": {
-	  "nodeunit": "0.x.x",
-	  "nock": "8.x.x",
-	  "typescript": "1.x.x"
+    "nodeunit": "0.x.x",
+    "nock": "8.x.x",
+    "typescript": "1.8.x"
   },
   "optionalDependencies": {},
   "engines": {
