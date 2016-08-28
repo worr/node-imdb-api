@@ -17,12 +17,12 @@
   "dependencies": {},
   "devDependencies": {
 	  "nodeunit": "0.x.x",
-	  "nock": "0.x.x",
-	  "typescript": "0.9.x"
+	  "nock": "8.x.x",
+	  "typescript": "1.x.x"
   },
   "optionalDependencies": {},
   "engines": {
-    "node": ">=0.8"
+    "node": ">=4.0"
   },
   "keywords": [ "imdb", "movies", "search", "tv", "television" ]
 }
