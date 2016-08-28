@@ -1,30 +1,20 @@
 sudo: false
-
 language: node_js
-
 node_js:
-  - "4"
-  - "5"
-  - "6"
-
+- '4'
+- '5'
+- '6'
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 install:
-  - npm install
-
+- npm install
 script:
-  - npm run test
-
-# Necessary to compile native modules for io.js v3 or Node.js v4
-env:
-  - CXX=g++-4.8
-
-# Necessary to compile native modules for io.js v3 or Node.js v4
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
+- npm run test
+deploy:
+  provider: npm
+  email: will@worrbase.com
+  api_key:
+    secure: L1twxyaR7/wdMy7L4BS8KsaO7hYDprxn8edr2nOKxA2t1vh4I/kdiehonmtQW4BS91YUma/n6rvFbZWFx3nsMypMps8RLhKXvjaIIJKENopfCAVNrnZdH1AztoFFhgUyApGyJ7fm9y1ypTkedPFyhGtNOvAMQ9k1E47VFtEHMSI=
+  on:
+    tags: true
