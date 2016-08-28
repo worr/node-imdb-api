@@ -12,9 +12,9 @@
   "license": [ { "type": "MIT" } ],
   "repository" : { "type" : "git", "url": "https://github.com/worr/node-imdb-api" },
   "scripts": { 
+	  "prepublish": "make build",
 	  "test": "make test"
   },
-  "dependencies": {},
   "devDependencies": {
 	  "nodeunit": "0.x.x",
 	  "nock": "8.x.x",
