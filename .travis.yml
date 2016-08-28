@@ -18,3 +18,4 @@ deploy:
     secure: L1twxyaR7/wdMy7L4BS8KsaO7hYDprxn8edr2nOKxA2t1vh4I/kdiehonmtQW4BS91YUma/n6rvFbZWFx3nsMypMps8RLhKXvjaIIJKENopfCAVNrnZdH1AztoFFhgUyApGyJ7fm9y1ypTkedPFyhGtNOvAMQ9k1E47VFtEHMSI=
   on:
     tags: true
+  skip_cleanup: true
