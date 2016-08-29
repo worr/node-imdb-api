@@ -2,7 +2,7 @@
 "use strict";
 
 import events = require("events");
-import http = require("http");
+import https = require("https");
 import querystring = require("querystring");
 
 export interface MovieRequest {
@@ -112,7 +112,7 @@ export class Movie {
         }
 
         this.series = this.type === "movie" ? false : true;
-        this.imdburl = "http://www.imdb.com/title/" + this.imdbid;
+        this.imdburl = "https://www.imdb.com/title/" + this.imdbid;
     }
 }
 
@@ -143,7 +143,7 @@ export class TVShow extends Movie {
         myOmdbapi.path += "?" + querystring.stringify({ name: tvShow.title });
         myOmdbapi.path += "&" + querystring.stringify({ year: tvShow.start_year });
 
-        return http.get(myOmdbapi, onResponse).on("error", onError);
+        return https.get(myOmdbapi, onResponse).on("error", onError);
 
         function onResponse(res: any) {
             return res.on("data", onData).on("error", onError).on("end", onEnd);
@@ -201,7 +201,7 @@ export function getReq(req: MovieRequest, cb: (err: Error, data: any) => any) {
 
     myOmdbapi.path += "&" + querystring.stringify({ plot: "full", r: "json" });
 
-    return http.get(myOmdbapi, onResponse).on("error", onError);
+    return https.get(myOmdbapi, onResponse).on("error", onError);
 
     function onResponse(res: any) {
         return res.on("data", onData).on("error", onError).on("end", onEnd);

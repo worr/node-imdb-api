@@ -1,11 +1,11 @@
-var http = require('http');
+var https = require('https');
 var nock = require('nock');
 var nodeunit = require('nodeunit');
 
 var imdb = require('../lib/imdb.js');
 
 module.exports.testGetSuccessful = function(test) {
-	var scope = nock('http://www.omdbapi.com').get('/?t=The%20Toxic%20Avenger&plot=full&r=json').reply(200, require('./data/toxic-avenger.json'));
+	var scope = nock('https://www.omdbapi.com').get('/?t=The%20Toxic%20Avenger&plot=full&r=json').reply(200, require('./data/toxic-avenger.json'));
 
 	return imdb.get('The Toxic Avenger', testResults);
 
@@ -22,7 +22,7 @@ module.exports.testGetSuccessful = function(test) {
 }
 
 module.exports.testGetUnsuccessful = function(test) {
-	var scope = nock('http://www.omdbapi.com').get('/?t=The%20Green%20Mile&plot=full&r=json').reply(404);
+	var scope = nock('https://www.omdbapi.com').get('/?t=The%20Green%20Mile&plot=full&r=json').reply(404);
 
 	return imdb.get('The Green Mile', testResults);
 
@@ -34,7 +34,7 @@ module.exports.testGetUnsuccessful = function(test) {
 }
 
 module.exports.testGetMadeupMovie = function(test) {
-	var scope = nock('http://www.omdbapi.com').get('/?t=asdfasdfasdf&plot=full&r=json').reply(200, { Response: "False", Error: "Movie not found!" });
+	var scope = nock('https://www.omdbapi.com').get('/?t=asdfasdfasdf&plot=full&r=json').reply(200, { Response: "False", Error: "Movie not found!" });
 
 	return imdb.get('asdfasdfasdf', testResults);
 
@@ -48,12 +48,12 @@ module.exports.testGetMadeupMovie = function(test) {
 }
 
 module.exports.testGetEpisodes = function(test) {
-	var scope = nock('http://www.omdbapi.com').get('/?t=How%20I%20Met%20Your%20Mother&plot=full&r=json').reply(200, require('./data/how-I-met-your-mother.json'));
+	var scope = nock('https://www.omdbapi.com').get('/?t=How%20I%20Met%20Your%20Mother&plot=full&r=json').reply(200, require('./data/how-I-met-your-mother.json'));
 
 	return imdb.get('How I Met Your Mother', testResults);
 
 	function testResults(err, tvshow) {
-		var scope = nock('http://imdbapi.poromenos.org').get('/js/?name=How%20I%20Met%20Your%20Mother&year=2001').reply(200, require('./data/how-I-met-your-mother-episodes.json'));
+		var scope = nock('https://imdbapi.poromenos.org').get('/js/?name=How%20I%20Met%20Your%20Mother&year=2001').reply(200, require('./data/how-I-met-your-mother-episodes.json'));
 		test.ifError(err);
 
 		test.ok(tvshow);
@@ -82,12 +82,12 @@ module.exports.testGetEpisodes = function(test) {
 }
 
 module.exports.testUnsuccessfulGetEpisodes = function(test) {
-	var scope = nock('http://www.omdbapi.com').get('/?t=How%20I%20Met%20Your%20Mother&plot=full&r=json').reply(200, require('./data/how-I-met-your-mother.json'));
+	var scope = nock('https://www.omdbapi.com').get('/?t=How%20I%20Met%20Your%20Mother&plot=full&r=json').reply(200, require('./data/how-I-met-your-mother.json'));
 
 	return imdb.get('How I Met Your Mother', testResults);
 
 	function testResults(err, data) {
-		var scope = nock('http://imdbapi.poromenos.org').get('/js/?name=How%20I%20Met%20Your%20Mother&year=2001').reply(404);
+		var scope = nock('https://imdbapi.poromenos.org').get('/js/?name=How%20I%20Met%20Your%20Mother&year=2001').reply(404);
 
 		test.ifError(err);
 		test.ok(data);
