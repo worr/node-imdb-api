@@ -7,23 +7,32 @@
   "homepage": "https://github.com/worr/node-imdb-api",
   "repository": {
     "type": "git",
-    "url": "git://github.com/worr/node-imdb-api.git"
+    "url": "https://github.com/worr/node-imdb-api"
   },
-  "license": [ { "type": "MIT" } ],
-  "repository" : { "type" : "git", "url": "https://github.com/worr/node-imdb-api" },
+  "license": "MIT",
   "scripts": {
-	  "prepublish": "tsc -m commonjs --outDir lib src/imdb.ts",
-	  "test": "nodeunit test",
-	  "clean": "rm -rf node_modules lib"
+    "build": "tsc -m commonjs --outDir lib src/imdb.ts",
+    "prepublish": "tsc -m commonjs --outDir lib src/imdb.ts",
+    "lint": "tslint src/imdb.ts",
+    "test": "nodeunit test",
+    "clean": "rm -rf node_modules lib"
   },
   "devDependencies": {
     "nodeunit": "0.x.x",
     "nock": "8.x.x",
+    "tslint": "^3.15.1",
     "typescript": "1.8.x"
   },
   "optionalDependencies": {},
   "engines": {
     "node": ">=4.0"
   },
-  "keywords": [ "imdb", "movies", "search", "tv", "television" ]
+  "keywords": [
+    "imdb",
+    "movies",
+    "search",
+    "tv",
+    "television"
+  ],
+  "dependencies": {}
 }

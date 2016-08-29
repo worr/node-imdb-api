@@ -5,7 +5,7 @@ var nodeunit = require('nodeunit');
 var imdb = require('../lib/imdb.js');
 
 module.exports.testGetSuccessful = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=The%20Toxic%20Avenger&yg=0').reply(200, require('./data/toxic-avenger.json'));
+	var scope = nock('http://www.omdbapi.com').get('/?t=The%20Toxic%20Avenger&plot=full&r=json').reply(200, require('./data/toxic-avenger.json'));
 
 	return imdb.get('The Toxic Avenger', testResults);
 
@@ -21,22 +21,8 @@ module.exports.testGetSuccessful = function(test) {
 	}
 }
 
-module.exports.testGetRateLimited = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=The%20Green%20Mile&yg=0').reply(200, { code: 2, error: "rate limited" });
-
-	return imdb.get('The Green Mile', testResults);
-
-	function testResults(err, data) {
-		test.ifError(data);
-
-		test.deepEqual(err, new imdb.ImdbError('rate limited: The Green Mile', { name:'The Green Mile', id: undefined }), "testing error code");
-
-		test.done();
-	}
-}
-
 module.exports.testGetUnsuccessful = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=The%20Green%20Mile&yg=0').reply(404);
+	var scope = nock('http://www.omdbapi.com').get('/?t=The%20Green%20Mile&plot=full&r=json').reply(404);
 
 	return imdb.get('The Green Mile', testResults);
 
@@ -48,21 +34,21 @@ module.exports.testGetUnsuccessful = function(test) {
 }
 
 module.exports.testGetMadeupMovie = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=asdfasdfasdf&yg=0').reply(200, { code: 1, error: "Film not found" });
+	var scope = nock('http://www.omdbapi.com').get('/?t=asdfasdfasdf&plot=full&r=json').reply(200, { Response: "False", Error: "Movie not found!" });
 
 	return imdb.get('asdfasdfasdf', testResults);
 
 	function testResults(err, data) {
 		test.ifError(data);
 
-		test.deepEqual(err, new imdb.ImdbError('Film not found: asdfasdfasdf', { name:'asdfasdfasdf', id: undefined }), "testing film not found error");
+		test.deepEqual(err, new imdb.ImdbError('Movie not found!: asdfasdfasdf', { name:'asdfasdfasdf', id: undefined }), "testing film not found error");
 
 		test.done();
 	}
 }
 
 module.exports.testGetEpisodes = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=How%20I%20Met%20Your%20Mother&yg=0').reply(200, require('./data/how-I-met-your-mother.json'));
+	var scope = nock('http://www.omdbapi.com').get('/?t=How%20I%20Met%20Your%20Mother&plot=full&r=json').reply(200, require('./data/how-I-met-your-mother.json'));
 
 	return imdb.get('How I Met Your Mother', testResults);
 
@@ -96,7 +82,7 @@ module.exports.testGetEpisodes = function(test) {
 }
 
 module.exports.testUnsuccessfulGetEpisodes = function(test) {
-	var scope = nock('http://deanclatworthy.com').get('/imdb/?q=How%20I%20Met%20Your%20Mother&yg=0').reply(200, require('./data/how-I-met-your-mother.json'));
+	var scope = nock('http://www.omdbapi.com').get('/?t=How%20I%20Met%20Your%20Mother&plot=full&r=json').reply(200, require('./data/how-I-met-your-mother.json'));
 
 	return imdb.get('How I Met Your Mother', testResults);
 

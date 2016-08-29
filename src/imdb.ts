@@ -1,211 +1,242 @@
-/// <reference path='../defs/node.d.ts'/>
+/// <reference path="../defs/node.d.ts"/>
 "use strict";
 
-import events = require('events');
-import http = require('http');
-import querystring = require('querystring');
+import events = require("events");
+import http = require("http");
+import querystring = require("querystring");
 
 export interface MovieRequest {
-	name: string;
-	id: string;
+    name: string;
+    id: string;
 }
 
 class ApiHost {
-	host: string;
-	path: string;
+    host: string;
+    path: string;
 
-	constructor ();
-	constructor (host: string, path: string);
-	constructor (copy: ApiHost);
-	constructor (hc?: any, path?: string) {
-		if (hc) {
-			if (typeof(hc) === "object") {
-				this.host = hc.host;
-				this.path = hc.path;
-			} else {
-				this.host = hc;
-				this.path = path;
-			}
-		} else {
-			this.host = "";
-			this.path = "";
-		}
-	}
+    constructor ();
+    constructor (host: string, path: string);
+    constructor (copy: ApiHost);
+    constructor (hc?: any, path?: string) {
+        if (hc) {
+            if (typeof(hc) === "object") {
+                this.host = hc.host;
+                this.path = hc.path;
+            } else {
+                this.host = hc;
+                this.path = path;
+            }
+        } else {
+            this.host = "";
+            this.path = "";
+        }
+    }
 }
 
 export class Episode {
-	constructor (public season: number, public name: string, public number: number) { }
+    constructor (public season: number, public name: string, public number: number) { }
 }
 
+interface StringHashMap {
+    [index: string]: string;
+}
+
+class Inverter {
+    private obj: StringHashMap;
+    private rev_obj: StringHashMap;
+
+    constructor (obj: Object) {
+        this.obj = obj as StringHashMap;
+        this.rev_obj = {} as StringHashMap;
+
+        for (let attr in obj) {
+            this.rev_obj[obj[attr]] = attr;
+        }
+    }
+
+    public get(key: string): string {
+        if (this.obj[key] !== undefined) {
+            return this.obj[key];
+        } else if (this.rev_obj[key] !== undefined) {
+            return this.rev_obj[key];
+        }
+
+        return undefined;
+    }
+}
+
+const trans_table = new Inverter({
+    "genres": "Genre",
+    "languages": "Language",
+    "votes": "imdbVotes",
+    "rating": "imdbRating",
+});
+
 export class Movie {
-	public imdbid: string;
-	public imdburl: string;
-	public genres: string;
-	public languages: string;
-	public country: string;
-	public votes: string;
-	public stv: boolean;
-	public series: boolean;
-	public rating: string;
-	public runtime: string;
-	public title: string;
-	public usascreens: boolean;
-	public ukscreens: boolean;
-	public year: number;
+    public imdbid: string;
+    public imdburl: string;
+    public genres: string;
+    public languages: string;
+    public country: string;
+    public votes: string;
+    public series: boolean;
+    public rating: string;
+    public runtime: string;
+    public title: string;
+    public year: number;
 
-	// Should really be protected
-	private _year_data: string;
+    public type: string;
+    public poster: string;
+    public metascore: string;
+    public plot: string;
+    public rated: string;
+    public director: string;
+    public writer: string;
+    public actors: string;
 
-	constructor (obj: Object) {
-		for (var attr in obj) {
-			if (attr === "year") {
-				this["_year_data"] = obj[attr];
-				if (obj["year"].match(/\d{4}\-(?:\d{4})/)) {
-					this[attr] = parseInt(obj[attr]);
-				}
-			} else if (obj.hasOwnProperty(attr)) {
-				this[attr] = obj[attr];
-			}
-		}
-	}
+    // Should really be protected
+    private _year_data: string;
+
+    constructor (obj: Object) {
+        for (let attr in obj) {
+            if (attr === "year" || trans_table.get(attr) === "year") {
+                this["_year_data"] = obj[attr];
+                if (obj[attr].match(/\d{4}\-(?:\d{4})/)) {
+                    this[attr] = parseInt(obj[attr]);
+                }
+            } else if (obj.hasOwnProperty(attr) && trans_table.get(attr) !== undefined) {
+                this[trans_table.get(attr)] = obj[attr];
+            } else if (obj.hasOwnProperty(attr)) {
+                this[attr.toLowerCase()] = obj[attr];
+            }
+        }
+
+        this.series = this.type === "movie" ? false : true;
+        this.imdburl = "http://www.imdb.com/title/" + this.imdbid;
+    }
 }
 
 export class TVShow extends Movie {
-	private _episodes: Episode[] = [];
-	public start_year;
-	public end_year;
+    private _episodes: Episode[] = [];
+    public start_year;
+    public end_year;
 
-	constructor (object: Object) {
-		super(object);
-		var years = this["_year_data"].split("-");
-		this.start_year = parseInt(years[0]) ? parseInt(years[0]) : null;
-		this.end_year = parseInt(years[1]) ? parseInt(years[1]) : null;
-	}
+    constructor (object: Object) {
+        super(object);
+        let years = this["_year_data"].split("-");
+        this.start_year = parseInt(years[0]) ? parseInt(years[0]) : null;
+        this.end_year = parseInt(years[1]) ? parseInt(years[1]) : null;
+    }
 
-	public episodes(cb: (Error, object) => any) {
-		if (typeof(cb) !== "function")
-			throw new TypeError("cb must be a function");
+    public episodes(cb: (Error, object) => any) {
+        if (typeof(cb) !== "function")
+            throw new TypeError("cb must be a function");
 
-		if (this._episodes.length !== 0) {
-			return cb(null, this._episodes);
-		}
+        if (this._episodes.length !== 0) {
+            return cb(undefined, this._episodes);
+        }
 
-		var tvShow = this;
-		var episodeList = "";
+        let tvShow = this;
+        let episodeList = "";
 
-		var myPoromenos = new ApiHost(poromenos);
-		myPoromenos.path += "?" + querystring.stringify({ name: tvShow.title });
-		myPoromenos.path += "&" + querystring.stringify({ year: tvShow.start_year });
+        let myOmdbapi = new ApiHost(omdbapi);
+        myOmdbapi.path += "?" + querystring.stringify({ name: tvShow.title });
+        myOmdbapi.path += "&" + querystring.stringify({ year: tvShow.start_year });
 
-		return http.get(myPoromenos, onResponse).on('error', onError);
+        return http.get(myOmdbapi, onResponse).on("error", onError);
 
-		function onResponse(res: any) {
-			return res.on('data', onData).on('error', onError).on('end', onEnd);
-		}
+        function onResponse(res: any) {
+            return res.on("data", onData).on("error", onError).on("end", onEnd);
+        }
 
-		function onData(data: any) {
-			return (episodeList += data.toString('utf8'));
-		}
+        function onData(data: any) {
+            return (episodeList += data.toString("utf8"));
+        }
 
-		function onEnd() {
-			if (episodeList === "" || episodeList === "null")
-				return cb(new Error("could not get episodes"), null);
+        function onEnd() {
+            if (episodeList === "" || episodeList === "null")
+                return cb(new Error("could not get episodes"), undefined);
 
-			var eps: {season: number; name: string; number: number;}[] = [];
-			eps = JSON.parse(episodeList)[tvShow.title].episodes;
+            let eps: { season: number; name: string; number: number; }[] = [];
+            eps = JSON.parse(episodeList)[tvShow.title].episodes;
 
-			var episodes = [];
-			for (var i = 0; i < eps.length; i++) {
-				episodes[i] = new Episode(eps[i].season, eps[i].name, eps[i].number);
-			}
+            let episodes = [];
+            for (let i = 0; i < eps.length; i++) {
+                episodes[i] = new Episode(eps[i].season, eps[i].name, eps[i].number);
+            }
 
-			tvShow._episodes = episodes;
-			return cb(null, episodes);
-		}
+            tvShow._episodes = episodes;
+            return cb(undefined, episodes);
+        }
 
-		function onError(err: Error) {
-			return cb(err, null);
-		}
-	}
+        function onError(err: Error) {
+            return cb(err, undefined);
+        }
+    }
 
 }
 
 export class ImdbError {
-	public name: string = "imdb api error";
+    public name: string = "imdb api error";
 
-	constructor(public message: string, public movie: MovieRequest) {
-	}
+    constructor(public message: string, public movie: MovieRequest) {
+    }
 }
 
-var deanclatworthy = new ApiHost("deanclatworthy.com", "/imdb/");
-var poromenos = new ApiHost("imdbapi.poromenos.org", "/js/");
+let omdbapi = new ApiHost("www.omdbapi.com", "/");
 
 export function getReq(req: MovieRequest, cb: (Error, any) => any) {
-	var responseData = "";
+    let responseData = "";
 
-	if (typeof(cb) !== "function")
-		throw new TypeError("cb must be a function");
+    if (typeof(cb) !== "function")
+        throw new TypeError("cb must be a function");
 
-	var myDeanclatworthy = new ApiHost(deanclatworthy);
+    let myOmdbapi = new ApiHost(omdbapi);
 
-	if (req.name) {
-		myDeanclatworthy.path += "?" + querystring.stringify({ q: req.name, yg: 0 });
-	} else if (req.id) {
-		myDeanclatworthy.path += "?" + querystring.stringify({ id: req.id });
-	}
+    if (req.name) {
+        myOmdbapi.path += "?" + querystring.stringify({ t: req.name });
+    } else if (req.id) {
+        myOmdbapi.path += "?" + querystring.stringify({ i: req.id });
+    }
 
-	return http.get(myDeanclatworthy, onResponse).on('error', onError);
+    myOmdbapi.path += "&" + querystring.stringify({ plot: "full", r: "json" });
 
-	function onResponse(res: any) {
-		return res.on('data', onData).on('error', onError).on('end', onEnd);
-	}
+    return http.get(myOmdbapi, onResponse).on("error", onError);
 
-	function onData(data: any) {
-		responseData += data;
-	}
+    function onResponse(res: any) {
+        return res.on("data", onData).on("error", onError).on("end", onEnd);
+    }
 
-	function onEnd() {
-		var responseObject;
+    function onData(data: any) {
+        responseData += data;
+    }
 
-		try {
-			responseObject = JSON.parse(responseData);
-		} catch (e) {
-			return cb(e, null);
-		}
+    function onEnd() {
+        let responseObject;
 
-		if (responseObject.hasOwnProperty("code") && responseObject.hasOwnProperty("error")) {
-			return cb(new ImdbError(responseObject.error + ": " + (req.name ? req.name : req.id), req), null);
-		}
+        try {
+            responseObject = JSON.parse(responseData);
+        } catch (e) {
+            return cb(e, undefined);
+        }
 
-		if (responseObject.series === 0)
-			responseObject = new Movie(responseObject);
-		else
-			responseObject = new TVShow(responseObject);
+        if (responseObject.Response === "False") {
+            return cb(new ImdbError(responseObject.Error + ": " + (req.name ? req.name : req.id), req), undefined);
+        }
 
-		return cb(null, responseObject);
-	}
+        if (responseObject.Type === "movie")
+            responseObject = new Movie(responseObject);
+        else if (responseObject.Type === "series")
+            responseObject = new TVShow(responseObject);
 
-	function onError(err: Error) {
-		return cb(err, null);
-	}
+        return cb(undefined, responseObject);
+    }
 
+    function onError(err: Error) {
+        return cb(err, undefined);
+    }
 }
 
 export function get(name: string, cb: (Error, any) => any) {
-	return getReq({id: undefined, name: name }, cb);
-};
-
-export function getById(id: string, cb: (Error, any) => any) {
-	var intRegex = /^\d+$/;
-	if(intRegex.test(id)) {
-		// user give us a raw id we need to prepend it with tt
-		id = 'tt'+id;
-	}
-
-	var imdbRegex = /^tt\d+$/;
-	if(! imdbRegex.test(id)) {
-		throw new TypeError("id must be a an imdb id (tt12345 or 12345)");
-	}
-
-	return getReq({ id: id, name: undefined }, cb);
+    return getReq({id: undefined, name: name }, cb);
 };
