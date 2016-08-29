@@ -15,7 +15,7 @@ deploy:
   provider: npm
   email: will@worrbase.com
   api_key:
-    secure: L1twxyaR7/wdMy7L4BS8KsaO7hYDprxn8edr2nOKxA2t1vh4I/kdiehonmtQW4BS91YUma/n6rvFbZWFx3nsMypMps8RLhKXvjaIIJKENopfCAVNrnZdH1AztoFFhgUyApGyJ7fm9y1ypTkedPFyhGtNOvAMQ9k1E47VFtEHMSI=
+    secure: AeKdzs/Hrj8ANfemsmOm+gXJwVEELC+GXC/rI/KbOr1mkTHUYHitvuqdcepW3zQVVuEHrJYVhO2oqA4yUie0/jl3jx8I8xZJVr3K+TIolKPNUFSiEGOZX32tZEM123gEBGregFl4XBpYHENmqYnyTaM0smdvc06k4nFVADpAnbE=
   on:
     tags: true
-  skip_cleanup: true
+    repo: worr/node-imdb-api
