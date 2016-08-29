@@ -185,7 +185,7 @@ export class ImdbError {
 
 let omdbapi = new ApiHost("www.omdbapi.com", "/");
 
-export function getReq(req: MovieRequest, cb: (Error, any) => any) {
+export function getReq(req: MovieRequest, cb: (err: Error, data: any) => any) {
     let responseData = "";
 
     if (typeof(cb) !== "function")
@@ -237,6 +237,6 @@ export function getReq(req: MovieRequest, cb: (Error, any) => any) {
     }
 }
 
-export function get(name: string, cb: (Error, any) => any) {
+export function get(name: string, cb: (err: Error, data: any) => any) {
     return getReq({id: undefined, name: name }, cb);
 };
