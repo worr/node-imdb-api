@@ -34,5 +34,7 @@
     "tv",
     "television"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "es6-promise": "^3.2.1"
+  }
 }
