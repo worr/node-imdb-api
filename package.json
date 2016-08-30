@@ -15,6 +15,7 @@
     "prepublish": "tsc -m commonjs --outDir lib src/imdb.ts",
     "lint": "tslint src/imdb.ts",
     "test": "nodeunit test",
+    "check": "npm run test",
     "clean": "rm -rf node_modules lib"
   },
   "devDependencies": {
