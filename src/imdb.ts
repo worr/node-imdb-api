@@ -1,42 +1,21 @@
-/// <reference path="../defs/node.d.ts"/>
+/// <reference path="../typings/index.d.ts"/>
 "use strict";
 
-import events = require("events");
-import https = require("https");
-import querystring = require("querystring");
+import es6promise = require("es6-promise");
+import rp = require("request-promise");
+
+let Promise = es6promise.Promise;
+
+const omdbapi = "https://www.omdbapi.com/";
 
 export interface MovieRequest {
     name: string;
     id: string;
 }
 
-class ApiHost {
-    host: string;
-    path: string;
-
-    constructor ();
-    constructor (host: string, path: string);
-    constructor (copy: ApiHost);
-    constructor (hc?: any, path?: string) {
-        if (hc) {
-            if (typeof(hc) === "object") {
-                this.host = hc.host;
-                this.path = hc.path;
-            } else {
-                this.host = hc;
-                this.path = path;
-            }
-        } else {
-            this.host = "";
-            this.path = "";
-        }
-    }
-}
-
-export class Episode {
-    constructor (public season: number, public name: string, public number: number) { }
-}
-
+// A good case for generics, but javascript has strict
+// requirements on what consists of a hashable type.
+// It's not even worth it tbh
 interface StringHashMap {
     [index: string]: string;
 }
@@ -72,6 +51,33 @@ const trans_table = new Inverter({
     "rating": "imdbRating",
 });
 
+export class Episode {
+    public season: number;
+    public name: string;
+    public episode: number;
+    public released: Date;
+    public imdbid: string;
+    public rating: number;
+
+    constructor (obj: Object, season: number) {
+        this.season = season;
+        for (let attr in obj) {
+            if (attr === "Released") {
+                let [year, month, day] = obj[attr].split("-");
+                this.released = new Date(parseInt(year), parseInt(month), parseInt(day));
+            } else if (attr === "Rating") {
+                this[attr.toLowerCase()] = parseFloat(obj[attr]);
+            } else if (attr === "Episode" || attr === "Season") {
+                this[attr.toLowerCase()] = parseInt(obj[attr]);
+            } else if (obj.hasOwnProperty(attr) && trans_table.get(attr) !== undefined) {
+                this[trans_table.get(attr)] = obj[attr];
+            } else if (obj.hasOwnProperty(attr)) {
+                this[attr.toLowerCase()] = obj[attr];
+            }
+        }
+    }
+}
+
 export class Movie {
     public imdbid: string;
     public imdburl: string;
@@ -99,7 +105,7 @@ export class Movie {
 
     constructor (obj: Object) {
         for (let attr in obj) {
-            if (attr === "year" || trans_table.get(attr) === "year") {
+            if (attr === "year" || attr.toLowerCase() === "year") {
                 this["_year_data"] = obj[attr];
                 if (obj[attr].match(/\d{4}\-(?:\d{4})/)) {
                     this[attr] = parseInt(obj[attr]);
@@ -120,15 +126,17 @@ export class TVShow extends Movie {
     private _episodes: Episode[] = [];
     public start_year;
     public end_year;
+    public totalseasons;
 
     constructor (object: Object) {
         super(object);
         let years = this["_year_data"].split("-");
         this.start_year = parseInt(years[0]) ? parseInt(years[0]) : null;
         this.end_year = parseInt(years[1]) ? parseInt(years[1]) : null;
+        this.totalseasons = parseInt(this["totalseasons"]);
     }
 
-    public episodes(cb: (Error, object) => any) {
+    public episodes(cb: (err: Error, data: Object) => any) {
         if (typeof(cb) !== "function")
             throw new TypeError("cb must be a function");
 
@@ -137,43 +145,34 @@ export class TVShow extends Movie {
         }
 
         let tvShow = this;
-        let episodeList = "";
 
-        let myOmdbapi = new ApiHost(omdbapi);
-        myOmdbapi.path += "?" + querystring.stringify({ name: tvShow.title });
-        myOmdbapi.path += "&" + querystring.stringify({ year: tvShow.start_year });
-
-        return https.get(myOmdbapi, onResponse).on("error", onError);
-
-        function onResponse(res: any) {
-            return res.on("data", onData).on("error", onError).on("end", onEnd);
+        let funcs = [];
+        for (let i = 1; i <= tvShow.totalseasons; i++) {
+            funcs.push(rp({"qs": {"i": tvShow.imdbid, "r": "json", "Season": i}, "json": true, "url": omdbapi}));
         }
 
-        function onData(data: any) {
-            return (episodeList += data.toString("utf8"));
-        }
+        Promise.all(funcs)
+            .then(function(ep_data) {
+                let eps = [];
+                for (let key in ep_data) {
+                    let datum = ep_data[key];
+                    if (datum.Response === "False") {
+                        return cb(new ImdbError(datum.Error, undefined), undefined);
+                    }
 
-        function onEnd() {
-            if (episodeList === "" || episodeList === "null")
-                return cb(new Error("could not get episodes"), undefined);
+                    let season = parseInt(datum.Season);
+                    for (let ep in datum.Episodes) {
+                        eps.push(new Episode(datum.Episodes[ep], season));
+                    }
+                }
 
-            let eps: { season: number; name: string; number: number; }[] = [];
-            eps = JSON.parse(episodeList)[tvShow.title].episodes;
-
-            let episodes = [];
-            for (let i = 0; i < eps.length; i++) {
-                episodes[i] = new Episode(eps[i].season, eps[i].name, eps[i].number);
-            }
-
-            tvShow._episodes = episodes;
-            return cb(undefined, episodes);
-        }
-
-        function onError(err: Error) {
-            return cb(err, undefined);
-        }
+                tvShow._episodes = eps;
+                return cb(undefined, eps);
+            })
+            .catch(function(err) {
+                return cb(err, undefined);
+            });
     }
-
 }
 
 export class ImdbError {
@@ -183,58 +182,39 @@ export class ImdbError {
     }
 }
 
-let omdbapi = new ApiHost("www.omdbapi.com", "/");
-
 export function getReq(req: MovieRequest, cb: (err: Error, data: any) => any) {
     let responseData = "";
 
     if (typeof(cb) !== "function")
         throw new TypeError("cb must be a function");
 
-    let myOmdbapi = new ApiHost(omdbapi);
+    let qs = {plot: "full", r: "json"};
 
     if (req.name) {
-        myOmdbapi.path += "?" + querystring.stringify({ t: req.name });
+        qs["t"] = req.name;
     } else if (req.id) {
-        myOmdbapi.path += "?" + querystring.stringify({ i: req.id });
+        qs["i"] = req.id;
     }
 
-    myOmdbapi.path += "&" + querystring.stringify({ plot: "full", r: "json" });
 
-    return https.get(myOmdbapi, onResponse).on("error", onError);
-
-    function onResponse(res: any) {
-        return res.on("data", onData).on("error", onError).on("end", onEnd);
-    }
-
-    function onData(data: any) {
-        responseData += data;
-    }
-
-    function onEnd() {
-        let responseObject;
-
-        try {
-            responseObject = JSON.parse(responseData);
-        } catch (e) {
-            return cb(e, undefined);
+    rp({"qs": qs, url: omdbapi, json: true}).then(function(data) {
+        let ret: Movie;
+        if (data.Response === "False") {
+            return cb(new ImdbError(data.Error + ": " + (req.name ? req.name : req.id), req), undefined);
         }
 
-        if (responseObject.Response === "False") {
-            return cb(new ImdbError(responseObject.Error + ": " + (req.name ? req.name : req.id), req), undefined);
-        }
+        if (data.Type === "movie")
+            ret = new Movie(data);
+        else if (data.Type === "series")
+            ret = new TVShow(data);
+        else
+            return cb(new ImdbError("type: " + data.Type + " not valid", req), undefined);
 
-        if (responseObject.Type === "movie")
-            responseObject = new Movie(responseObject);
-        else if (responseObject.Type === "series")
-            responseObject = new TVShow(responseObject);
-
-        return cb(undefined, responseObject);
-    }
-
-    function onError(err: Error) {
-        return cb(err, undefined);
-    }
+        return cb(undefined, ret);
+    })
+    .catch(function(err) {
+        cb(err, undefined);
+    });
 }
 
 export function get(name: string, cb: (err: Error, data: any) => any) {
