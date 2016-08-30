@@ -2,11 +2,6 @@
 
 A non-scraping, functional node.js interface to imdb
 
-# PROBLEMS
-
-**deanclatworthy.com/imdb has gone down. I'm looking at alternatives and would
-appreciate suggestions/PRs**
-
 # Badges
 
 [![NPM version](https://badge.fury.io/js/imdb-api.png)](http://badge.fury.io/js/imdb-api)
