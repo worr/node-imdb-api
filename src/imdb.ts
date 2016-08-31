@@ -53,6 +53,8 @@ export class Episode {
                 this[attr.toLowerCase()] = parseFloat(obj[attr]);
             } else if (attr === "Episode" || attr === "Season") {
                 this[attr.toLowerCase()] = parseInt(obj[attr]);
+            } else if (attr === "Title") {
+                this.name = obj[attr];
             } else if (obj.hasOwnProperty(attr) && trans_table.get(attr) !== undefined) {
                 this[trans_table.get(attr)] = obj[attr];
             } else if (obj.hasOwnProperty(attr)) {
