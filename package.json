@@ -11,11 +11,11 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc -m commonjs --outDir lib src/imdb.ts",
-    "prepublish": "tsc -m commonjs --outDir lib src/imdb.ts",
+    "build": "tsc -m commonjs --outDir lib src/imdb.ts src/interfaces.ts",
+    "prepublish": "npm run build",
     "lint": "tslint src/imdb.ts",
     "test": "nodeunit test",
-    "check": "npm run test",
+    "check": "npm run lint && npm run test",
     "clean": "rm -rf node_modules lib"
   },
   "devDependencies": {

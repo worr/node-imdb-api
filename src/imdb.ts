@@ -1,6 +1,17 @@
 /// <reference path="../typings/index.d.ts"/>
 "use strict";
 
+import {
+    isError,
+    isMovie,
+    isTvshow,
+    OmdbError,
+    OmdbEpisode,
+    OmdbMovie,
+    OmdbSeason,
+    OmdbTvshow
+} from "./interfaces";
+
 import es6promise = require("es6-promise");
 import rp = require("request-promise");
 
@@ -59,7 +70,7 @@ export class Episode {
     public imdbid: string;
     public rating: number;
 
-    constructor (obj: Object, season: number) {
+    constructor (obj: OmdbEpisode, season: number) {
         this.season = season;
         for (let attr in obj) {
             if (attr === "Released") {
@@ -104,7 +115,7 @@ export class Movie {
     // Should really be protected
     private _year_data: string;
 
-    constructor (obj: Object) {
+    constructor (obj: OmdbMovie) {
         for (let attr in obj) {
             if (attr === "year" || attr.toLowerCase() === "year") {
                 this["_year_data"] = obj[attr];
@@ -133,7 +144,7 @@ export class TVShow extends Movie {
     public end_year;
     public totalseasons;
 
-    constructor (object: Object) {
+    constructor (object: OmdbTvshow) {
         super(object);
         let years = this["_year_data"].split("-");
         this.start_year = parseInt(years[0]) ? parseInt(years[0]) : null;
@@ -141,7 +152,7 @@ export class TVShow extends Movie {
         this.totalseasons = parseInt(this["totalseasons"]);
     }
 
-    public episodes(cb: (err: Error, data: Object) => any) {
+    public episodes(cb: (err: Error, data: Episode[]) => any) {
         if (typeof(cb) !== "function")
             throw new TypeError("cb must be a function");
 
@@ -157,17 +168,17 @@ export class TVShow extends Movie {
         }
 
         Promise.all(funcs)
-            .then(function(ep_data) {
-                let eps = [];
+            .then(function(ep_data: OmdbSeason[] | OmdbError[]) {
+                let eps: Episode[] = [];
                 for (let key in ep_data) {
                     let datum = ep_data[key];
-                    if (datum.Response === "False") {
+                    if (isError(datum)) {
                         return cb(new ImdbError(datum.Error, undefined), undefined);
-                    }
-
-                    let season = parseInt(datum.Season);
-                    for (let ep in datum.Episodes) {
-                        eps.push(new Episode(datum.Episodes[ep], season));
+                    } else {
+                        let season = parseInt(datum.Season);
+                        for (let ep in datum.Episodes) {
+                            eps.push(new Episode(datum.Episodes[ep], season));
+                        }
                     }
                 }
 
@@ -187,7 +198,7 @@ export class ImdbError {
     }
 }
 
-export function getReq(req: MovieRequest, cb: (err: Error, data: any) => any) {
+export function getReq(req: MovieRequest, cb: (err: Error, data: Movie) => any) {
     let responseData = "";
 
     if (typeof(cb) !== "function")
@@ -201,27 +212,26 @@ export function getReq(req: MovieRequest, cb: (err: Error, data: any) => any) {
         qs["i"] = req.id;
     }
 
-
-    rp({"qs": qs, url: omdbapi, json: true}).then(function(data) {
+    rp({"qs": qs, url: omdbapi, json: true}).then(function(data: OmdbMovie | OmdbError) {
         let ret: Movie;
-        if (data.Response === "False") {
+        if (isError(data)) {
             return cb(new ImdbError(data.Error + ": " + (req.name ? req.name : req.id), req), undefined);
+        } else {
+            if (isMovie(data))
+                ret = new Movie(data);
+            else if (isTvshow(data))
+                ret = new TVShow(data);
+            else
+                return cb(new ImdbError("type: " + data.Type + " not valid", req), undefined);
+
+            return cb(undefined, ret);
         }
-
-        if (data.Type === "movie")
-            ret = new Movie(data);
-        else if (data.Type === "series")
-            ret = new TVShow(data);
-        else
-            return cb(new ImdbError("type: " + data.Type + " not valid", req), undefined);
-
-        return cb(undefined, ret);
     })
     .catch(function(err) {
         cb(err, undefined);
     });
 }
 
-export function get(name: string, cb: (err: Error, data: any) => any) {
+export function get(name: string, cb: (err: Error, data: Movie) => any) {
     return getReq({id: undefined, name: name }, cb);
 };
