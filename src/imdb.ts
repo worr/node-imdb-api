@@ -86,7 +86,7 @@ export class Movie {
     public country: string;
     public votes: string;
     public series: boolean;
-    public rating: string;
+    public rating: number;
     public runtime: string;
     public title: string;
     public year: number;
@@ -99,6 +99,7 @@ export class Movie {
     public director: string;
     public writer: string;
     public actors: string;
+    public released: Date;
 
     // Should really be protected
     private _year_data: string;
@@ -107,9 +108,13 @@ export class Movie {
         for (let attr in obj) {
             if (attr === "year" || attr.toLowerCase() === "year") {
                 this["_year_data"] = obj[attr];
-                if (obj[attr].match(/\d{4}\-(?:\d{4})/)) {
+                if (obj[attr].match(/\d{4}[\-–](?:\d{4})/)) {
                     this[attr] = parseInt(obj[attr]);
                 }
+            } else if (attr === "Released") {
+                this.released = new Date(obj[attr]);
+            } else if (attr === "Rating") {
+                this[attr.toLowerCase()] = parseFloat(obj[attr]);
             } else if (obj.hasOwnProperty(attr) && trans_table.get(attr) !== undefined) {
                 this[trans_table.get(attr)] = obj[attr];
             } else if (obj.hasOwnProperty(attr)) {
