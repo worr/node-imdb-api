@@ -15,6 +15,10 @@ A non-scraping, functional node.js interface to imdb
 npm install --save imdb-api
 ```
 
+# Upgrading from 1.3.3?
+
+Many things have changed. Read the [changelog](CHANGELOG.md)
+
 # Use
 
 Get an imdb object:
