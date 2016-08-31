@@ -11,7 +11,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc -m commonjs --outDir lib src/imdb.ts src/interfaces.ts",
+    "build": "tsc -m commonjs --outDir lib src/imdb.ts src/interfaces.ts src/util.ts",
     "prepublish": "npm run build",
     "lint": "tslint src/imdb.ts",
     "test": "nodeunit test",
