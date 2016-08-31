@@ -208,3 +208,7 @@ export function getReq(req: MovieRequest, cb: (err: Error, data: Movie) => any) 
 export function get(name: string, cb: (err: Error, data: Movie) => any) {
     return getReq({id: undefined, name: name }, cb);
 };
+
+export function getById(imdbid: string, cb: (err: Error, data: Movie) => any) {
+    return getReq({id: imdbid, name: undefined}, cb);
+}

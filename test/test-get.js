@@ -10,7 +10,6 @@ module.exports.testGetSuccessful = function(test) {
 	return imdb.get('The Toxic Avenger', testResults);
 
 	function testResults(err, data) {
-        //console.log(err);
 		test.ifError(err);
 
 		test.ok(data);
