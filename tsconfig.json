@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "removeComments": true,
+        "outDir": "lib",
+        "sourceMap": true
+    },
+    "files": [
+        "src/imdb.ts",
+        "src/util.ts",
+        "src/interfaces.ts"
+    ]
+}
