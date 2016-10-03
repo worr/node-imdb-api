@@ -24,8 +24,9 @@ let Promise = es6promise.Promise;
 const omdbapi = "https://www.omdbapi.com/";
 
 export interface MovieRequest {
-    name: string;
-    id: string;
+    name?: string;
+    id?: string;
+	year?: number;
 }
 
 const trans_table = new Inverter({
@@ -94,8 +95,8 @@ export class Movie {
         for (let attr in obj) {
             if (attr === "year" || attr.toLowerCase() === "year") {
                 this["_year_data"] = obj[attr];
-                if (obj[attr].match(/\d{4}[\-–](?:\d{4})/)) {
-                    this[attr] = parseInt(obj[attr]);
+                if (! obj[attr].match(/\d{4}[\-–]\d{4}/)) {
+                    this[attr.toLowerCase()] = parseInt(obj[attr]);
                 }
             } else if (attr === "Released") {
                 this.released = new Date(obj[attr]);
@@ -179,7 +180,7 @@ export function getReq(req: MovieRequest, cb: (err: Error, data: Movie) => any) 
     if (typeof(cb) !== "function")
         throw new TypeError("cb must be a function");
 
-    let qs = {plot: "full", r: "json"};
+    let qs = {plot: "full", r: "json", y: req.year};
 
     if (req.name) {
         qs["t"] = req.name;
