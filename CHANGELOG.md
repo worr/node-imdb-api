@@ -1,3 +1,13 @@
+# Version 2.0.0 -> 2.1.0
+
+Adds the ability to filter by year
+
+## Filtering by year
+
+```js
+imdb.getReq({name: 'James Bond', year: 2015}, function(err, data) { console.log(data) });
+```
+
 # Version 1.3.3 -> 2.0.0
 
 Version 2.0 is a breaking change. The APIs that I was using disappeared, and I
