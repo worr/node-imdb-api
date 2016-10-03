@@ -26,7 +26,7 @@ const omdbapi = "https://www.omdbapi.com/";
 export interface MovieRequest {
     name?: string;
     id?: string;
-	year?: number;
+    year?: number;
 }
 
 const trans_table = new Inverter({
