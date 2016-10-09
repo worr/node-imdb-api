@@ -1,3 +1,13 @@
+# Version 2.1.0 -> 2.2.0
+
+Added promise API
+
+## Promises
+
+```js
+imdb.get('The Toxic Avenger').then(function(data) { console.log(data); });
+```
+
 # Version 2.0.0 -> 2.1.0
 
 Adds the ability to filter by year

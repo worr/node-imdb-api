@@ -128,10 +128,7 @@ export class TVShow extends Movie {
         this.totalseasons = parseInt(this["totalseasons"]);
     }
 
-    public episodes(cb: (err: Error, data: Episode[]) => any) {
-        if (typeof(cb) !== "function")
-            throw new TypeError("cb must be a function");
-
+    public episodes(cb?: (err: Error, data: Episode[]) => any) {
         if (this._episodes.length !== 0) {
             return cb(undefined, this._episodes);
         }
@@ -143,13 +140,18 @@ export class TVShow extends Movie {
             funcs.push(rp({"qs": {"i": tvShow.imdbid, "r": "json", "Season": i}, "json": true, "url": omdbapi}));
         }
 
-        Promise.all(funcs)
+        let prom = Promise.all(funcs)
             .then(function(ep_data: OmdbSeason[] | OmdbError[]) {
                 let eps: Episode[] = [];
                 for (let key in ep_data) {
                     let datum = ep_data[key];
                     if (isError(datum)) {
-                        return cb(new ImdbError(datum.Error, undefined), undefined);
+                        let err = new ImdbError(datum.Error, undefined);
+                        if (cb) {
+                            return cb(err, undefined);
+                        }
+
+                        return Promise.reject(err);
                     } else {
                         let season = parseInt(datum.Season);
                         for (let ep in datum.Episodes) {
@@ -159,11 +161,20 @@ export class TVShow extends Movie {
                 }
 
                 tvShow._episodes = eps;
-                return cb(undefined, eps);
-            })
-            .catch(function(err) {
+                if (cb) {
+                    return cb(undefined, eps);
+                }
+
+                return Promise.resolve(eps);
+            });
+
+        if (cb) {
+            prom.catch(function(err) {
                 return cb(err, undefined);
             });
+        } else {
+            return prom;
+        }
     }
 }
 
@@ -174,12 +185,8 @@ export class ImdbError {
     }
 }
 
-export function getReq(req: MovieRequest, cb: (err: Error, data: Movie) => any) {
+export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie) => any) {
     let responseData = "";
-
-    if (typeof(cb) !== "function")
-        throw new TypeError("cb must be a function");
-
     let qs = {plot: "full", r: "json", y: req.year};
 
     if (req.name) {
@@ -188,30 +195,45 @@ export function getReq(req: MovieRequest, cb: (err: Error, data: Movie) => any) 
         qs["i"] = req.id;
     }
 
-    rp({"qs": qs, url: omdbapi, json: true}).then(function(data: OmdbMovie | OmdbError) {
+    let prom = rp({"qs": qs, url: omdbapi, json: true}).then(function(data: OmdbMovie | OmdbError) {
         let ret: Movie;
         if (isError(data)) {
             return cb(new ImdbError(data.Error + ": " + (req.name ? req.name : req.id), req), undefined);
         } else {
-            if (isMovie(data))
+            if (isMovie(data)) {
                 ret = new Movie(data);
-            else if (isTvshow(data))
+            } else if (isTvshow(data)) {
                 ret = new TVShow(data);
-            else
-                return cb(new ImdbError("type: " + data.Type + " not valid", req), undefined);
+            } else {
+                let err = new ImdbError("type: " + data.Type + " not valid", req);
+                if (cb) {
+                    return cb(err, undefined);
+                } else {
+                    return Promise.reject(err);
+                }
+            }
 
-            return cb(undefined, ret);
+            if (cb) {
+                return cb(undefined, ret);
+            }
+
+            return Promise.resolve(ret);
         }
-    })
-    .catch(function(err) {
-        cb(err, undefined);
     });
+
+    if (cb) {
+        prom.catch(function(err) {
+            cb(err, undefined);
+        });
+    } else {
+        return prom;
+    }
 }
 
-export function get(name: string, cb: (err: Error, data: Movie) => any) {
+export function get(name: string, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
     return getReq({id: undefined, name: name }, cb);
 };
 
-export function getById(imdbid: string, cb: (err: Error, data: Movie) => any) {
+export function getById(imdbid: string, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
     return getReq({id: imdbid, name: undefined}, cb);
 }

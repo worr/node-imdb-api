@@ -25,12 +25,17 @@ Get an imdb object:
 
     var imdb = require('imdb-api');
 
-Call get.
+Call get/getReq/getById
 
     var movie;
     imdb.getReq({ name: 'The Toxic Avenger' }, function(err, things) {
         movie = things;
     });
+    
+    // Promises!
+    imdb.get('The Toxic Avenger').then(function(data) { console.log(data) });
+    imdb.getById('tt0090190).then(function(data) { console.log(data) });
+    imdb.getReq({ name: 'The Toxic Avenger' }).then(function(data) { console.log(data) });
 
 DATA
 
@@ -97,7 +102,13 @@ DATA
 
 How do I get series episodes?
 
-Well, it's a function! Give it a callback!
+Well, it's a promise (or a function that takes a callback).
+
+    imdb.get('How I Met Your Mother').then(function(things) {
+        things.episodes().then(function(data) {
+            console.log(data);
+        })
+    });
 
     imdb.get('How I Met Your Mother', function(err, things) {
         things.episodes(function(err, moreThings) {
