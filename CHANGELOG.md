@@ -1,3 +1,7 @@
+# Version 2.2.0 -> 2.2.1
+
+Bug fixes
+
 # Version 2.1.0 -> 2.2.0
 
 Added promise API
