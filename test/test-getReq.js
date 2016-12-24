@@ -53,3 +53,19 @@ module.exports.testGetByReqYear = function(test) {
 		test.done();
 	}
 }
+
+module.exports.testGetEpisode = function(test) {
+	  var scope = nock('https://www.omdbapi.com').get('/?plot=full&r=json&i=tt0869673').reply(200, require('./data/mother-ep.json'));
+
+    return imdb.getReq({id: 'tt0869673'}, testResults);
+
+    function testResults(err, data) {
+        test.ifError(err);
+
+        test.ok(data);
+		    test.equal(data.name, 'The Scorpion and the Toad', "testing returned title");
+		    test.equal(data.year, 2006, "testing correct year");
+
+		    test.done();
+    }
+}

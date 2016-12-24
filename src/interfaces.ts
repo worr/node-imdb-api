@@ -50,6 +50,7 @@ export interface OmdbEpisode {
     Title: string;
     Released: string;
     Episode: string;
+    Type: string;
     imdbRating: string;
     imdbID: string;
 }
@@ -71,10 +72,14 @@ export function isError(response: OmdbSeason | OmdbTvshow | OmdbMovie | OmdbErro
     return response.Response === "False";
 }
 
-export function isTvshow(response: OmdbMovie | OmdbTvshow): response is OmdbTvshow {
+export function isTvshow(response: OmdbMovie | OmdbTvshow | OmdbEpisode): response is OmdbTvshow {
     return response.Type === "series";
 }
 
-export function isMovie(response: OmdbMovie | OmdbTvshow): response is OmdbTvshow {
+export function isMovie(response: OmdbMovie | OmdbTvshow | OmdbEpisode): response is OmdbTvshow {
     return response.Type === "movie";
+}
+
+export function isEpisode(response: OmdbMovie | OmdbTvshow | OmdbEpisode): response is OmdbEpisode {
+    return response.Type === "episode";
 }

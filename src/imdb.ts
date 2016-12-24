@@ -6,6 +6,7 @@ import {
 } from "./util";
 
 import {
+    isEpisode,
     isError,
     isMovie,
     isTvshow,
@@ -185,7 +186,7 @@ export class ImdbError {
     }
 }
 
-export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie) => any) {
+export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episode) => any) {
     let responseData = "";
     let qs = {plot: "full", r: "json", y: req.year};
 
@@ -196,7 +197,7 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie) => any)
     }
 
     let prom = rp({"qs": qs, url: omdbapi, json: true}).then(function(data: OmdbMovie | OmdbError) {
-        let ret: Movie;
+        let ret: Movie | Episode;
         if (isError(data)) {
             return cb(new ImdbError(data.Error + ": " + (req.name ? req.name : req.id), req), undefined);
         } else {
@@ -204,6 +205,8 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie) => any)
                 ret = new Movie(data);
             } else if (isTvshow(data)) {
                 ret = new TVShow(data);
+            } else if (isEpisode(data)) {
+                ret = new Episode(data, 30);
             } else {
                 let err = new ImdbError("type: " + data.Type + " not valid", req);
                 if (cb) {
@@ -232,7 +235,7 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie) => any)
 
 export function get(name: string, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
     return getReq({id: undefined, name: name }, cb);
-};
+}
 
 export function getById(imdbid: string, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
     return getReq({id: imdbid, name: undefined}, cb);
