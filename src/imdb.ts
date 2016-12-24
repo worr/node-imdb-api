@@ -199,7 +199,12 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
     let prom = rp({"qs": qs, url: omdbapi, json: true}).then(function(data: OmdbMovie | OmdbError) {
         let ret: Movie | Episode;
         if (isError(data)) {
-            return cb(new ImdbError(data.Error + ": " + (req.name ? req.name : req.id), req), undefined);
+            let err = new ImdbError(data.Error + ": " + (req.name ? req.name : req.id), req);
+            if (cb) {
+                return cb(err, undefined);
+            } else {
+                return Promise.reject(err);
+            }
         } else {
             if (isMovie(data)) {
                 ret = new Movie(data);
