@@ -50,7 +50,7 @@ export class Episode {
         for (let attr in obj) {
             if (attr === "Released") {
                 let [year, month, day] = obj[attr].split("-");
-                this.released = new Date(parseInt(year), parseInt(month)-1, parseInt(day));
+                this.released = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
             } else if (attr === "Rating") {
                 this[attr.toLowerCase()] = parseFloat(obj[attr]);
             } else if (attr === "Episode" || attr === "Season") {
