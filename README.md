@@ -66,7 +66,7 @@ Movie {
 Furthermore if you already know the id you can call getReq with different args:
 ```js
 let movie;
-imdb.getReq({ id: '0090190' }, (err, things) => {
+imdb.getReq({ id: 'tt0090190' }, (err, things) => {
     movie = things;
 });
 ```
