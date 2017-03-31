@@ -1,3 +1,7 @@
+# Version 2.2.1 -> 2.2.2
+
+Fixed broken date parsing ([PR](https://github.com/worr/node-imdb-api/pull/41))
+
 # Version 2.2.0 -> 2.2.1
 
 Bug fixes
