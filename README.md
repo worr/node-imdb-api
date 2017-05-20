@@ -21,6 +21,10 @@ Get an imdb object:
 ```js
 const imdb = require('imdb-api');
 ```
+Set your API key
+```js
+imdb.setKey('2c598f25');
+```
 Call get/getReq/getById
 ```js
 let movie;

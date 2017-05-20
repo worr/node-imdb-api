@@ -24,6 +24,12 @@ let Promise = es6promise.Promise;
 
 const omdbapi = "https://www.omdbapi.com/";
 
+let apiKey = undefined;
+
+export function setKey(key) {
+    apiKey = key;
+}
+
 export interface MovieRequest {
     name?: string;
     id?: string;
@@ -188,7 +194,7 @@ export class ImdbError {
 
 export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episode) => any) {
     let responseData = "";
-    let qs = {plot: "full", r: "json", y: req.year};
+    let qs = {apikey: apiKey, plot: "full", r: "json", y: req.year};
 
     if (req.name) {
         qs["t"] = req.name;
