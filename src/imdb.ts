@@ -122,7 +122,7 @@ export class Movie {
 
 export class TVShow extends Movie {
     private _episodes: Episode[] = [];
-    private _apikey: string
+    private _apikey: string;
     public start_year;
     public end_year;
     public totalseasons;
