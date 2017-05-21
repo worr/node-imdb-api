@@ -24,10 +24,15 @@ let Promise = es6promise.Promise;
 
 const omdbapi = "https://www.omdbapi.com/";
 
+export interface MovieOpts {
+    apiKey: string;
+}
+
 export interface MovieRequest {
     name?: string;
     id?: string;
     year?: number;
+    opts: MovieOpts;
 }
 
 const trans_table = new Inverter({
@@ -117,16 +122,18 @@ export class Movie {
 
 export class TVShow extends Movie {
     private _episodes: Episode[] = [];
+    private _apikey: string
     public start_year;
     public end_year;
     public totalseasons;
 
-    constructor (object: OmdbTvshow) {
+    constructor (object: OmdbTvshow, apiKey: string) {
         super(object);
         let years = this["_year_data"].split("-");
         this.start_year = parseInt(years[0]) ? parseInt(years[0]) : null;
         this.end_year = parseInt(years[1]) ? parseInt(years[1]) : null;
         this.totalseasons = parseInt(this["totalseasons"]);
+        this._apikey = apiKey;
     }
 
     public episodes(cb?: (err: Error, data: Episode[]) => any) {
@@ -138,7 +145,7 @@ export class TVShow extends Movie {
 
         let funcs = [];
         for (let i = 1; i <= tvShow.totalseasons; i++) {
-            funcs.push(rp({"qs": {"i": tvShow.imdbid, "r": "json", "Season": i}, "json": true, "url": omdbapi}));
+            funcs.push(rp({"qs": {"apikey": tvShow._apikey, "i": tvShow.imdbid, "r": "json", "Season": i}, "json": true, "url": omdbapi}));
         }
 
         let prom = Promise.all(funcs)
@@ -187,8 +194,18 @@ export class ImdbError {
 }
 
 export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episode) => any) {
+
+    if (req.opts === undefined || ! req.opts.hasOwnProperty("apiKey")) {
+        let err = new ImdbError("Missing api key in opts", req);
+        if (cb) {
+            return cb(err, undefined);
+        } else {
+            return Promise.reject(err);
+        }
+    }
+
     let responseData = "";
-    let qs = {plot: "full", r: "json", y: req.year};
+    let qs = {apikey: req.opts.apiKey, plot: "full", r: "json", y: req.year};
 
     if (req.name) {
         qs["t"] = req.name;
@@ -209,7 +226,7 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
             if (isMovie(data)) {
                 ret = new Movie(data);
             } else if (isTvshow(data)) {
-                ret = new TVShow(data);
+                ret = new TVShow(data, req.opts.apiKey);
             } else if (isEpisode(data)) {
                 ret = new Episode(data, 30);
             } else {
@@ -238,10 +255,10 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
     }
 }
 
-export function get(name: string, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
-    return getReq({id: undefined, name: name }, cb);
+export function get(name: string, opts: MovieOpts, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
+    return getReq({id: undefined, opts: opts, name: name }, cb);
 }
 
-export function getById(imdbid: string, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
-    return getReq({id: imdbid, name: undefined}, cb);
+export function getById(imdbid: string, opts: MovieOpts, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
+    return getReq({id: imdbid, opts: opts, name: undefined}, cb);
 }

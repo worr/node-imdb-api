@@ -1,14 +1,27 @@
+# Version 2.2.2 -> 3.0.0
+
+This is a breaking change
+
+* Added support for passing in options to all `get` functions
+* Require an apiKey option for authentication to omdb
+
+```js
+imdb.get('The Toxic Avenger', {apiKey: 'foo'}).then(function(data) { console.log(data); });
+```
+
+To see more about getting a key, see [here](https://www.patreon.com/posts/api-is-going-10743518)
+
 # Version 2.2.1 -> 2.2.2
 
-Fixed broken date parsing ([PR](https://github.com/worr/node-imdb-api/pull/41))
+* Fixed broken date parsing ([PR](https://github.com/worr/node-imdb-api/pull/41))
 
 # Version 2.2.0 -> 2.2.1
 
-Bug fixes
+* Bug fixes
 
 # Version 2.1.0 -> 2.2.0
 
-Added promise API
+* Added promise API
 
 ## Promises
 
@@ -18,7 +31,7 @@ imdb.get('The Toxic Avenger').then(function(data) { console.log(data); });
 
 # Version 2.0.0 -> 2.1.0
 
-Adds the ability to filter by year
+* Adds the ability to filter by year
 
 ## Filtering by year
 

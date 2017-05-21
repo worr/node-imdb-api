@@ -11,7 +11,7 @@ A non-scraping, functional node.js interface to imdb
 npm install --save imdb-api
 ```
 
-# Upgrading from 1.3.3?
+# Upgrading from 1.x or 2.x?
 
 Many things have changed. Read the [changelog](CHANGELOG.md)
 
@@ -25,14 +25,14 @@ Call get/getReq/getById
 ```js
 let movie;
 
-imdb.getReq({ name: 'The Toxic Avenger' }, (err, things) => {
+imdb.getReq({ apiKey: 'foo', name: 'The Toxic Avenger' }, (err, things) => {
     movie = things;
 });
 
 // Promises!
-imdb.get('The Toxic Avenger').then(console.log);
-imdb.getById('tt0090190').then(console.log);
-imdb.getReq({ name: 'The Toxic Avenger' }).then(console.log);
+imdb.get('The Toxic Avenger', {apiKey: 'foo'}).then(console.log);
+imdb.getById('tt0090190', {apiKey: 'foo'}).then(console.log);
+imdb.getReq({ name: 'The Toxic Avenger', opts: {apiKey: 'foo'} }).then(console.log);
 ```
 DATA
 ```js
@@ -66,7 +66,7 @@ Movie {
 Furthermore if you already know the id you can call getReq with different args:
 ```js
 let movie;
-imdb.getReq({ id: 'tt0090190' }, (err, things) => {
+imdb.getReq({ id: 'tt0090190', opts: {apiKey: 'foo'} }, (err, things) => {
     movie = things;
 });
 ```
@@ -102,11 +102,11 @@ How do I get series episodes?
 
 Well, it's a promise (or a function that takes a callback).
 ```js
-imdb.get('How I Met Your Mother').then(things => {
+imdb.get('How I Met Your Mother', {apiKey: 'foo'}).then(things => {
     things.episodes().then(console.log);
 });
 
-imdb.get('How I Met Your Mother', (err, things) => {
+imdb.get('How I Met Your Mother', {apiKey: 'foo'}, (err, things) => {
     things.episodes((err, moreThings) => console.log(moreThings));
 });
 
@@ -149,6 +149,14 @@ Episode {
 ...
 ```
 # FAQ
+
+## I see an API key in your examples? Is it required? How do I get one?
+
+Yes, it is required! omdb made this a requirement as of May 8, 2017. This is unfortunate,
+but totally understandable. While I plan on working on finding an alternative to provide
+the movie info you crave, I've enabled you to pass in an apikey.
+
+You can get one by going [here](https://www.patreon.com/posts/api-is-going-10743518).
 
 ## Why? There are like 3 other interfaces to imdb in npm
 
