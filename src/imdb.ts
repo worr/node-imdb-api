@@ -52,7 +52,7 @@ export class Episode {
 
     constructor (obj: OmdbEpisode, season: number) {
         this.season = season;
-        for (let attr in obj) {
+        for (let attr in Object.getOwnPropertyNames(obj)) {
             if (attr === "Released") {
                 let [year, month, day] = obj[attr].split("-");
                 this.released = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
@@ -62,9 +62,9 @@ export class Episode {
                 this[attr.toLowerCase()] = parseInt(obj[attr]);
             } else if (attr === "Title") {
                 this.name = obj[attr];
-            } else if (obj.hasOwnProperty(attr) && trans_table.get(attr) !== undefined) {
+            } else if (trans_table.get(attr) !== undefined) {
                 this[trans_table.get(attr)] = obj[attr];
-            } else if (obj.hasOwnProperty(attr)) {
+            } else {
                 this[attr.toLowerCase()] = obj[attr];
             }
         }
@@ -98,7 +98,7 @@ export class Movie {
     private _year_data: string;
 
     constructor (obj: OmdbMovie) {
-        for (let attr in obj) {
+        for (let attr in Object.getOwnPropertyNames(obj)) {
             if (attr === "year" || attr.toLowerCase() === "year") {
                 this["_year_data"] = obj[attr];
                 if (! obj[attr].match(/\d{4}[\-–]\d{4}/)) {
@@ -108,9 +108,9 @@ export class Movie {
                 this.released = new Date(obj[attr]);
             } else if (attr === "Rating") {
                 this[attr.toLowerCase()] = parseFloat(obj[attr]);
-            } else if (obj.hasOwnProperty(attr) && trans_table.get(attr) !== undefined) {
+            } else if (trans_table.get(attr) !== undefined) {
                 this[trans_table.get(attr)] = obj[attr];
-            } else if (obj.hasOwnProperty(attr)) {
+            } else {
                 this[attr.toLowerCase()] = obj[attr];
             }
         }
