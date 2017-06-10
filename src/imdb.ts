@@ -243,7 +243,7 @@ export class SearchResult {
 }
 
 export class SearchResults {
-    public results: SearchResult[];
+    public results: SearchResult[] = [];
     public totalresults: number;
     private page: number;
     private opts: MovieOpts;
@@ -254,7 +254,6 @@ export class SearchResults {
         this.req = req;
         this.opts = opts;
 
-        this.results = []
         for (const attr in obj) {
             if (attr === "Search") {
                 for (const result of obj.Search) {
