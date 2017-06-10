@@ -1,0 +1,305 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>imdb-api</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">imdb-api</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> imdb-api</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="node-imdb-api">node-imdb-api</h1>
+				<p>A non-scraping, functional node.js interface to imdb</p>
+				<h1 id="badges">Badges</h1>
+				<p><a href="http://badge.fury.io/js/imdb-api"><img src="https://badge.fury.io/js/imdb-api.svg" alt="NPM version"></a> <a href="https://travis-ci.org/worr/node-imdb-api"><img src="https://travis-ci.org/worr/node-imdb-api.svg?branch=master" alt="Build Status"></a> <a href="https://flattr.com/submit/auto?user_id=worr&amp;url=https%3A%2F%2Fgithub.com%2Fworr%2Fnode-imdb-api%2F" title="node-imdb-api"><img src="http://api.flattr.com/button/button-compact-static-100x17.png" alt="Flattr Button" title="Flattr This!"></a></p>
+				<h1 id="installation-">Installation:</h1>
+				<pre><code class="lang-bash">npm install --save imdb-api
+</code></pre>
+				<h1 id="upgrading-from-1-x-or-2-x-">Upgrading from 1.x or 2.x?</h1>
+				<p>Many things have changed. Read the <a href="CHANGELOG.md">changelog</a></p>
+				<h1 id="use">Use</h1>
+				<p>Get an imdb object:</p>
+				<pre><code class="lang-js"><span class="hljs-keyword">const</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb-api'</span>);
+</code></pre>
+				<p>Call get/getReq/getById</p>
+				<pre><code class="lang-js">imdb.get(<span class="hljs-string">'The Toxic Avenger'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+imdb.getById(<span class="hljs-string">'tt0090190'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+imdb.getReq({ <span class="hljs-attr">name</span>: <span class="hljs-string">'The Toxic Avenger'</span>, <span class="hljs-attr">opts</span>: {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30</span>} }).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+				<p>DATA</p>
+				<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(movie);
+
+Movie {
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'The Toxic Avenger'</span>,
+  <span class="hljs-attr">_year_data</span>: <span class="hljs-string">'1984'</span>,
+  <span class="hljs-attr">rated</span>: <span class="hljs-string">'R'</span>,
+  <span class="hljs-attr">released</span>: <span class="hljs-string">'1986-04-11T08:00:00.000Z'</span>,
+  <span class="hljs-attr">runtime</span>: <span class="hljs-string">'82 min'</span>,
+  <span class="hljs-attr">genres</span>: <span class="hljs-string">'Action, Comedy, Horror'</span>,
+  <span class="hljs-attr">director</span>: <span class="hljs-string">'Michael Herz, Lloyd Kaufman'</span>,
+  <span class="hljs-attr">writer</span>: <span class="hljs-string">'Lloyd Kaufman (story), Joe Ritter (screenplay), Lloyd Kaufman (additional material), Gay Partington Terry (additional material), Stuart Strutin (additional material)'</span>,
+  <span class="hljs-attr">actors</span>: <span class="hljs-string">'Andree Maranda, Mitch Cohen, Jennifer Babtist, Cindy Manion'</span>,
+  <span class="hljs-attr">plot</span>: <span class="hljs-string">'This is the story of Melvin, the Tromaville Health Club mop boy, who inadvertently and naively trusts the hedonistic, contemptuous and vain health club members, to the point of accidentally ending up in a vat of toxic waste. The devastating results then have a transmogrification effect, his alter ego is released, and the Toxic Avenger is born, to deadly and comical results. The local mop boy is now the local Superhero, the saviour of corruption, thuggish bullies and indifference. Troma classic with good make-up effects and stunts, a pleasant surprise indeed.'</span>,
+  <span class="hljs-attr">languages</span>: <span class="hljs-string">'English'</span>,
+  <span class="hljs-attr">country</span>: <span class="hljs-string">'USA'</span>,
+  <span class="hljs-attr">awards</span>: <span class="hljs-string">'1 nomination.'</span>,
+  <span class="hljs-attr">poster</span>: <span class="hljs-string">'http://ia.media-imdb.com/images/M/MV5BNzViNmQ5MTYtMmI4Yy00N2Y2LTg4NWUtYWU3MThkMTVjNjk3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'</span>,
+  <span class="hljs-attr">metascore</span>: <span class="hljs-string">'N/A'</span>,
+  <span class="hljs-attr">rating</span>: <span class="hljs-string">'6.2'</span>,
+  <span class="hljs-attr">votes</span>: <span class="hljs-string">'19,306'</span>,
+  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0090190'</span>,
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'movie'</span>,
+  <span class="hljs-attr">response</span>: <span class="hljs-string">'True'</span>,
+  <span class="hljs-attr">series</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">imdburl</span>: <span class="hljs-string">'https://www.imdb.com/title/tt0090190'</span>
+}
+</code></pre>
+				<p>Furthermore if you already know the id you can call getReq with different args:</p>
+				<pre><code class="lang-js">imdb.getReq({ <span class="hljs-attr">id</span>: <span class="hljs-string">'tt0090190'</span>, <span class="hljs-attr">opts</span>: {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>} }).then(<span class="hljs-built_in">console</span>.log)
+</code></pre>
+				<p>DATA</p>
+				<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(movie);
+
+Movie {
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'The Toxic Avenger'</span>,
+  <span class="hljs-attr">_year_data</span>: <span class="hljs-string">'1984'</span>,
+  <span class="hljs-attr">rated</span>: <span class="hljs-string">'R'</span>,
+  <span class="hljs-attr">released</span>: <span class="hljs-string">'1986-04-11T08:00:00.000Z'</span>,
+  <span class="hljs-attr">runtime</span>: <span class="hljs-string">'82 min'</span>,
+  <span class="hljs-attr">genres</span>: <span class="hljs-string">'Action, Comedy, Horror'</span>,
+  <span class="hljs-attr">director</span>: <span class="hljs-string">'Michael Herz, Lloyd Kaufman'</span>,
+  <span class="hljs-attr">writer</span>: <span class="hljs-string">'Lloyd Kaufman (story), Joe Ritter (screenplay), Lloyd Kaufman (additional material), Gay Partington Terry (additional material), Stuart Strutin (additional material)'</span>,
+  <span class="hljs-attr">actors</span>: <span class="hljs-string">'Andree Maranda, Mitch Cohen, Jennifer Babtist, Cindy Manion'</span>,
+  <span class="hljs-attr">plot</span>: <span class="hljs-string">'This is the story of Melvin, the Tromaville Health Club mop boy, who inadvertently and naively trusts the hedonistic, contemptuous and vain health club members, to the point of accidentally ending up in a vat of toxic waste. The devastating results then have a transmogrification effect, his alter ego is released, and the Toxic Avenger is born, to deadly and comical results. The local mop boy is now the local Superhero, the saviour of corruption, thuggish bullies and indifference. Troma classic with good make-up effects and stunts, a pleasant surprise indeed.'</span>,
+  <span class="hljs-attr">languages</span>: <span class="hljs-string">'English'</span>,
+  <span class="hljs-attr">country</span>: <span class="hljs-string">'USA'</span>,
+  <span class="hljs-attr">awards</span>: <span class="hljs-string">'1 nomination.'</span>,
+  <span class="hljs-attr">poster</span>: <span class="hljs-string">'http://ia.media-imdb.com/images/M/MV5BNzViNmQ5MTYtMmI4Yy00N2Y2LTg4NWUtYWU3MThkMTVjNjk3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'</span>,
+  <span class="hljs-attr">metascore</span>: <span class="hljs-string">'N/A'</span>,
+  <span class="hljs-attr">rating</span>: <span class="hljs-string">'6.2'</span>,
+  <span class="hljs-attr">votes</span>: <span class="hljs-string">'19,306'</span>,
+  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0090190'</span>,
+  <span class="hljs-attr">type</span>: <span class="hljs-string">'movie'</span>,
+  <span class="hljs-attr">response</span>: <span class="hljs-string">'True'</span>,
+  <span class="hljs-attr">series</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">imdburl</span>: <span class="hljs-string">'https://www.imdb.com/title/tt0090190'</span> }
+</code></pre>
+				<p>How do I search for things?</p>
+				<pre><code class="lang-js">imdb.search({
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'Toxic Avenger'</span>
+}, {
+  <span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>
+}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+				<p>How do I get series episodes?</p>
+				<p>Well, it&#39;s a promise:</p>
+				<pre><code class="lang-js">imdb.get(<span class="hljs-string">'How I Met Your Mother'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>}).then(<span class="hljs-function"><span class="hljs-params">things</span> =&gt;</span> {
+    things.episodes().then(<span class="hljs-built_in">console</span>.log);
+});
+
+...
+Episode {
+  <span class="hljs-attr">season</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'The Scorpion and the Toad'</span>,
+  <span class="hljs-attr">released</span>: <span class="hljs-string">'2006-10-25T07:00:00.000Z'</span>,
+  <span class="hljs-attr">episode</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.3'</span>,
+  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0869673'</span> },
+Episode {
+  <span class="hljs-attr">season</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Brunch'</span>,
+  <span class="hljs-attr">released</span>: <span class="hljs-string">'2006-11-01T08:00:00.000Z'</span>,
+  <span class="hljs-attr">episode</span>: <span class="hljs-number">3</span>,
+  <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.6'</span>,
+  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0873024'</span> },
+Episode {
+  <span class="hljs-attr">season</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Ted Mosby, Architect'</span>,
+  <span class="hljs-attr">released</span>: <span class="hljs-string">'2006-11-09T08:00:00.000Z'</span>,
+  <span class="hljs-attr">episode</span>: <span class="hljs-number">4</span>,
+  <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.9'</span>,
+  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0858000'</span> },
+Episode {
+  <span class="hljs-attr">season</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'World\'s Greatest Couple'</span>,
+  <span class="hljs-attr">released</span>: <span class="hljs-string">'2006-11-16T08:00:00.000Z'</span>,
+  <span class="hljs-attr">episode</span>: <span class="hljs-number">5</span>,
+  <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.8'</span>,
+  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0866188'</span> },
+Episode {
+  <span class="hljs-attr">season</span>: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Aldrin Justice'</span>,
+  <span class="hljs-attr">released</span>: <span class="hljs-string">'2006-11-23T08:00:00.000Z'</span>,
+  <span class="hljs-attr">episode</span>: <span class="hljs-number">6</span>,
+  <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.2'</span>,
+  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0865115'</span> },
+...
+</code></pre>
+				<h1 id="faq">FAQ</h1>
+				<h2 id="i-see-an-api-key-in-your-examples-is-it-required-how-do-i-get-one-">I see an API key in your examples? Is it required? How do I get one?</h2>
+				<p>Yes, it is required! omdb made this a requirement as of May 8, 2017. This is unfortunate,
+					but totally understandable. While I plan on working on finding an alternative to provide
+				the movie info you crave, I&#39;ve enabled you to pass in an apikey.</p>
+				<p>You can get one by going <a href="https://www.patreon.com/posts/api-is-going-10743518">here</a>.</p>
+				<h2 id="why-there-are-like-3-other-interfaces-to-imdb-in-npm">Why? There are like 3 other interfaces to imdb in npm</h2>
+				<p>Most of them scrape imdb. imdb explicitly forbids scarping.</p>
+				<p>And what happens when the site layout changes? Well then your screen scraping
+					solution fails in interesting ways. Screen scraping is also pretty slow,
+				and we can&#39;t have that.</p>
+				<h2 id="woah-i-looked-at-your-code-and-you-re-using-unofficial-apis-">WOAH I looked at your code and you&#39;re using unofficial APIs!</h2>
+				<p>There isn&#39;t an official API to imdb. As soon as one is released (and I
+				notice), I&#39;ll update the module.</p>
+				<p>imdb DOES release all of their data in text files nightly, so unofficial sites
+				have popped up providing RESTful APIs against that data.</p>
+				<p>I have to use a few, since none of them are complete.</p>
+				<h2 id="what-if-one-of-the-unofficial-apis-disappears-">What if one of the unofficial APIs disappears?</h2>
+				<p>File a bug. I&#39;ll get creative.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_imdb_.html">"imdb"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_.html">"interfaces"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_util_.html">"util"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
