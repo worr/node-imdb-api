@@ -88,6 +88,18 @@ Movie {
   series: false,
   imdburl: 'https://www.imdb.com/title/tt0090190' }
 ```
+
+How do I search for things?
+
+```js
+imdb.search({
+  title: 'Toxic Avenger'
+}, {
+  apiKey: 'foo'
+}).then(console.log).catch(console.log);
+```
+
+
 How do I get series episodes?
 
 Well, it's a promise:

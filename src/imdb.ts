@@ -28,6 +28,7 @@ const omdbapi = "https://www.omdbapi.com/";
 
 export interface MovieOpts {
     apiKey: string;
+    timeout?: number;
 }
 
 type RequestType = "movie"
@@ -154,18 +155,18 @@ export class Movie {
 
 export class TVShow extends Movie {
     private _episodes: Episode[] = [];
-    private _apikey: string;
+    private opts: MovieOpts;
     public start_year;
     public end_year;
     public totalseasons;
 
-    constructor(object: OmdbTvshow, apiKey: string) {
+    constructor(object: OmdbTvshow, opts: MovieOpts) {
         super(object);
         const years = this["_year_data"].split("-");
         this.start_year = parseInt(years[0]) ? parseInt(years[0]) : null;
         this.end_year = parseInt(years[1]) ? parseInt(years[1]) : null;
         this.totalseasons = parseInt(this["totalseasons"]);
-        this._apikey = apiKey;
+        this.opts = opts;
     }
 
     public episodes(cb?: (err: Error, data: Episode[]) => any) {
@@ -177,7 +178,12 @@ export class TVShow extends Movie {
 
         const funcs = [];
         for (let i = 1; i <= tvShow.totalseasons; i++) {
-            funcs.push(rp({ "qs": { "apikey": tvShow._apikey, "i": tvShow.imdbid, "r": "json", "Season": i }, "json": true, "url": omdbapi }));
+            const reqopts = { "qs": { "apikey": tvShow.opts.apiKey, "i": tvShow.imdbid, "r": "json", "Season": i }, "json": true, "url": omdbapi };
+            if ("timeout" in this.opts) {
+                reqopts["timeout"] = this.opts.timeout;
+            }
+
+            funcs.push(rp(reqopts));
         }
 
         const prom = Promise.all(funcs)
@@ -290,7 +296,13 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
         qs["i"] = req.id;
     }
 
-    const prom = rp({ "qs": qs, url: omdbapi, json: true }).then(function(data: OmdbMovie | OmdbError) {
+    const reqopts = { "qs": qs, url: omdbapi, json: true };
+
+    if ("timeout" in req.opts) {
+        reqopts["timeout"] = req.opts.timeout;
+    }
+
+    const prom = rp(reqopts).then(function(data: OmdbMovie | OmdbError) {
         let ret: Movie | Episode;
         if (isError(data)) {
             const err = new ImdbError(data.Error + ": " + (req.name ? req.name : req.id));
@@ -303,7 +315,7 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
             if (isMovie(data)) {
                 ret = new Movie(data);
             } else if (isTvshow(data)) {
-                ret = new TVShow(data, req.opts.apiKey);
+                ret = new TVShow(data, req.opts);
             } else if (isEpisode(data)) {
                 ret = new Episode(data, 30);
             } else {
@@ -346,8 +358,12 @@ export function search(req: SearchRequest, opts: MovieOpts, page?: number): Prom
     }
 
     const qs = reqtoqueryobj(req, opts.apiKey, page);
+    const reqopts = { "qs": qs, url: omdbapi, json: true };
+    if ("timeout" in opts) {
+        reqopts["timeout"] = opts.timeout;
+    }
 
-    const prom = rp({ "qs": qs, url: omdbapi, json: true }).then(function(data: OmdbSearch | OmdbError) {
+    const prom = rp(reqopts).then(function(data: OmdbSearch | OmdbError) {
         if (isError(data)) {
             const err = new ImdbError(`${data.Error}: ${req.title}`);
             return Promise.reject(err);

@@ -1,3 +1,17 @@
+# Version 3.0.0 -> 3.1.0
+
+This adds searching for movies and items from omdb.
+
+```js
+imdb.search({title: 'foo'}, {apiKey: 'bar'}).then(console.log);
+```
+
+This also adds supports for timeouts
+
+```js
+imdb.get('The Toxic Avenger', {apiKey: 'foo', timeout: 30}).then(console.log);
+```
+
 # Version 2.2.2 -> 3.0.0
 
 This is a breaking change
