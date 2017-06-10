@@ -23,16 +23,9 @@ const imdb = require('imdb-api');
 ```
 Call get/getReq/getById
 ```js
-let movie;
-
-imdb.getReq({ apiKey: 'foo', name: 'The Toxic Avenger' }, (err, things) => {
-    movie = things;
-});
-
-// Promises!
-imdb.get('The Toxic Avenger', {apiKey: 'foo'}).then(console.log);
-imdb.getById('tt0090190', {apiKey: 'foo'}).then(console.log);
-imdb.getReq({ name: 'The Toxic Avenger', opts: {apiKey: 'foo'} }).then(console.log);
+imdb.get('The Toxic Avenger', {apiKey: 'foo'}).then(console.log).catch(console.log);
+imdb.getById('tt0090190', {apiKey: 'foo'}).then(console.log).catch(console.log);
+imdb.getReq({ name: 'The Toxic Avenger', opts: {apiKey: 'foo'} }).then(console.log).catch(console.log);
 ```
 DATA
 ```js
@@ -65,10 +58,7 @@ Movie {
 ```
 Furthermore if you already know the id you can call getReq with different args:
 ```js
-let movie;
-imdb.getReq({ id: 'tt0090190', opts: {apiKey: 'foo'} }, (err, things) => {
-    movie = things;
-});
+imdb.getReq({ id: 'tt0090190', opts: {apiKey: 'foo'} }).then(console.log)
 ```
 DATA
 ```js
@@ -100,14 +90,10 @@ Movie {
 ```
 How do I get series episodes?
 
-Well, it's a promise (or a function that takes a callback).
+Well, it's a promise:
 ```js
 imdb.get('How I Met Your Mother', {apiKey: 'foo'}).then(things => {
     things.episodes().then(console.log);
-});
-
-imdb.get('How I Met Your Mother', {apiKey: 'foo'}, (err, things) => {
-    things.episodes((err, moreThings) => console.log(moreThings));
 });
 
 ...
