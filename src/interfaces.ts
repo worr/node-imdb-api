@@ -63,12 +63,26 @@ export interface OmdbSeason {
     Response: string;
 }
 
+export interface OmdbSearchResult {
+    Title: string;
+    Year: string;
+    imdbID: string;
+    Type: string;
+    Poster: string;
+}
+
+export interface OmdbSearch {
+    Search: OmdbSearchResult[];
+    totalResults: string;
+    Response: string;
+}
+
 export interface OmdbError {
     Response: string;
     Error: string;
 }
 
-export function isError(response: OmdbSeason | OmdbTvshow | OmdbMovie | OmdbError): response is OmdbError {
+export function isError(response: OmdbSearch | OmdbSeason | OmdbTvshow | OmdbMovie | OmdbError): response is OmdbError {
     return response.Response === "False";
 }
 

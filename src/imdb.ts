@@ -14,13 +14,15 @@ import {
     OmdbEpisode,
     OmdbMovie,
     OmdbSeason,
+    OmdbSearch,
+    OmdbSearchResult,
     OmdbTvshow
 } from "./interfaces";
 
 import es6promise = require("es6-promise");
 import rp = require("request-promise");
 
-let Promise = es6promise.Promise;
+const Promise = es6promise.Promise;
 
 const omdbapi = "https://www.omdbapi.com/";
 
@@ -28,11 +30,41 @@ export interface MovieOpts {
     apiKey: string;
 }
 
+type RequestType = "movie"
+    | "series"
+    | "episode"
+    | "game";
+
 export interface MovieRequest {
     name?: string;
     id?: string;
     year?: number;
     opts: MovieOpts;
+}
+
+export interface SearchRequest {
+    title: string;
+    reqtype?: RequestType;
+    year?: number;
+}
+
+function reqtoqueryobj(req: SearchRequest, apikey: string, page: number): object {
+    const ret = {
+        "s": req.title,
+        "r": "json",
+        "apikey": apikey,
+        "page": page,
+    };
+
+    if (req.reqtype !== undefined) {
+        ret["type"] = req.reqtype;
+    }
+
+    if (req.year !== undefined) {
+        req["y"] = req.year;
+    }
+
+    return ret;
 }
 
 const trans_table = new Inverter({
@@ -50,11 +82,11 @@ export class Episode {
     public imdbid: string;
     public rating: number;
 
-    constructor (obj: OmdbEpisode, season: number) {
+    constructor(obj: OmdbEpisode, season: number) {
         this.season = season;
-        for (let attr in Object.getOwnPropertyNames(obj)) {
+        for (const attr in obj) {
             if (attr === "Released") {
-                let [year, month, day] = obj[attr].split("-");
+                const [year, month, day] = obj[attr].split("-");
                 this.released = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
             } else if (attr === "Rating") {
                 this[attr.toLowerCase()] = parseFloat(obj[attr]);
@@ -97,11 +129,11 @@ export class Movie {
     // Should really be protected
     private _year_data: string;
 
-    constructor (obj: OmdbMovie) {
-        for (let attr in Object.getOwnPropertyNames(obj)) {
+    constructor(obj: OmdbMovie) {
+        for (const attr in obj) {
             if (attr === "year" || attr.toLowerCase() === "year") {
                 this["_year_data"] = obj[attr];
-                if (! obj[attr].match(/\d{4}[\-–]\d{4}/)) {
+                if (!obj[attr].match(/\d{4}[\-–]\d{4}/)) {
                     this[attr.toLowerCase()] = parseInt(obj[attr]);
                 }
             } else if (attr === "Released") {
@@ -127,9 +159,9 @@ export class TVShow extends Movie {
     public end_year;
     public totalseasons;
 
-    constructor (object: OmdbTvshow, apiKey: string) {
+    constructor(object: OmdbTvshow, apiKey: string) {
         super(object);
-        let years = this["_year_data"].split("-");
+        const years = this["_year_data"].split("-");
         this.start_year = parseInt(years[0]) ? parseInt(years[0]) : null;
         this.end_year = parseInt(years[1]) ? parseInt(years[1]) : null;
         this.totalseasons = parseInt(this["totalseasons"]);
@@ -141,28 +173,28 @@ export class TVShow extends Movie {
             return cb(undefined, this._episodes);
         }
 
-        let tvShow = this;
+        const tvShow = this;
 
-        let funcs = [];
+        const funcs = [];
         for (let i = 1; i <= tvShow.totalseasons; i++) {
-            funcs.push(rp({"qs": {"apikey": tvShow._apikey, "i": tvShow.imdbid, "r": "json", "Season": i}, "json": true, "url": omdbapi}));
+            funcs.push(rp({ "qs": { "apikey": tvShow._apikey, "i": tvShow.imdbid, "r": "json", "Season": i }, "json": true, "url": omdbapi }));
         }
 
-        let prom = Promise.all(funcs)
+        const prom = Promise.all(funcs)
             .then(function(ep_data: OmdbSeason[] | OmdbError[]) {
-                let eps: Episode[] = [];
-                for (let key in ep_data) {
-                    let datum = ep_data[key];
+                const eps: Episode[] = [];
+                for (const key in ep_data) {
+                    const datum = ep_data[key];
                     if (isError(datum)) {
-                        let err = new ImdbError(datum.Error, undefined);
+                        const err = new ImdbError(datum.Error);
                         if (cb) {
                             return cb(err, undefined);
                         }
 
                         return Promise.reject(err);
                     } else {
-                        let season = parseInt(datum.Season);
-                        for (let ep in datum.Episodes) {
+                        const season = parseInt(datum.Season);
+                        for (const ep in datum.Episodes) {
                             eps.push(new Episode(datum.Episodes[ep], season));
                         }
                     }
@@ -186,17 +218,63 @@ export class TVShow extends Movie {
     }
 }
 
+export class SearchResult {
+    public title: string;
+    public year: number;
+    public imdbid: string;
+    public type: RequestType;
+    public poster: string;
+
+    constructor(obj: OmdbSearchResult) {
+        for (const attr in obj) {
+            if (attr === "Year") {
+                this.year = parseInt(obj[attr]);
+            } else {
+                this[attr.toLowerCase()] = obj[attr];
+            }
+        }
+    }
+}
+
+export class SearchResults {
+    public results: SearchResult[];
+    public totalresults: number;
+    private page: number;
+    private opts: MovieOpts;
+    private req: SearchRequest;
+
+    constructor(obj: OmdbSearch, page: number, opts: MovieOpts, req: SearchRequest) {
+        this.page = page;
+        this.req = req;
+        this.opts = opts;
+
+        this.results = []
+        for (const attr in obj) {
+            if (attr === "Search") {
+                for (const result of obj.Search) {
+                    this.results.push(new SearchResult(result));
+                }
+            } else {
+                this[attr.toLowerCase()] = obj[attr];
+            }
+        }
+    }
+
+    public next(): Promise<SearchResults> {
+        return search(this.req, this.opts, this.page + 1);
+    }
+}
+
 export class ImdbError {
     public name: string = "imdb api error";
 
-    constructor(public message: string, public movie: MovieRequest) {
-    }
+    constructor(public message: string) { }
 }
 
 export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episode) => any) {
 
-    if (req.opts === undefined || ! req.opts.hasOwnProperty("apiKey")) {
-        let err = new ImdbError("Missing api key in opts", req);
+    if (req.opts === undefined || !req.opts.hasOwnProperty("apiKey")) {
+        const err = new ImdbError("Missing api key in opts");
         if (cb) {
             return cb(err, undefined);
         } else {
@@ -204,8 +282,7 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
         }
     }
 
-    let responseData = "";
-    let qs = {apikey: req.opts.apiKey, plot: "full", r: "json", y: req.year};
+    const qs = { apikey: req.opts.apiKey, plot: "full", r: "json", y: req.year };
 
     if (req.name) {
         qs["t"] = req.name;
@@ -213,10 +290,10 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
         qs["i"] = req.id;
     }
 
-    let prom = rp({"qs": qs, url: omdbapi, json: true}).then(function(data: OmdbMovie | OmdbError) {
+    const prom = rp({ "qs": qs, url: omdbapi, json: true }).then(function(data: OmdbMovie | OmdbError) {
         let ret: Movie | Episode;
         if (isError(data)) {
-            let err = new ImdbError(data.Error + ": " + (req.name ? req.name : req.id), req);
+            const err = new ImdbError(data.Error + ": " + (req.name ? req.name : req.id));
             if (cb) {
                 return cb(err, undefined);
             } else {
@@ -230,7 +307,7 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
             } else if (isEpisode(data)) {
                 ret = new Episode(data, 30);
             } else {
-                let err = new ImdbError("type: " + data.Type + " not valid", req);
+                const err = new ImdbError("type: " + data.Type + " not valid");
                 if (cb) {
                     return cb(err, undefined);
                 } else {
@@ -256,9 +333,28 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
 }
 
 export function get(name: string, opts: MovieOpts, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
-    return getReq({id: undefined, opts: opts, name: name }, cb);
+    return getReq({ id: undefined, opts: opts, name: name }, cb);
 }
 
 export function getById(imdbid: string, opts: MovieOpts, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
-    return getReq({id: imdbid, opts: opts, name: undefined}, cb);
+    return getReq({ id: imdbid, opts: opts, name: undefined }, cb);
+}
+
+export function search(req: SearchRequest, opts: MovieOpts, page?: number): Promise<SearchResults> {
+    if (page === undefined) {
+        page = 1;
+    }
+
+    const qs = reqtoqueryobj(req, opts.apiKey, page);
+
+    const prom = rp({ "qs": qs, url: omdbapi, json: true }).then(function(data: OmdbSearch | OmdbError) {
+        if (isError(data)) {
+            const err = new ImdbError(`${data.Error}: ${req.title}`);
+            return Promise.reject(err);
+        } else {
+            return Promise.resolve(new SearchResults(data, page, opts, req));
+        }
+    });
+
+    return prom;
 }

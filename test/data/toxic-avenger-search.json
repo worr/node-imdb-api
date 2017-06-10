@@ -1,0 +1,76 @@
+{
+  "Search": [
+    {
+      "Title": "The Toxic Avenger",
+      "Year": "1984",
+      "imdbID": "tt0090190",
+      "Type": "movie",
+      "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BNzViNmQ5MTYtMmI4Yy00N2Y2LTg4NWUtYWU3MThkMTVjNjk3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "The Toxic Avenger Part II",
+      "Year": "1989",
+      "imdbID": "tt0098503",
+      "Type": "movie",
+      "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BODhiNTljYTctMmIzZC00ZGVkLTk2NmItN2RjMzY3ZTYyNDczXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Citizen Toxie: The Toxic Avenger IV",
+      "Year": "2000",
+      "imdbID": "tt0212879",
+      "Type": "movie",
+      "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BMWI0NWY0ODUtNGY3Yy00ZDU1LTllYjUtMDFkYWEzZGQwY2I1XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "The Toxic Avenger Part III: The Last Temptation of Toxie",
+      "Year": "1989",
+      "imdbID": "tt0098502",
+      "Type": "movie",
+      "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BNjVlNzFjMGItMTEwYy00OTc0LWFmY2ItM2U0MmQyYWI5Njk3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Toxic",
+      "Year": "2008",
+      "imdbID": "tt0453560",
+      "Type": "movie",
+      "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTM4ODI3MzIwN15BMl5BanBnXkFtZTcwOTczMDgzMQ@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Toxic Love",
+      "Year": "1983",
+      "imdbID": "tt0166476",
+      "Type": "movie",
+      "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BNDhhNjFmNDctNzdjOC00MDg1LWE5MjctMmM4OGNiYzE4NjRmXkEyXkFqcGdeQXVyMjYxNzU4MDA@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Toxic Skies",
+      "Year": "2008",
+      "imdbID": "tt1414863",
+      "Type": "movie",
+      "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BMjA0Nzg4NjY4OF5BMl5BanBnXkFtZTcwMzY4ODIxMw@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Toxic Zombies",
+      "Year": "1980",
+      "imdbID": "tt0080448",
+      "Type": "movie",
+      "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTQzMTc1MjgzN15BMl5BanBnXkFtZTcwNzE2MDc5MQ@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Toxic Crusaders",
+      "Year": "1991–1993",
+      "imdbID": "tt0173344",
+      "Type": "series",
+      "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQ2MTcxNzk3M15BMl5BanBnXkFtZTcwMTQyNjcyMQ@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Toxic Affair",
+      "Year": "1993",
+      "imdbID": "tt0108372",
+      "Type": "movie",
+      "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTY4OTE3MjAzMF5BMl5BanBnXkFtZTcwOTYxNzY4Mg@@._V1_SX300.jpg"
+    }
+  ],
+  "totalResults": "98",
+  "Response": "True"
+}
