@@ -3,7 +3,8 @@
         "module": "commonjs",
         "removeComments": true,
         "outDir": "lib",
-        "sourceMap": true
+        "sourceMap": true,
+        "declaration": true
     },
     "files": [
         "src/imdb.ts",

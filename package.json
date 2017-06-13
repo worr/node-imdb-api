@@ -3,7 +3,8 @@
   "name": "imdb-api",
   "description": "Queries unofficial imdb APIs to get movie and television information from imdb",
   "version": "3.1.0",
-  "main": "lib/imdb.js",
+  "main": "./lib/imdb.js",
+  "types": "./lib/imdb.d.ts",
   "homepage": "https://github.com/worr/node-imdb-api",
   "repository": {
     "type": "git",

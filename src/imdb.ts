@@ -30,7 +30,7 @@ export interface MovieOpts {
     timeout?: number;
 }
 
-type RequestType = "movie"
+export type RequestType = "movie"
     | "series"
     | "episode"
     | "game";
