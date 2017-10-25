@@ -28,6 +28,7 @@ const omdbapi = "https://www.omdbapi.com/";
 export interface MovieOpts {
     apiKey: string;
     timeout?: number;
+    plot?: string
 }
 
 export type RequestType = "movie"
