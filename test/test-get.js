@@ -5,10 +5,11 @@ var nodeunit = require('nodeunit');
 var imdb = require('../lib/imdb.js');
 
 module.exports.testGetSuccessful = function(test) {
-    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=The%20Toxic%20Avenger').reply(200, require('./data/toxic-avenger.json'));
+    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=short&r=json&t=The%20Toxic%20Avenger').reply(200, require('./data/toxic-avenger-short-plot.json'));
 
     return imdb.get('The Toxic Avenger', {
-        apiKey: "foo"
+        apiKey: "foo",
+        plot: "short"
     }, testResults);
 
     function testResults(err, data) {
@@ -16,7 +17,7 @@ module.exports.testGetSuccessful = function(test) {
 
         test.ok(data);
         if(data){
-            test.equal(data.imdbid, 'tt0090191', "testing returned data");
+            test.equal(data.imdbid, 'tt0090190', "testing returned data");
             test.equal(data.series, false, "testing series bool");
             test.equal(data.hasOwnProperty("episodes"), false, "should not have episodes");
         }
