@@ -15,9 +15,11 @@ module.exports.testGetSuccessful = function(test) {
         test.ifError(err);
 
         test.ok(data);
-        test.equal(data.imdbid, 'tt0090191', "testing returned data");
-        test.equal(data.series, false, "testing series bool");
-        test.equal(data.hasOwnProperty("episodes"), false, "should not have episodes");
+        if(data){
+            test.equal(data.imdbid, 'tt0090191', "testing returned data");
+            test.equal(data.series, false, "testing series bool");
+            test.equal(data.hasOwnProperty("episodes"), false, "should not have episodes");
+        }
 
         test.done();
     }
