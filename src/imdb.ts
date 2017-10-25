@@ -28,7 +28,7 @@ const omdbapi = "https://www.omdbapi.com/";
 export interface MovieOpts {
     apiKey: string;
     timeout?: number;
-    plot?: string
+    plot?: string;
 }
 
 export type RequestType = "movie"
@@ -287,9 +287,9 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
         }
     }
 
-    const qs = { apikey: req.opts.apiKey, r: "json", y: req.year };
+    const plotOpt = ("plot" in req.opts) ? req.opts.plot : "full";
 
-    qs["plot"] = ("plot" in req.opts) ? req.opts.plot : "full";
+    const qs = { apikey: req.opts.apiKey, plot: plotOpt, r: "json", y: req.year };
 
     if (req.name) {
         qs["t"] = req.name;
