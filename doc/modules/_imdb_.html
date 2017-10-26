@@ -124,9 +124,14 @@
 					<div class="tsd-signature tsd-kind-icon">Request<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"movie"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"series"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"episode"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"game"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/d41aa18/src/imdb.ts#L33">imdb.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/1201904/src/imdb.ts#L58">imdb.ts:58</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Type of media we&#39;re searching for</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
@@ -137,7 +142,7 @@
 					<div class="tsd-signature tsd-kind-icon">Promise<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol"> =&nbsp;es6promise.Promise</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/d41aa18/src/imdb.ts#L24">imdb.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/1201904/src/imdb.ts#L24">imdb.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -147,7 +152,7 @@
 					<div class="tsd-signature tsd-kind-icon">omdbapi<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"https://www.omdbapi.com/"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;https://www.omdbapi.com/&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/d41aa18/src/imdb.ts#L26">imdb.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/1201904/src/imdb.ts#L26">imdb.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -157,7 +162,7 @@
 					<div class="tsd-signature tsd-kind-icon">trans_<wbr>table<span class="tsd-signature-symbol">:</span> <a href="../classes/_util_.inverter.html" class="tsd-signature-type">Inverter</a><span class="tsd-signature-symbol"> =&nbsp;new Inverter({&quot;genres&quot;: &quot;Genre&quot;,&quot;languages&quot;: &quot;Language&quot;,&quot;votes&quot;: &quot;imdbVotes&quot;,&quot;rating&quot;: &quot;imdbRating&quot;,})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/d41aa18/src/imdb.ts#L70">imdb.ts:70</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/1201904/src/imdb.ts#L91">imdb.ts:91</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -174,19 +179,36 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/d41aa18/src/imdb.ts#L345">imdb.ts:345</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/1201904/src/imdb.ts#L398">imdb.ts:398</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>use getReq instead</p>
+										<p>Gets a movie by name</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>name of movie to search for</p>
+									</div>
 								</li>
 								<li>
 									<h5>opts: <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>options that modify a search</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cb: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>optional callback to execute after finding results</p>
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
@@ -211,6 +233,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>a promise yielding a movie</p>
 						</li>
 					</ul>
 				</section>
@@ -224,19 +247,36 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/d41aa18/src/imdb.ts#L349">imdb.ts:349</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/1201904/src/imdb.ts#L413">imdb.ts:413</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>use getReq instead</p>
+										<p>Gets a movie by id</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>imdbid: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>id to search for</p>
+									</div>
 								</li>
 								<li>
 									<h5>opts: <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>options that modify a search</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cb: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>optional callback to execute after finding results</p>
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
@@ -261,6 +301,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>a promise yielding a movie</p>
 						</li>
 					</ul>
 				</section>
@@ -268,22 +309,33 @@
 					<a name="getreq" class="tsd-anchor"></a>
 					<h3>get<wbr>Req</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Req<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movierequest.html" class="tsd-signature-type">MovieRequest</a>, cb<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Req<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movierequest.html" class="tsd-signature-type">MovieRequest</a>, cb<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/d41aa18/src/imdb.ts#L278">imdb.ts:278</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/1201904/src/imdb.ts#L320">imdb.ts:320</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Fetches a movie by arbitrary criteria</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>req: <a href="../interfaces/_imdb_.movierequest.html" class="tsd-signature-type">MovieRequest</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>set of requirements to search for</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cb: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>optional callback to execute after fetching data</p>
+									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
@@ -307,7 +359,8 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>a promise yielding a movie</p>
 						</li>
 					</ul>
 				</section>
@@ -321,7 +374,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/d41aa18/src/imdb.ts#L51">imdb.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/1201904/src/imdb.ts#L72">imdb.ts:72</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -350,22 +403,37 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/d41aa18/src/imdb.ts#L353">imdb.ts:353</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/1201904/src/imdb.ts#L426">imdb.ts:426</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Searches for a movie by arbitrary criteria</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>req: <a href="../interfaces/_imdb_.searchrequest.html" class="tsd-signature-type">SearchRequest</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>set of requirements to search for</p>
+									</div>
 								</li>
 								<li>
 									<h5>opts: <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>options that modify a search</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> page: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>page number to return</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.searchresults.html" class="tsd-signature-type">SearchResults</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>a promise yielding search results</p>
 						</li>
 					</ul>
 				</section>

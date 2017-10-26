@@ -25,16 +25,26 @@ const Promise = es6promise.Promise;
 
 const omdbapi = "https://www.omdbapi.com/";
 
+/**
+ * Options to manipulate movie fetching
+ */
 export interface MovieOpts {
+    /**
+     * API key for omdbapi. Needed to make any API calls.
+     *
+     * Get one [here](https://www.patreon.com/posts/api-is-going-10743518)
+     */
     apiKey: string;
+
+    /**
+     * timeout in milliseconds to wait before giving up on a request
+     */
     timeout?: number;
 }
 
-export type RequestType = "movie"
-    | "series"
-    | "episode"
-    | "game";
-
+/**
+ * Movie we're requesting
+ */
 export interface MovieRequest {
     name?: string;
     id?: string;
@@ -42,6 +52,17 @@ export interface MovieRequest {
     opts: MovieOpts;
 }
 
+/**
+ * Type of media we're searching for
+ */
+export type RequestType = "movie"
+    | "series"
+    | "episode"
+    | "game";
+
+/**
+ * Search we're making
+ */
 export interface SearchRequest {
     title: string;
     reqtype?: RequestType;
@@ -168,7 +189,14 @@ export class TVShow extends Movie {
         this.opts = opts;
     }
 
-    public episodes(cb?: (err: Error, data: Episode[]) => any) {
+    /**
+     * Fetches episodes of a TV show
+     *
+     * @param cb optional callback that gets any errors or episodes
+     *
+     * @return Promise yielding list of episodes
+     */
+    public episodes(cb?: (err: Error, data: Episode[]) => any): Promise<Episode[]> {
         if (this._episodes.length !== 0) {
             return cb(undefined, this._episodes);
         }
@@ -264,6 +292,11 @@ export class SearchResults {
         }
     }
 
+    /**
+     * Returns the next page of search results
+     *
+     * @return next page of search results
+     */
     public next(): Promise<SearchResults> {
         return search(this.req, this.opts, this.page + 1);
     }
@@ -275,7 +308,16 @@ export class ImdbError {
     constructor(public message: string) { }
 }
 
-export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episode) => any) {
+/**
+ * Fetches a movie by arbitrary criteria
+ *
+ * @param req set of requirements to search for
+ * @param opts options that modify a search
+ * @param cb optional callback to execute after fetching data
+ *
+ * @return a promise yielding a movie
+ */
+export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episode) => any): Promise<Movie> {
 
     if (req.opts === undefined || !req.opts.hasOwnProperty("apiKey")) {
         const err = new ImdbError("Missing api key in opts");
@@ -342,14 +384,45 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
     }
 }
 
+/**
+ * @deprecated use getReq instead
+ *
+ * Gets a movie by name
+ *
+ * @param name name of movie to search for
+ * @param opts options that modify a search
+ * @param cb optional callback to execute after finding results
+ *
+ * @return a promise yielding a movie
+ */
 export function get(name: string, opts: MovieOpts, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
     return getReq({ id: undefined, opts: opts, name: name }, cb);
 }
 
+/**
+ * @deprecated use getReq instead
+ *
+ * Gets a movie by id
+ *
+ * @param imdbid id to search for
+ * @param opts options that modify a search
+ * @param cb optional callback to execute after finding results
+ *
+ * @return a promise yielding a movie
+ */
 export function getById(imdbid: string, opts: MovieOpts, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
     return getReq({ id: imdbid, opts: opts, name: undefined }, cb);
 }
 
+/**
+ * Searches for a movie by arbitrary criteria
+ *
+ * @param req set of requirements to search for
+ * @param opts options that modify a search
+ * @param page page number to return
+ *
+ * @return a promise yielding search results
+ */
 export function search(req: SearchRequest, opts: MovieOpts, page?: number): Promise<SearchResults> {
     if (page === undefined) {
         page = 1;
