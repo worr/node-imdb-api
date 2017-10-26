@@ -68,6 +68,8 @@
 				<p>A non-scraping, functional node.js interface to imdb</p>
 				<h1 id="badges">Badges</h1>
 				<p><a href="http://badge.fury.io/js/imdb-api"><img src="https://badge.fury.io/js/imdb-api.svg" alt="NPM version"></a> <a href="https://travis-ci.org/worr/node-imdb-api"><img src="https://travis-ci.org/worr/node-imdb-api.svg?branch=master" alt="Build Status"></a> <a href="https://flattr.com/submit/auto?user_id=worr&amp;url=https%3A%2F%2Fgithub.com%2Fworr%2Fnode-imdb-api%2F" title="node-imdb-api"><img src="http://api.flattr.com/button/button-compact-static-100x17.png" alt="Flattr Button" title="Flattr This!"></a></p>
+				<h1 id="api-docs">API Docs</h1>
+				<p><a href="https://docs.worrbase.com/node/imdb-api/">API docs are now here</a></p>
 				<h1 id="installation-">Installation:</h1>
 				<pre><code class="lang-bash">npm install --save imdb-api
 </code></pre>
@@ -78,9 +80,9 @@
 				<pre><code class="lang-js"><span class="hljs-keyword">const</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb-api'</span>);
 </code></pre>
 				<p>Call get/getReq/getById</p>
-				<pre><code class="lang-js">imdb.get(<span class="hljs-string">'The Toxic Avenger'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
-imdb.getById(<span class="hljs-string">'tt0090190'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
-imdb.getReq({ <span class="hljs-attr">name</span>: <span class="hljs-string">'The Toxic Avenger'</span>, <span class="hljs-attr">opts</span>: {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30</span>} }).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+				<pre><code class="lang-js">imdb.get(<span class="hljs-string">'The Toxic Avenger'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+imdb.getById(<span class="hljs-string">'tt0090190'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+imdb.getReq({ <span class="hljs-attr">name</span>: <span class="hljs-string">'The Toxic Avenger'</span>, <span class="hljs-attr">opts</span>: {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>} }).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
 </code></pre>
 				<p>DATA</p>
 				<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(movie);
