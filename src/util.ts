@@ -9,12 +9,14 @@ export class Inverter {
     private obj: StringHashMap;
     private rev_obj: StringHashMap;
 
-    constructor (obj: Object) {
+    constructor(obj: object) {
         this.obj = obj as StringHashMap;
         this.rev_obj = {} as StringHashMap;
 
-        for (let attr in obj) {
-            this.rev_obj[obj[attr]] = attr;
+        for (const attr in obj) {
+            if (obj.hasOwnProperty(attr)) {
+                this.rev_obj[obj[attr]] = attr;
+            }
         }
     }
 
