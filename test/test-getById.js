@@ -7,7 +7,7 @@ var nodeunit = require('nodeunit');
 var imdb = require('../lib/imdb.js');
 
 module.exports.testGetByIdSuccessful = function(test) {
-    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&i=tt0090191').reply(200, require('./data/toxic-avenger.json'));
+    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&i=tt0090191&plot=full&r=json').reply(200, require('./data/toxic-avenger.json'));
 
     return imdb.getById('tt0090191', {
         apiKey: "foo"
@@ -40,7 +40,7 @@ module.exports.testGetByIdUnsuccessful = function(test) {
 };
 
 module.exports.testGetMadeupMovie = function(test) {
-    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&i=tt0090190').reply(200, {
+    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&i=tt0090190&plot=full&r=json').reply(200, {
         Response: "False",
         Error: "Movie not found!"
     });

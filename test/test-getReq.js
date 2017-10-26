@@ -27,7 +27,7 @@ module.exports.testGetReqSuccessful = function(test) {
 };
 
 module.exports.testGetByReqIdSuccessful = function(test) {
-    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&i=tt0090191').reply(200, require('./data/toxic-avenger.json'));
+    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&i=tt0090191&plot=full&r=json').reply(200, require('./data/toxic-avenger.json'));
 
     return imdb.getReq({
         id: 'tt0090191',
@@ -49,7 +49,7 @@ module.exports.testGetByReqIdSuccessful = function(test) {
 };
 
 module.exports.testGetByReqYear = function(test) {
-    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&y=2015&t=James%20Bond').reply(200, require('./data/james-bond.json'));
+    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=James%20Bond&y=2015').reply(200, require('./data/james-bond.json'));
 
     return imdb.getReq({
         name: 'James Bond',
@@ -71,7 +71,7 @@ module.exports.testGetByReqYear = function(test) {
 };
 
 module.exports.testGetEpisode = function(test) {
-    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&i=tt0869673').reply(200, require('./data/mother-ep.json'));
+    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&i=tt0869673&plot=full&r=json').reply(200, require('./data/mother-ep.json'));
 
     return imdb.getReq({
         id: 'tt0869673',

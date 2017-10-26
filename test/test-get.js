@@ -70,7 +70,7 @@ module.exports.testGetEpisodes = function(test) {
     }, testResults);
 
     function testResults(err, tvshow) {
-        var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&i=tt0460649&r=json&Season=1').reply(200, require('./data/how-I-met-your-mother-episodes.json'));
+        var scope = nock('https://www.omdbapi.com').get('/?Season=1&apikey=foo&i=tt0460649&r=json').reply(200, require('./data/how-I-met-your-mother-episodes.json'));
         test.ifError(err);
 
         test.ok(tvshow);

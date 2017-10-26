@@ -42,7 +42,7 @@ module.exports.testEpisodes = function(test) {
     return imdb.get('How I Met Your Mother', {
         apiKey: "foo"
     }).then(function(data) {
-        var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&i=tt0460649&r=json&Season=1').reply(200, require('./data/how-I-met-your-mother-episodes.json'));
+        var scope = nock('https://www.omdbapi.com').get('/?Season=1&apikey=foo&i=tt0460649&r=json').reply(200, require('./data/how-I-met-your-mother-episodes.json'));
 
         test.ok(data);
         data.episodes().then(function(eps) {
