@@ -1,3 +1,9 @@
+# Version 3.1.1 -> 3.1.2
+
+* Fixes #54
+* Fixes #51
+* lots of modernization and enabling of tslint
+
 # Version 3.0.0 -> 3.1.0
 
 This adds searching for movies and items from omdb.
