@@ -78,9 +78,9 @@
 				<pre><code class="lang-js"><span class="hljs-keyword">const</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb-api'</span>);
 </code></pre>
 				<p>Call get/getReq/getById</p>
-				<pre><code class="lang-js">imdb.get(<span class="hljs-string">'The Toxic Avenger'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
-imdb.getById(<span class="hljs-string">'tt0090190'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
-imdb.getReq({ <span class="hljs-attr">name</span>: <span class="hljs-string">'The Toxic Avenger'</span>, <span class="hljs-attr">opts</span>: {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30</span>} }).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+				<pre><code class="lang-js">imdb.get(<span class="hljs-string">'The Toxic Avenger'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">60</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+imdb.getById(<span class="hljs-string">'tt0090190'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">60</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+imdb.getReq({ <span class="hljs-attr">name</span>: <span class="hljs-string">'The Toxic Avenger'</span>, <span class="hljs-attr">opts</span>: {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">60</span>} }).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
 </code></pre>
 				<p>DATA</p>
 				<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(movie);
