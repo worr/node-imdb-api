@@ -27,9 +27,9 @@ const imdb = require('imdb-api');
 ```
 Call get/getReq/getById
 ```js
-imdb.get('The Toxic Avenger', {apiKey: 'foo', timeout: 30}).then(console.log).catch(console.log);
-imdb.getById('tt0090190', {apiKey: 'foo', timeout: 30}).then(console.log).catch(console.log);
-imdb.getReq({ name: 'The Toxic Avenger', opts: {apiKey: 'foo', timeout: 30} }).then(console.log).catch(console.log);
+imdb.get('The Toxic Avenger', {apiKey: 'foo', timeout: 30000}).then(console.log).catch(console.log);
+imdb.getById('tt0090190', {apiKey: 'foo', timeout: 30000}).then(console.log).catch(console.log);
+imdb.getReq({ name: 'The Toxic Avenger', opts: {apiKey: 'foo', timeout: 30000} }).then(console.log).catch(console.log);
 ```
 DATA
 ```js
