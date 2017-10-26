@@ -82,7 +82,7 @@ function reqtoqueryobj(req: SearchRequest, apikey: string, page: number): object
     }
 
     if (req.year !== undefined) {
-        req["y"] = req.year;
+        ret["y"] = req.year;
     }
 
     return ret;
