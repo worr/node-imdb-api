@@ -207,6 +207,7 @@ export class TVShow extends Movie {
                 },
                 timeout: undefined,
                 url: omdbapi,
+                withCredentials: false,
             };
 
             if ("timeout" in this.opts) {
@@ -357,6 +358,7 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
         qs,
         timeout: undefined,
         url: omdbapi,
+        withCredentials: false,
     };
 
     if ("timeout" in req.opts) {
@@ -450,7 +452,7 @@ export function search(req: SearchRequest, opts: MovieOpts, page?: number): Prom
     }
 
     const qs = reqtoqueryobj(req, opts.apiKey, page);
-    const reqopts = { qs, url: omdbapi, json: true, timeout: undefined };
+    const reqopts = { qs, url: omdbapi, json: true, timeout: undefined, withCredentials: false };
     if ("timeout" in opts) {
         reqopts.timeout = opts.timeout;
     }
