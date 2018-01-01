@@ -15,7 +15,7 @@
     "build": "tsc -p .",
     "prepublish": "npm run build",
     "lint": "tslint --project tsconfig.json",
-    "test": "nodeunit test",
+    "test": "istanbul cover node_modules/nodeunit/bin/nodeunit test && codecov",
     "check": "npm run lint && npm run test",
     "docs": "typedoc --out ./doc --ignoreCompilerErrors src/imdb.ts",
     "clean": "rm -rf node_modules lib"
