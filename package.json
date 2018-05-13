@@ -21,13 +21,13 @@
     "clean": "rm -rf node_modules lib"
   },
   "devDependencies": {
-    "codecov": "^3.0.0",
+    "codecov": "^3.0.2",
     "istanbul": "^0.4.5",
-    "nock": "^9.1.5",
+    "nock": "^9.2.5",
     "nodeunit": "^0.11.2",
-    "tslint": "^5.8.0",
-    "typedoc": "^0.9.0",
-    "typescript": "^2.6.2"
+    "tslint": "^5.10.0",
+    "typedoc": "^0.11.1",
+    "typescript": "^2.8.3"
   },
   "optionalDependencies": {},
   "engines": {
@@ -41,8 +41,8 @@
     "television"
   ],
   "dependencies": {
-    "es6-promise": "^4.2.2",
-    "request": "^2.83.0",
+    "es6-promise": "^4.2.4",
+    "request": "^2.85.0",
     "request-promise": "^4.2.2"
   }
 }
