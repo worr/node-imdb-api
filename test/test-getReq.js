@@ -90,3 +90,26 @@ module.exports.testGetEpisode = function(test) {
         test.done();
     }
 };
+
+module.exports.testGetReqShortPlot = function(test) {
+    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=short&r=json&t=The%20Toxic%20Avenger').reply(200, require('./data/toxic-avenger.json'));
+
+    return imdb.getReq({
+        name: 'The Toxic Avenger',
+        short_plot: true,
+        opts: {
+            apiKey: "foo"
+        }
+    }, testResults);
+
+    function testResults(err, data) {
+        test.ifError(err);
+
+        test.ok(data);
+        test.equal(data.imdbid, 'tt0090191', "testing returned data");
+        test.equal(data.series, false, "testing series bool");
+        test.equal(data.hasOwnProperty("episodes"), false, "should not have episodes");
+
+        test.done();
+    }
+};

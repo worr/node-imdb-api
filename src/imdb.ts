@@ -49,6 +49,7 @@ export interface MovieRequest {
     name?: string;
     id?: string;
     year?: number;
+    short_plot?: boolean;
     opts: MovieOpts;
 }
 
@@ -341,7 +342,7 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
     const qs = {
         apikey: req.opts.apiKey,
         i: undefined,
-        plot: "full",
+        plot: req.short_plot ? "short" : "full",
         r: "json",
         t: undefined,
         y: req.year,
