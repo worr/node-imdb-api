@@ -14,11 +14,3 @@ install:
 script:
 - npm run lint
 - npm run test
-deploy:
-  provider: npm
-  email: will@worrbase.com
-  api_key:
-    secure: AeKdzs/Hrj8ANfemsmOm+gXJwVEELC+GXC/rI/KbOr1mkTHUYHitvuqdcepW3zQVVuEHrJYVhO2oqA4yUie0/jl3jx8I8xZJVr3K+TIolKPNUFSiEGOZX32tZEM123gEBGregFl4XBpYHENmqYnyTaM0smdvc06k4nFVADpAnbE=
-  on:
-    tags: true
-    repo: worr/node-imdb-api
