@@ -21,6 +21,7 @@ module.exports.testGetReqSuccessful = function(test) {
         test.equal(data.imdbid, 'tt0090191', "testing returned data");
         test.equal(data.series, false, "testing series bool");
         test.equal(data.hasOwnProperty("episodes"), false, "should not have episodes");
+        test.equal(data.rating, 6.2, "testing rating conversion");
 
         test.done();
     }
@@ -43,6 +44,7 @@ module.exports.testGetByReqIdSuccessful = function(test) {
         test.equal(data.title, 'The Toxic Avenger', "testing returned data");
         test.equal(data.series, false, "testing series bool");
         test.equal(data.hasOwnProperty("episodes"), false, "should not have episodes");
+        test.equal(data.rating, 6.2, "testing rating conversion");
 
         test.done();
     }

@@ -131,8 +131,8 @@ export class Episode {
             if (attr === "Released") {
                 const [year, month, day] = obj[attr].split("-");
                 this.released = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10));
-            } else if (attr === "Rating") {
-                this[attr.toLowerCase()] = parseFloat(obj[attr]);
+            } else if (attr === "imdbRating") {
+                this[trans_table.get(attr)] = parseFloat(obj[attr]);
             } else if (attr === "Episode" || attr === "Season") {
                 this[attr.toLowerCase()] = parseInt(obj[attr], 10);
             } else if (attr === "Title") {
@@ -180,8 +180,8 @@ export class Movie {
                 }
             } else if (attr === "Released") {
                 this.released = new Date(obj[attr]);
-            } else if (attr === "Rating") {
-                this[attr.toLowerCase()] = parseFloat(obj[attr]);
+            } else if (attr === "imdbRating") {
+                this[trans_table.get(attr)] = parseFloat(obj[attr]);
             } else if (trans_table.get(attr) !== undefined) {
                 this[trans_table.get(attr)] = obj[attr];
             } else {
