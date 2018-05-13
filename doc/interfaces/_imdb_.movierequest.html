@@ -72,7 +72,8 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Movie we&#39;re requesting</p>
+						<p>An explicit request for a movie. Does not do searching, this is meant
+						to specify <em>one specific</em> movie.</p>
 					</div>
 				</div>
 			</section>
@@ -94,6 +95,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_imdb_.movierequest.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_imdb_.movierequest.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_imdb_.movierequest.html#opts" class="tsd-kind-icon">opts</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_imdb_.movierequest.html#short_plot" class="tsd-kind-icon">short_<wbr>plot</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_imdb_.movierequest.html#year" class="tsd-kind-icon">year</a></li>
 							</ul>
 						</section>
@@ -108,9 +110,14 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/136a6cc/src/imdb.ts#L50">imdb.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L58">imdb.ts:58</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>imdb id of the movie</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="name" class="tsd-anchor"></a>
@@ -118,9 +125,14 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/136a6cc/src/imdb.ts#L49">imdb.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L53">imdb.ts:53</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of the movie</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="opts" class="tsd-anchor"></a>
@@ -128,9 +140,29 @@
 					<div class="tsd-signature tsd-kind-icon">opts<span class="tsd-signature-symbol">:</span> <a href="_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/136a6cc/src/imdb.ts#L52">imdb.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L73">imdb.ts:73</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Metadata about how we&#39;re retrieving the request</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="short_plot" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> short_<wbr>plot</h3>
+					<div class="tsd-signature tsd-kind-icon">short_<wbr>plot<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L68">imdb.ts:68</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether or not to request a short plot. Default is full plot.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="year" class="tsd-anchor"></a>
@@ -138,9 +170,14 @@
 					<div class="tsd-signature tsd-kind-icon">year<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/136a6cc/src/imdb.ts#L51">imdb.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L63">imdb.ts:63</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Year that the movie was released</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -150,13 +187,19 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
+					</li>
 					<li class="current tsd-kind-external-module">
 						<a href="../modules/_imdb_.html">"imdb"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_interfaces_.html">"interfaces"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_util_.html">"util"</a>
 					</li>
 				</ul>
@@ -197,6 +240,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_imdb_.movierequest.html#opts" class="tsd-kind-icon">opts</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_imdb_.movierequest.html#short_plot" class="tsd-kind-icon">short_<wbr>plot</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_imdb_.movierequest.html#year" class="tsd-kind-icon">year</a>

@@ -43,13 +43,33 @@ export interface MovieOpts {
 }
 
 /**
- * Movie we're requesting
+ * An explicit request for a movie. Does not do searching, this is meant
+ * to specify *one specific* movie.
  */
 export interface MovieRequest {
+    /**
+     * Name of the movie
+     */
     name?: string;
+
+    /**
+     * imdb id of the movie
+     */
     id?: string;
+
+    /**
+     * Year that the movie was released
+     */
     year?: number;
+
+    /**
+     * Whether or not to request a short plot. Default is full plot.
+     */
     short_plot?: boolean;
+
+    /**
+     * Metadata about how we're retrieving the request
+     */
     opts: MovieOpts;
 }
 
@@ -62,11 +82,23 @@ export type RequestType = "movie"
     | "game";
 
 /**
- * Search we're making
+ * A search for a movie. This will fetch multiple results based on fuzzy matches
+ * for a particular piece of media.
  */
 export interface SearchRequest {
+    /**
+     * Title of the media that we're looking for
+     */
     title: string;
+
+    /**
+     * Type of media we're looking for
+     */
     reqtype?: RequestType;
+
+    /**
+     * Year that the piece of media was released
+     */
     year?: number;
 }
 
