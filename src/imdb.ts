@@ -1,10 +1,6 @@
 "use strict";
 
 import {
-    Inverter,
-} from "./util";
-
-import {
     isEpisode,
     isError,
     isMovie,
@@ -110,12 +106,12 @@ function reqtoqueryobj(req: SearchRequest, apikey: string, page: number): object
     };
 }
 
-const trans_table = new Inverter({
-    genres: "Genre",
-    languages: "Language",
-    rating: "imdbRating",
-    votes: "imdbVotes",
-});
+const trans_table = {
+    Genre: "genres",
+    Language: "languages",
+    imdbRating: "rating",
+    imdbVotes: "votes"
+};
 
 export class Episode {
     public season: number;
@@ -132,13 +128,13 @@ export class Episode {
                 const [year, month, day] = obj[attr].split("-");
                 this.released = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10));
             } else if (attr === "imdbRating") {
-                this[trans_table.get(attr)] = parseFloat(obj[attr]);
+                this[trans_table[attr]] = parseFloat(obj[attr]);
             } else if (attr === "Episode" || attr === "Season") {
                 this[attr.toLowerCase()] = parseInt(obj[attr], 10);
             } else if (attr === "Title") {
                 this.name = obj[attr];
-            } else if (trans_table.get(attr) !== undefined) {
-                this[trans_table.get(attr)] = obj[attr];
+            } else if (trans_table[attr] !== undefined) {
+                this[trans_table[attr]] = obj[attr];
             } else {
                 this[attr.toLowerCase()] = obj[attr];
             }
@@ -181,9 +177,9 @@ export class Movie {
             } else if (attr === "Released") {
                 this.released = new Date(obj[attr]);
             } else if (attr === "imdbRating") {
-                this[trans_table.get(attr)] = parseFloat(obj[attr]);
-            } else if (trans_table.get(attr) !== undefined) {
-                this[trans_table.get(attr)] = obj[attr];
+                this[trans_table[attr]] = parseFloat(obj[attr]);
+            } else if (trans_table[attr] !== undefined) {
+                this[trans_table[attr]] = obj[attr];
             } else {
                 this[attr.toLowerCase()] = obj[attr];
             }
