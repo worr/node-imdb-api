@@ -15,16 +15,16 @@
     "build": "tsc -p .",
     "prepublish": "npm run build",
     "lint": "tslint --project tsconfig.json",
-    "test": "istanbul cover node_modules/nodeunit/bin/nodeunit test && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test": "nyc node_modules/nodeunit/bin/nodeunit test && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "check": "npm run lint && npm run test",
     "docs": "typedoc --out ./doc --ignoreCompilerErrors src/imdb.ts",
     "clean": "rm -rf node_modules lib"
   },
   "devDependencies": {
     "coveralls": "^3.0.1",
-    "istanbul": "^0.4.5",
     "nock": "^9.2.5",
     "nodeunit": "^0.11.2",
+    "nyc": "^11.7.3",
     "tslint": "^5.10.0",
     "typedoc": "^0.11.1",
     "typescript": "^2.8.3"
