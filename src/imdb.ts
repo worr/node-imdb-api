@@ -110,7 +110,7 @@ const trans_table = {
     Genre: "genres",
     Language: "languages",
     imdbRating: "rating",
-    imdbVotes: "votes"
+    imdbVotes: "votes",
 };
 
 export class Episode {
