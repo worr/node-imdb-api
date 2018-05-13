@@ -18,10 +18,7 @@ import {
     OmdbTvshow,
 } from "./interfaces";
 
-import es6promise = require("es6-promise");
 import rp = require("request-promise-native");
-
-const Promise = es6promise.Promise;
 
 const omdbapi = "https://www.omdbapi.com/";
 
@@ -490,7 +487,7 @@ export function search(req: SearchRequest, opts: MovieOpts, page?: number): Prom
         reqopts.timeout = opts.timeout;
     }
 
-    const prom: Promise<any> = rp(reqopts).then((data: OmdbSearch | OmdbError) => {
+    const prom = rp(reqopts).then((data: OmdbSearch | OmdbError) => {
         if (isError(data)) {
             const err = new ImdbError(`${data.Error}: ${req.title}`);
             return Promise.reject(err);
