@@ -124,13 +124,3 @@ module.exports.testUnsuccessfulGetEpisodes = function(test) {
         test.done();
     }
 };
-
-module.exports.testNoApiKey = function(test) {
-    return imdb.get("foo", {}, testResults);
-
-    function testResults(err, data) {
-        test.ifError(data);
-
-        test.done();
-    }
-};

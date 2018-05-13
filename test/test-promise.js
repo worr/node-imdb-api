@@ -71,3 +71,18 @@ module.exports.testUnsuccessfulEpisodes = function(test) {
         });
     });
 };
+
+module.exports.testNoApiKey = function(test) {
+    return imdb.getReq({
+        name: "foo",
+        opts: {}
+    }).then((data) => {
+        console.log("bad");
+        test.ok(! data, "ensure data is not defined");
+    }).catch((err) => {
+        test.ok(err, "ensure error is defined");
+        test.equal(err.message, "Missing api key in opts");
+
+        test.done();
+    });
+};

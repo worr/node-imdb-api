@@ -161,3 +161,15 @@ module.exports.testGetEpisodesTimeout = function(test) {
         test.done();
     }
 };
+
+module.exports.testNoApiKey = function(test) {
+    return imdb.getReq({name: "foo", opts: {}}, testResults);
+
+    function testResults(err, data) {
+        test.ifError(data);
+        test.ok(err, "ensure error is defined");
+        test.equal(err.message, "Missing api key in opts");
+
+        test.done();
+    }
+};
