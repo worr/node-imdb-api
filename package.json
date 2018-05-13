@@ -41,8 +41,10 @@
     "television"
   ],
   "dependencies": {
+    "@types/request": "^2.47.0",
+    "@types/request-promise-native": "^1.0.14",
     "es6-promise": "^4.2.4",
     "request": "^2.85.0",
-    "request-promise": "^4.2.2"
+    "request-promise-native": "^1.0.5"
   }
 }
