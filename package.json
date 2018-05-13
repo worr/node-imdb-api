@@ -15,8 +15,9 @@
     "build": "tsc -p .",
     "prepublish": "npm run build",
     "lint": "tslint --project tsconfig.json",
-    "test": "nyc --reporter=lcov node_modules/nodeunit/bin/nodeunit test && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test": "nyc --reporter=lcov node_modules/nodeunit/bin/nodeunit test",
     "check": "npm run lint && npm run test",
+    "ci": "npm run check && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "typedoc --out ./doc --ignoreCompilerErrors src/imdb.ts",
     "clean": "rm -rf node_modules lib"
   },

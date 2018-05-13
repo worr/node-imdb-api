@@ -11,5 +11,4 @@ cache:
 install:
 - npm install
 script:
-- npm run lint
-- npm run test
+- npm run ci
