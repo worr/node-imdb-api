@@ -113,3 +113,51 @@ module.exports.testGetReqShortPlot = function(test) {
         test.done();
     }
 };
+
+module.exports.testGetReqTimeout = function(test) {
+    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=The%20Toxic%20Avenger').socketDelay(2000).reply(200, require('./data/toxic-avenger.json'));
+
+    return imdb.getReq({
+        name: 'The Toxic Avenger',
+        opts: {
+            apiKey: "foo",
+            timeout: 1000
+        }
+    }, testResults);
+
+    function testResults(err, data) {
+        test.ifError(data);
+        test.ok(err, "ensuring error is defined");
+        test.equal(err.message, "Error: ESOCKETTIMEDOUT");
+
+        test.done();
+    }
+};
+
+module.exports.testGetEpisodesTimeout = function(test) {
+    var scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=How%20I%20Met%20Your%20Mother').reply(200, require('./data/how-I-met-your-mother.json'));
+
+    return imdb.getReq({
+        name: 'How I Met Your Mother',
+        opts: {
+            apiKey: "foo",
+            timeout: 1000
+        }
+    }, testResults);
+
+    function testResults(err, data) {
+        var scope = nock('https://www.omdbapi.com').get('/?Season=1&apikey=foo&i=tt0460649&r=json').socketDelay(2000).reply(200, require('./data/how-I-met-your-mother-episodes.json'));
+
+        test.ifError(err);
+
+        return data.episodes(testEpisodes);
+    }
+
+    function testEpisodes(err, data) {
+        test.ifError(data);
+        test.ok(err, "ensuring error is defined");
+        test.equal(err.message, "Error: ESOCKETTIMEDOUT");
+
+        test.done();
+    }
+};
