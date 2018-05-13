@@ -16,3 +16,4 @@ npm-debug.log
 *.swp
 lib
 typings/
+coverage/
