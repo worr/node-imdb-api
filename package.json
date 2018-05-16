@@ -15,17 +15,20 @@
     "build": "tsc -p .",
     "prepublish": "npm run build",
     "lint": "tslint --project tsconfig.json",
-    "test": "nyc --reporter=lcov node_modules/nodeunit/bin/nodeunit test",
+    "test": "nyc --require ts-node/register --reporter=lcov node_modules/nodeunit/bin/nodeunit test test/test-movie.ts",
     "check": "npm run lint && npm run test",
     "ci": "npm run check && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "typedoc --out ./doc --ignoreCompilerErrors src/imdb.ts",
     "clean": "rm -rf node_modules lib"
   },
   "devDependencies": {
+    "@types/nodeunit": "^0.0.30",
     "coveralls": "^3.0.1",
+    "js-beautify": "^1.7.5",
     "nock": "^9.2.5",
     "nodeunit": "^0.11.2",
     "nyc": "^11.7.3",
+    "ts-node": "^6.0.3",
     "tslint": "^5.10.0",
     "typedoc": "^0.11.1",
     "typescript": "^2.8.3"

@@ -92,7 +92,7 @@ module.exports.testGetEpisodes = function(test) {
         test.equal(data[0].season, 1, "testing a random value");
         test.equal(data[0].episode, 1, "testing another value");
         test.equal(data[0].name, "Pilot", "testing episode title");
-        test.equal(data[0].released.getTime(), new Date(2005, 8, 19).getTime(), "testing release date");
+        test.deepEqual(data[0].released, new Date("19 Sep 2005"), "testing release date");
 
         test.equal(typeof(tvshow._episodes), "object", "testing type of _episodes");
         test.equal(tvshow._episodes[0].season, 1, "testing cached value");

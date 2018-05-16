@@ -125,11 +125,14 @@ export class Episode {
         this.season = season;
         for (const attr in obj) {
             if (attr === "Released") {
-                const [year, month, day] = obj[attr].split("-");
-                this.released = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10));
+                let val = new Date(obj[attr]);
+                if (isNaN(val.getTime())) {
+                    throw new TypeError("invalid release date");
+                }
+                this.released = val;
             } else if (attr === "imdbRating") {
                 this[trans_table[attr]] = parseFloat(obj[attr]);
-            } else if (attr === "Episode" || attr === "Season") {
+            } else if (attr === "Episode") {
                 this[attr.toLowerCase()] = parseInt(obj[attr], 10);
             } else if (attr === "Title") {
                 this.name = obj[attr];
@@ -169,14 +172,27 @@ export class Movie {
 
     constructor(obj: OmdbMovie) {
         for (const attr in obj) {
-            if (attr === "year" || attr.toLowerCase() === "year") {
+            if (attr === "Year") {
                 this._year_data = obj[attr];
-                if (!obj[attr].match(/\d{4}[\-–]\d{4}/)) {
-                    this[attr.toLowerCase()] = parseInt(obj[attr], 10);
+                // check for emdash as well
+                if (!obj[attr].match(/\d{4}[\-–](?:\d{4})?/)) {
+                    let val = parseInt(obj[attr], 10);
+                    if (isNaN(val)) {
+                        throw new TypeError("invalid year");
+                    }
+                    this[attr.toLowerCase()] = val;
                 }
             } else if (attr === "Released") {
-                this.released = new Date(obj[attr]);
+                let val = new Date(obj[attr]);
+                if (isNaN(val.getTime())) {
+                    throw new TypeError("invalid release date");
+                }
+                this.released = val;
             } else if (attr === "imdbRating") {
+                let val = parseFloat(obj[attr]);
+                if (isNaN(val)) {
+                    throw new TypeError("invalid rating");
+                }
                 this[trans_table[attr]] = parseFloat(obj[attr]);
             } else if (trans_table[attr] !== undefined) {
                 this[trans_table[attr]] = obj[attr];
