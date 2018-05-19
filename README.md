@@ -4,7 +4,7 @@ A non-scraping, functional node.js interface to imdb
 
 # Badges
 
-[![NPM version](https://badge.fury.io/js/imdb-api.svg)](http://badge.fury.io/js/imdb-api) [![Build Status](https://travis-ci.org/worr/node-imdb-api.svg?branch=master)](https://travis-ci.org/worr/node-imdb-api) [![Dependency Freshness](https://david-dm.org/worr/node-imdb-api.svg)](https://david-dm.org/worr/node-imdb-api) [![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](https://flattr.com/submit/auto?user_id=worr&url=https%3A%2F%2Fgithub.com%2Fworr%2Fnode-imdb-api%2F "node-imdb-api")
+[![NPM version](https://badge.fury.io/js/imdb-api.svg)](http://badge.fury.io/js/imdb-api) [![Build Status](https://travis-ci.org/worr/node-imdb-api.svg?branch=master)](https://travis-ci.org/worr/node-imdb-api) [![Dependency Freshness](https://david-dm.org/worr/node-imdb-api.svg)](https://david-dm.org/worr/node-imdb-api) [![Coverage Status](https://coveralls.io/repos/github/worr/node-imdb-api/badge.svg?branch=master)](https://coveralls.io/github/worr/node-imdb-api?branch=master)
 
 # API Docs
 
