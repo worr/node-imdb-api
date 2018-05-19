@@ -233,7 +233,11 @@ export class TVShow extends Movie {
      */
     public episodes(cb?: (err: Error, data: Episode[]) => any): Promise<Episode[]> {
         if (this._episodes.length !== 0) {
-            return cb(undefined, this._episodes);
+            if (cb) {
+                return cb(undefined, this._episodes);
+            } else {
+                return Promise.resolve(this._episodes);
+            }
         }
 
         const tvShow = this;
