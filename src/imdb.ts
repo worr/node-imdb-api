@@ -126,7 +126,7 @@ export class Episode {
         this.season = season;
         for (const attr in obj) {
             if (attr === "Released") {
-                let val = new Date(obj[attr]);
+                const val = new Date(obj[attr]);
                 if (isNaN(val.getTime())) {
                     throw new TypeError("invalid release date");
                 }
@@ -177,20 +177,20 @@ export class Movie {
                 this._year_data = obj[attr];
                 // check for emdash as well
                 if (!obj[attr].match(/\d{4}[\-–](?:\d{4})?/)) {
-                    let val = parseInt(obj[attr], 10);
+                    const val = parseInt(obj[attr], 10);
                     if (isNaN(val)) {
                         throw new TypeError("invalid year");
                     }
                     this[attr.toLowerCase()] = val;
                 }
             } else if (attr === "Released") {
-                let val = new Date(obj[attr]);
+                const val = new Date(obj[attr]);
                 if (isNaN(val.getTime())) {
                     throw new TypeError("invalid release date");
                 }
                 this.released = val;
             } else if (attr === "imdbRating") {
-                let val = parseFloat(obj[attr]);
+                const val = parseFloat(obj[attr]);
                 if (isNaN(val)) {
                     throw new TypeError("invalid rating");
                 }
