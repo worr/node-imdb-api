@@ -1,6 +1,6 @@
-import mocha = require('mocha');
-let assert = require('chai').assert;
-import imdb = require('../lib/imdb.js');
+import mocha = require("mocha");
+let assert = require("chai").assert;
+import imdb = require("../lib/imdb.js");
 
 const orig_movie = {
     Title: "Foo",
@@ -59,7 +59,7 @@ const orig_episode = {
     Year: "2006"
 };
 
-describe('Movie', () => {
+describe("Movie", () => {
     it("creates a normal movie", () => {
         const mov = new imdb.Movie(orig_movie);
 
@@ -69,26 +69,26 @@ describe('Movie', () => {
         assert.deepEqual(mov.rating, 6.7);
         assert.deepEqual(mov.genres, orig_movie.Genre, "Genres set correctly");
         assert.deepEqual(mov.languages, orig_movie.Language, "Language set correctly");
-        assert.deepEqual(mov.votes, '5', "votes set correctly");
+        assert.deepEqual(mov.votes, "5", "votes set correctly");
         assert.deepEqual(mov.series, false, "not a series");
         assert.deepEqual(mov.imdburl, "https://www.imdb.com/title/tt653921", "url formulated correctly");
     });
     it("creates a movie with invalid score", () => {
-        const mov = Object.assign(Object.create(orig_movie), {imdbRating: 'foo'});
+        const mov = Object.assign(Object.create(orig_movie), {imdbRating: "foo"});
         assert.throws(() => new imdb.Movie(mov), TypeError);
     });
     it("creates a movie with bad release data", () => {
-        const mov = Object.assign(Object.create(orig_movie), {Released: 'foo'});
+        const mov = Object.assign(Object.create(orig_movie), {Released: "foo"});
         assert.throws(() => new imdb.Movie(mov), TypeError);
     });
     it("creates a movie with no year", () => {
         let mov = Object.assign(Object.create(orig_movie));
         delete mov.__proto__.Year;
-        delete mov['Year'];
+        delete mov["Year"];
         assert.isNotOk(new imdb.Movie(mov).year);
     });
     it("creates a movie with invalid year", () => {
-        const mov = Object.assign(Object.create(orig_movie), {Year: 'foo'});
+        const mov = Object.assign(Object.create(orig_movie), {Year: "foo"});
         assert.throws(() => new imdb.Movie(mov), TypeError);
     });
     it("creates a movie with matching year", () => {
@@ -99,7 +99,7 @@ describe('Movie', () => {
     });
 });
 
-describe('Series', () => {
+describe("Series", () => {
     it("creates a series", () => {
         const mov = new imdb.TVShow(orig_tv, { apiKey: "foo" });
 
@@ -109,7 +109,7 @@ describe('Series', () => {
         assert.deepEqual(mov.rating, 6.7);
         assert.deepEqual(mov.genres, orig_tv.Genre, "Genres set correctly");
         assert.deepEqual(mov.languages, orig_tv.Language, "Language set correctly");
-        assert.deepEqual(mov.votes, '5', "votes set correctly");
+        assert.deepEqual(mov.votes, "5", "votes set correctly");
         assert.deepEqual(mov.series, true, "deffo a series");
         assert.deepEqual(mov.imdburl, "https://www.imdb.com/title/tt653921", "url formulated correctly");
         assert.deepEqual(mov.start_year, 1996, "test start year");
@@ -117,12 +117,12 @@ describe('Series', () => {
         assert.deepEqual(mov.totalseasons, 5, "total seasons set correctly");
     });
     it("creates a series with invalid year", () => {
-        const mov = Object.assign(Object.create(orig_tv), {Year: 'foo-'});
-        assert.throws(() => new imdb.Movie(mov), TypeError);
+        const mov = Object.assign(Object.create(orig_tv), {Year: "foo-"});
+        assert.throws(() => new imdb.TVShow(mov, { apiKey: "foo" }), TypeError);
     });
 });
 
-describe('Episode', () => {
+describe("Episode", () => {
     it("creates a basic episode", () => {
         const ep = new imdb.Episode(orig_episode, 1);
 
@@ -134,5 +134,15 @@ describe('Episode', () => {
         assert.deepEqual(ep.season, 1, "testing season");
         assert.deepEqual(ep.episode, 1, "testing ep");
         assert.deepEqual(ep.year, 2006, "testing year");
+    });
+
+    it("creates an episode with an invalid release", () => {
+        const ep = Object.assign(Object.create(orig_tv), {Released: "foo"});
+        assert.throws(() => new imdb.Episode(ep, 30), TypeError);
+    });
+
+    it("creates an episode with an invalid year", () => {
+        const ep = Object.assign(Object.create(orig_tv), {Year: "foo"});
+        assert.throws(() => new imdb.Episode(ep, 30), TypeError);
     });
 });

@@ -134,7 +134,11 @@ export class Episode {
             } else if (attr === "imdbRating") {
                 this[trans_table[attr]] = parseFloat(obj[attr]);
             } else if (attr === "Episode" || attr === "Year") {
-                this[attr.toLowerCase()] = parseInt(obj[attr], 10);
+                const attr_name = attr.toLowerCase();
+                this[attr_name] = parseInt(obj[attr], 10);
+                if (isNaN(this[attr_name])) {
+                    throw new TypeError(`invalid {attr_name}`);
+                }
             } else if (attr === "Title") {
                 this.name = obj[attr];
             } else if (trans_table[attr] !== undefined) {
@@ -434,7 +438,7 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
             } else if (isEpisode(data)) {
                 ret = new Episode(data, 30);
             } else {
-                const err = new ImdbError("type: " + data.Type + " not valid");
+                const err = new ImdbError(`type: {data.Type}  not valid`);
                 if (cb) {
                     return cb(err, undefined);
                 } else {
