@@ -220,7 +220,7 @@ export class TVShow extends Movie {
         const years = this._year_data.split("-");
         this.start_year = parseInt(years[0], 10);
         if (isNaN(this.start_year)) {
-            throw new TypeError('Invalid start year');
+            throw new TypeError("Invalid start year");
         }
         this.end_year = parseInt(years[1], 10) ? parseInt(years[1], 10) : null;
         this.totalseasons = parseInt(this.totalseasons, 10);
@@ -270,8 +270,7 @@ export class TVShow extends Movie {
         const prom = Promise.all(funcs)
             .then((ep_data: OmdbSeason[] | OmdbError[]) => {
                 const eps: Episode[] = [];
-                for (const key in ep_data) {
-                    const datum = ep_data[key];
+                for (const datum of ep_data) {
                     if (isError(datum)) {
                         const err = new ImdbError(datum.Error);
                         if (cb) {
@@ -397,6 +396,13 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
         qs.t = req.name;
     } else if (req.id) {
         qs.i = req.id;
+    } else {
+        const err = new ImdbError("Missing one of req.id or req.name");
+        if (cb) {
+            return cb(err, undefined);
+        } else {
+            return Promise.reject(err);
+        }
     }
 
     const reqopts = {
