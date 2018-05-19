@@ -124,7 +124,7 @@ export class Episode {
 
     constructor(obj: OmdbEpisode, season: number) {
         this.season = season;
-        for (const attr in obj) {
+        for (const attr of Object.getOwnPropertyNames(obj)) {
             if (attr === "Released") {
                 const val = new Date(obj[attr]);
                 if (isNaN(val.getTime())) {
@@ -172,7 +172,7 @@ export class Movie {
     protected _year_data: string;
 
     constructor(obj: OmdbMovie) {
-        for (const attr in obj) {
+        for (const attr of Object.getOwnPropertyNames(obj)) {
             if (attr === "Year") {
                 this._year_data = obj[attr];
                 // check for emdash as well
@@ -218,7 +218,10 @@ export class TVShow extends Movie {
     constructor(object: OmdbTvshow, opts: MovieOpts) {
         super(object);
         const years = this._year_data.split("-");
-        this.start_year = parseInt(years[0], 10) ? parseInt(years[0], 10) : null;
+        this.start_year = parseInt(years[0], 10);
+        if (isNaN(this.start_year)) {
+            throw new TypeError('Invalid start year');
+        }
         this.end_year = parseInt(years[1], 10) ? parseInt(years[1], 10) : null;
         this.totalseasons = parseInt(this.totalseasons, 10);
         this.opts = opts;
@@ -268,22 +271,18 @@ export class TVShow extends Movie {
             .then((ep_data: OmdbSeason[] | OmdbError[]) => {
                 const eps: Episode[] = [];
                 for (const key in ep_data) {
-                    if (ep_data.hasOwnProperty(key)) {
-                        const datum = ep_data[key];
-                        if (isError(datum)) {
-                            const err = new ImdbError(datum.Error);
-                            if (cb) {
-                                return cb(err, undefined);
-                            }
+                    const datum = ep_data[key];
+                    if (isError(datum)) {
+                        const err = new ImdbError(datum.Error);
+                        if (cb) {
+                            return cb(err, undefined);
+                        }
 
-                            return Promise.reject(err);
-                        } else {
-                            const season = parseInt(datum.Season, 10);
-                            for (const ep in datum.Episodes) {
-                                if (datum.Episodes.hasOwnProperty(ep)) {
-                                    eps.push(new Episode(datum.Episodes[ep], season));
-                                }
-                            }
+                        return Promise.reject(err);
+                    } else {
+                        const season = parseInt(datum.Season, 10);
+                        for (const ep of Object.getOwnPropertyNames(datum.Episodes)) {
+                            eps.push(new Episode(datum.Episodes[ep], season));
                         }
                     }
                 }
@@ -314,13 +313,11 @@ export class SearchResult {
     public poster: string;
 
     constructor(obj: OmdbSearchResult) {
-        for (const attr in obj) {
-            if (obj.hasOwnProperty(attr)) {
-                if (attr === "Year") {
-                    this[attr.toLowerCase()] = parseInt(obj[attr], 10);
-                } else {
-                    this[attr.toLowerCase()] = obj[attr];
-                }
+        for (const attr of Object.getOwnPropertyNames(obj)) {
+            if (attr === "Year") {
+                this[attr.toLowerCase()] = parseInt(obj[attr], 10);
+            } else {
+                this[attr.toLowerCase()] = obj[attr];
             }
         }
     }
@@ -338,7 +335,7 @@ export class SearchResults {
         this.req = req;
         this.opts = opts;
 
-        for (const attr in obj) {
+        for (const attr of Object.getOwnPropertyNames(obj)) {
             if (attr === "Search") {
                 for (const result of obj.Search) {
                     this.results.push(new SearchResult(result));
