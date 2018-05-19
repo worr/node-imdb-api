@@ -210,4 +210,52 @@ describe('getReq', () => {
             done();
         }
     });
+
+    it("gets an unknown type of data", (done: MochaDone) => {
+        let scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=asdfasdfasdf').reply(200, {});
+
+        imdb.getReq({
+            name: 'asdfasdfasdf',
+            opts: {
+                apiKey: "foo"
+            }
+        }, testResults);
+
+        function testResults(err, data) {
+            assert.ifError(data);
+            assert.deepEqual(err, new imdb.ImdbError("type: 'undefined' is not valid"), "testing film error");
+            done();
+        }
+    });
+
+    it("gets an error fetching an epside", (done: MochaDone) => {
+        let scope = nock("https://www.omdbapi.com").get("/?apikey=foo&plot=full&r=json&t=How%20I%20Met%20Your%20Mother").reply(200, require("./data/how-I-met-your-mother.json"));
+
+        imdb.getReq({
+            name: "How I Met Your Mother",
+            opts: {
+                apiKey: "foo"
+            }
+        }, testResults);
+
+        function testResults(err, data) {
+            let scope = nock("https://www.omdbapi.com").get("/?Season=1&apikey=foo&i=tt0460649&r=json").reply(200, {Error: "bad", Response: "False"});
+
+            assert.ifError(err);
+            assert.isOk(data);
+            assert.instanceOf(data, imdb.TVShow);
+            if (data instanceof imdb.TVShow) {
+                return data.episodes(testEpisodeResults);
+            } else {
+                throw new Error("failure");
+            }
+        };
+
+        function testEpisodeResults(err, data) {
+            assert.ifError(data);
+            assert.isOk(err, "got an error");
+            assert.deepEqual(err, new imdb.ImdbError("bad"));
+            done();
+        }
+    });
 });

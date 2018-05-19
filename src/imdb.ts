@@ -137,7 +137,7 @@ export class Episode {
                 const attr_name = attr.toLowerCase();
                 this[attr_name] = parseInt(obj[attr], 10);
                 if (isNaN(this[attr_name])) {
-                    throw new TypeError(`invalid {attr_name}`);
+                    throw new TypeError(`invalid ${attr_name}`);
                 }
             } else if (attr === "Title") {
                 this.name = obj[attr];
@@ -274,6 +274,7 @@ export class TVShow extends Movie {
         const prom = Promise.all(funcs)
             .then((ep_data: OmdbSeason[] | OmdbError[]) => {
                 const eps: Episode[] = [];
+
                 for (const datum of ep_data) {
                     if (isError(datum)) {
                         const err = new ImdbError(datum.Error);
@@ -281,12 +282,12 @@ export class TVShow extends Movie {
                             return cb(err, undefined);
                         }
 
-                        return Promise.reject(err);
-                    } else {
-                        const season = parseInt(datum.Season, 10);
-                        for (const ep of Object.getOwnPropertyNames(datum.Episodes)) {
-                            eps.push(new Episode(datum.Episodes[ep], season));
-                        }
+                        throw err;
+                    }
+
+                    const season = parseInt(datum.Season, 10);
+                    for (const ep of Object.getOwnPropertyNames(datum.Episodes)) {
+                        eps.push(new Episode(datum.Episodes[ep], season));
                     }
                 }
 
@@ -438,7 +439,7 @@ export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episod
             } else if (isEpisode(data)) {
                 ret = new Episode(data, 30);
             } else {
-                const err = new ImdbError(`type: {data.Type}  not valid`);
+                const err = new ImdbError(`type: '${data.Type}' is not valid`);
                 if (cb) {
                     return cb(err, undefined);
                 } else {
