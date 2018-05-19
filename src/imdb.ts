@@ -223,9 +223,6 @@ export class TVShow extends Movie {
         super(object);
         const years = this._year_data.split("-");
         this.start_year = parseInt(years[0], 10);
-        if (isNaN(this.start_year)) {
-            throw new TypeError("Invalid start year");
-        }
         this.end_year = parseInt(years[1], 10) ? parseInt(years[1], 10) : null;
         this.totalseasons = parseInt(this.totalseasons, 10);
         this.opts = opts;
