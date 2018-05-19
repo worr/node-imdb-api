@@ -73,7 +73,7 @@ describe("searching", () => {
     });
 
     it("gets an error from searching", () => {
-        const scope = nock("https://www.omdbapi.com").get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger").reply(200, {Error: "bad"});
+        const scope = nock("https://www.omdbapi.com").get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger").reply(200, {Error: "bad", Response: "False"});
 
         return imdb.search({
             title: "Toxic Avenger"
@@ -81,7 +81,7 @@ describe("searching", () => {
             apiKey: "foo",
         }).catch((err) => {
             assert.isOk(err);
-            assert.deepEqual(err, "bad: Toxic Avenger");
+            assert.deepEqual(err, new imdb.ImdbError("bad: Toxic Avenger"));
         });
     });
 });
