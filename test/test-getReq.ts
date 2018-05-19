@@ -161,4 +161,43 @@ describe('getReq', () => {
             assert.deepEqual(err.message, "Missing api key in opts");
         }
     });
+
+    it('makes two calls to episodes', () => {
+        let scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=How%20I%20Met%20Your%20Mother').reply(200, require('./data/how-I-met-your-mother.json'));
+
+        return imdb.getReq({
+            name: 'How I Met Your Mother',
+            opts: {
+                apiKey: "foo",
+                timeout: 1000
+            }
+        }, testResults);
+
+        function testResults(err, data) {
+            let scope = nock('https://www.omdbapi.com').get('/?Season=1&apikey=foo&i=tt0460649&r=json').reply(200, require('./data/how-I-met-your-mother-episodes.json'));
+
+            assert.ifError(err);
+
+            data.episodes().then((_) => { data.episodes(testEpisodes)});
+        }
+
+        function testEpisodes(err, data) {
+            assert.ifError(err);
+            assert.isOk(data, "ensuring data is defined after two calls");
+        }
+    });
+
+    it('gets a movie with no reqs', () => {
+        return imdb.getReq({
+            opts: {
+                apiKey: "foo"
+            }
+        }, testResults);
+
+        function testResults(err, data) {
+            assert.ifError(data);
+
+            assert.isOk(err);
+        }
+    });
 });

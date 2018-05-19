@@ -1,16 +1,16 @@
 import https = require("https");
 import nock = require("nock");
 import mocha = require("mocha");
-const assert = require('chai').assert;
+const assert = require("chai").assert;
 
 import imdb = require("../lib/imdb.js");
 
-describe('search', () => {
-    it('searches successfully', () => {
-        const scope = nock('https://www.omdbapi.com').get('/?apikey=foo&page=1&r=json&s=Toxic%20Avenger').reply(200, require('./data/toxic-avenger-search.json'));
+describe("searching", () => {
+    it("searches successfully", () => {
+        const scope = nock("https://www.omdbapi.com").get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger").reply(200, require("./data/toxic-avenger-search.json"));
 
         return imdb.search({
-            title: 'Toxic Avenger'
+            title: "Toxic Avenger"
         }, {
             apiKey: "foo"
         }).then((data) => {
@@ -25,17 +25,50 @@ describe('search', () => {
         });
     });
 
-    it('searches unsuccessfully', () => {
-        const scope = nock('https://www.omdbapi.com').get('/?s=Toxic%20Avenger&r=json&apikey=foo&page=1').reply(404);
+    it("searches unsuccessfully", () => {
+        const scope = nock("https://www.omdbapi.com").get("/?s=Toxic%20Avenger&r=json&apikey=foo&page=1").reply(404);
 
         return imdb.search({
-            title: 'Toxic Avenger'
+            title: "Toxic Avenger"
         }, {
             apiKey: "foo"
-        }).then(function(data) {
+        }).then((data) => {
             assert.ifError(data);
-        }).catch(function(err) {
+        }).catch((err) => {
             assert.isOk(err);
+        });
+    });
+
+    it("times out during a search", () => {
+        const scope = nock("https://www.omdbapi.com").get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger").socketDelay(3000).reply(200, require("./data/toxic-avenger-search.json"));
+
+        return imdb.search({
+            title: "Toxic Avenger"
+        }, {
+            apiKey: "foo",
+            timeout: 10
+        }).then((data) => {
+            assert.ifError(data);
+        }).catch((err) => {
+            assert.isOk(err);
+        });
+    });
+
+    it("gets the next page in a search", () => {
+        const scope = nock("https://www.omdbapi.com").get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger").reply(200, require("./data/toxic-avenger-search.json"));
+
+        return imdb.search({
+            title: "Toxic Avenger"
+        }, {
+            apiKey: "foo",
+        }).then((data) => {
+            assert.isOk(data);
+            const scope = nock("https://www.omdbapi.com").get("/?apikey=foo&page=2&r=json&s=Toxic%20Avenger").reply(200, require("./data/toxic-avenger-search.json"));
+            return data.next();
+        }).then((data) => {
+            assert.isOk(data);
+        }).catch((err) => {
+            assert.ifError(err);
         });
     });
 });

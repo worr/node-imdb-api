@@ -113,4 +113,15 @@ describe('getReq promises', () => {
             assert.notExists(err, "unreachable");
         });
     });
+
+    it('gets a movie with no requirements', () => {
+        return imdb.getReq({
+            opts: {} as imdb.MovieOpts
+        }).then((data) => {
+            assert.isNotOk(data, "ensure data is not defined");
+        }).catch((err) => {
+            assert.isOk(err, "ensure error is defined");
+            assert.deepEqual(err.message, "Missing api key in opts");
+        });
+    });
 });
