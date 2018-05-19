@@ -120,6 +120,7 @@ export class Episode {
     public released: Date;
     public imdbid: string;
     public rating: number;
+    public year: number;
 
     constructor(obj: OmdbEpisode, season: number) {
         this.season = season;
@@ -132,7 +133,7 @@ export class Episode {
                 this.released = val;
             } else if (attr === "imdbRating") {
                 this[trans_table[attr]] = parseFloat(obj[attr]);
-            } else if (attr === "Episode") {
+            } else if (attr === "Episode" || attr === "Year") {
                 this[attr.toLowerCase()] = parseInt(obj[attr], 10);
             } else if (attr === "Title") {
                 this.name = obj[attr];
@@ -312,7 +313,7 @@ export class SearchResult {
         for (const attr in obj) {
             if (obj.hasOwnProperty(attr)) {
                 if (attr === "Year") {
-                    this.year = parseInt(obj[attr], 10);
+                    this[attr.toLowerCase()] = parseInt(obj[attr], 10);
                 } else {
                     this[attr.toLowerCase()] = obj[attr];
                 }
@@ -338,6 +339,8 @@ export class SearchResults {
                 for (const result of obj.Search) {
                     this.results.push(new SearchResult(result));
                 }
+            } else if (attr === "totalResults") {
+                this[attr.toLowerCase()] = parseInt(obj[attr], 10);
             } else {
                 this[attr.toLowerCase()] = obj[attr];
             }
