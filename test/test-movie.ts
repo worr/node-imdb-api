@@ -1,4 +1,5 @@
-import nodeunit = require('nodeunit');
+import mocha = require('mocha');
+let assert = require('chai').assert;
 import imdb = require('../lib/imdb.js');
 
 const orig_movie = {
@@ -54,80 +55,80 @@ const orig_episode = {
     Episode: "1",
     Type: "series",
     imdbRating: "5.6",
-    imdbID: "tt6539212"
+    imdbID: "tt6539212",
+    Year: "2006"
 };
 
-module.exports = nodeunit.testCase({
-    "Create a normal movie": function(test: nodeunit.Test) {
+describe('Movie', function() {
+    it("creates a normal movie", function() {
         const mov = new imdb.Movie(orig_movie);
 
-        test.ok(mov, "movie exists");
-        test.deepEqual(mov.title, "Foo", "name is set correctly");
-        test.deepEqual(mov.released, new Date(2001, 4, 1), "Date created correctly");
-        test.deepEqual(mov.rating, 6.7);
-        test.deepEqual(mov.genres, orig_movie.Genre, "Genres set correctly");
-        test.deepEqual(mov.languages, orig_movie.Language, "Language set correctly");
-        test.deepEqual(mov.votes, 5, "votes set correctly");
-        test.deepEqual(mov.series, false, "not a series");
-        test.deepEqual(mov.imdburl, "https://www.imdb.com/title/tt653921", "url formulated correctly");
-        test.done();
-    },
-    "Create a series": function(test: nodeunit.Test) {
+        assert.isOk(mov, "movie exists");
+        assert.deepEqual(mov.title, "Foo", "name is set correctly");
+        assert.deepEqual(mov.released, new Date(2001, 4, 1), "Date created correctly");
+        assert.deepEqual(mov.rating, 6.7);
+        assert.deepEqual(mov.genres, orig_movie.Genre, "Genres set correctly");
+        assert.deepEqual(mov.languages, orig_movie.Language, "Language set correctly");
+        assert.deepEqual(mov.votes, '5', "votes set correctly");
+        assert.deepEqual(mov.series, false, "not a series");
+        assert.deepEqual(mov.imdburl, "https://www.imdb.com/title/tt653921", "url formulated correctly");
+    });
+    it("creates a movie with invalid score", function() {
+        const mov = Object.assign(Object.create(orig_movie), {imdbRating: 'foo'});
+        assert.throws(() => new imdb.Movie(mov), TypeError);
+    });
+    it("creates a movie with bad release data", function() {
+        const mov = Object.assign(Object.create(orig_movie), {Released: 'foo'});
+        assert.throws(() => new imdb.Movie(mov), TypeError);
+    });
+    it("creates a movie with no year", function() {
+        let mov = Object.assign(Object.create(orig_movie));
+        delete mov.__proto__.Year;
+        delete mov['Year'];
+        assert.isNotOk(new imdb.Movie(mov).year);
+    });
+    it("creates a movie with invalid year", function() {
+        const mov = Object.assign(Object.create(orig_movie), {Year: 'foo'});
+        assert.throws(() => new imdb.Movie(mov), TypeError);
+    });
+    it("creates a movie with matching year", function() {
+        for (let year of ["2005-2006", "2005-", "2005–2006", "2005–"]) {
+            const mov = Object.assign(Object.create(orig_movie), {Year: year});
+            assert.isNotOk(new imdb.Movie(mov).year);
+        }
+    });
+});
+
+describe('Series', function() {
+    it("creates a series", function() {
         const mov = new imdb.TVShow(orig_tv, { apiKey: "foo" });
 
-        test.ok(mov, "movie exists");
-        test.deepEqual(mov.title, "Foo", "name is set correctly");
-        test.deepEqual(mov.released, new Date(2001, 4, 1), "Date created correctly");
-        test.deepEqual(mov.rating, 6.7);
-        test.deepEqual(mov.genres, orig_tv.Genre, "Genres set correctly");
-        test.deepEqual(mov.languages, orig_tv.Language, "Language set correctly");
-        test.deepEqual(mov.votes, 5, "votes set correctly");
-        test.deepEqual(mov.series, true, "deffo a series");
-        test.deepEqual(mov.imdburl, "https://www.imdb.com/title/tt653921", "url formulated correctly");
-        test.deepEqual(mov.start_year, 1996, "test start year");
-        test.deepEqual(mov.end_year, 1998, "end year set correctly");
-        test.deepEqual(mov.totalseasons, 5, "total seasons set correctly");
+        assert.isOk(mov, "movie exists");
+        assert.deepEqual(mov.title, "Foo", "name is set correctly");
+        assert.deepEqual(mov.released, new Date(2001, 4, 1), "Date created correctly");
+        assert.deepEqual(mov.rating, 6.7);
+        assert.deepEqual(mov.genres, orig_tv.Genre, "Genres set correctly");
+        assert.deepEqual(mov.languages, orig_tv.Language, "Language set correctly");
+        assert.deepEqual(mov.votes, '5', "votes set correctly");
+        assert.deepEqual(mov.series, true, "deffo a series");
+        assert.deepEqual(mov.imdburl, "https://www.imdb.com/title/tt653921", "url formulated correctly");
+        assert.deepEqual(mov.start_year, 1996, "test start year");
+        assert.deepEqual(mov.end_year, 1998, "end year set correctly");
+        assert.deepEqual(mov.totalseasons, 5, "total seasons set correctly");
+    });
+});
 
-        test.done();
-    },
-    "Create a basic episode": function(test: nodeunit.Test) {
+describe('Episode', function() {
+    it("creates a basic episode", function() {
         const ep = new imdb.Episode(orig_episode, 1);
 
-        test.ok(ep, "ep exists");
-        test.deepEqual(ep.name, "ep 1", "title is set correctly");
-        test.deepEqual(ep.rating, 5.6, "rating set correctly");
-        test.deepEqual(ep.imdbid, "tt6539212", "imdb id set");
-        test.deepEqual(ep.released, new Date(2001, 4, 6), "Date created correctly");
-        test.deepEqual(ep.season, 1, "testing season");
-        test.deepEqual(ep.episode, 1, "testing ep");
-        test.done();
-    },
-    "Movie with invalid score": function(test: nodeunit.Test) {
-        const mov = Object.assign(orig_movie, {imdbRating: 'foo'});
-        test.throws(new imdb.Movie(mov), TypeError);
-        test.done();
-    },
-    "Movie with bad release data": function(test: nodeunit.Test) {
-        const mov = Object.assign(orig_movie, {Released: 'foo'});
-        test.throws(new imdb.Movie(mov), TypeError);
-        test.done();
-    },
-    "Movie with no year": function(test: nodeunit.Test) {
-        let mov = Object.assign(orig_movie);
-        delete mov.Year;
-        test.ok(! new imdb.Movie(mov).year);
-        test.done();
-    },
-    "Movie with invalid year": function(test: nodeunit.Test) {
-        const mov = Object.assign(orig_movie, {Year: 'foo'});
-        test.throws(new imdb.Movie(mov), TypeError);
-        test.done();
-    },
-    "Movie with matching year": function(test: nodeunit.Test) {
-        for (let year of ["2005-2006", "2005-", "2005–2006", "2005–"]) {
-            const mov = Object.assign(orig_movie, {Year: year});
-            test.ok(! new imdb.Movie(mov).year);
-        }
-        test.done();
-    }
+        assert.isOk(ep, "ep exists");
+        assert.deepEqual(ep.name, "ep 1", "title is set correctly");
+        assert.deepEqual(ep.rating, 5.6, "rating set correctly");
+        assert.deepEqual(ep.imdbid, "tt6539212", "imdb id set");
+        assert.deepEqual(ep.released, new Date(2001, 4, 6), "Date created correctly");
+        assert.deepEqual(ep.season, 1, "testing season");
+        assert.deepEqual(ep.episode, 1, "testing ep");
+        assert.deepEqual(ep.year, 2006, "testing year");
+    });
 });

@@ -8,8 +8,7 @@
         "sourceMap": true,
         "declaration": true
     },
-    "files": [
-        "src/imdb.ts",
-        "src/interfaces.ts"
+    "include": [
+        "src/*"
     ]
 }
