@@ -6,10 +6,10 @@ let assert = require('chai').assert;
 import imdb = require('../lib/imdb.js');
 
 describe('get', () => {
-    it('makes a successful request', () => {
+    it('makes a successful request', (done: MochaDone) => {
         let scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=The%20Toxic%20Avenger').reply(200, require('./data/toxic-avenger.json'));
 
-        return imdb.get('The Toxic Avenger', {
+        imdb.get('The Toxic Avenger', {
             apiKey: "foo"
         }, testResults);
 
@@ -20,27 +20,29 @@ describe('get', () => {
             assert.equal(data.imdbid, 'tt0090191', "testing returned data");
             assert.equal(data.series, false, "testing series bool");
             assert.equal(data.hasOwnProperty("episodes"), false, "should not have episodes");
+            done();
         }
     });
-    it('makes an unsuccessful request', () => {
+    it('makes an unsuccessful request', (done: MochaDone) => {
         let scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=The%20Green%20Mile').reply(404);
 
-        return imdb.get('The Green Mile', {
+        imdb.get('The Green Mile', {
             apiKey: "foo"
         }, testResults);
 
         function testResults(err, data) {
             assert.ifError(data);
+            done();
         }
     });
 
-    it('makes an request for a made up movie', () => {
+    it('makes an request for a made up movie', (done: MochaDone) => {
         let scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=asdfasdfasdf').reply(200, {
             Response: "False",
             Error: "Movie not found!"
         });
 
-        return imdb.get('asdfasdfasdf', {
+        imdb.get('asdfasdfasdf', {
             apiKey: "foo"
         }, testResults);
 
@@ -48,13 +50,14 @@ describe('get', () => {
             assert.ifError(data);
 
             assert.deepEqual(err, new imdb.ImdbError('Movie not found!: asdfasdfasdf'), "testing film not found error");
+            done();
         }
     });
 
-    it('gets episodes', () => {
+    it('gets episodes', (done: MochaDone) => {
         let scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=How%20I%20Met%20Your%20Mother').reply(200, require('./data/how-I-met-your-mother.json'));
 
-        return imdb.get('How I Met Your Mother', {
+        imdb.get('How I Met Your Mother', {
             apiKey: "foo"
         }, testResults);
 
@@ -86,14 +89,14 @@ describe('get', () => {
             assert.equal(typeof(tvshow._episodes), "object", "testing type of _episodes");
             assert.equal(tvshow._episodes[0].season, 1, "testing cached value");
             assert.equal(tvshow._episodes[0].episode, 1, "testing another cached value");
-
+            done();
         }
     });
 
-    it('unsuccessfully gets epsidode', () => {
+    it('unsuccessfully gets epsidode', (done: MochaDone) => {
         let scope = nock('https://www.omdbapi.com').get('/?apikey=foo&plot=full&r=json&t=How%20I%20Met%20Your%20Mother').reply(200, require('./data/how-I-met-your-mother.json'));
 
-        return imdb.get('How I Met Your Mother', {
+        imdb.get('How I Met Your Mother', {
             apiKey: "foo"
         }, testResults);
 
@@ -108,7 +111,7 @@ describe('get', () => {
 
         function testEpisodes(err, data) {
             assert.ifError(data);
-
+            done();
         }
     });
 });
