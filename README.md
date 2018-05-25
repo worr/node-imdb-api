@@ -6,6 +6,8 @@ A non-scraping, functional node.js interface to imdb
 
 [![NPM version](https://badge.fury.io/js/imdb-api.svg)](http://badge.fury.io/js/imdb-api) [![Build Status](https://travis-ci.org/worr/node-imdb-api.svg?branch=master)](https://travis-ci.org/worr/node-imdb-api) [![Dependency Freshness](https://david-dm.org/worr/node-imdb-api.svg)](https://david-dm.org/worr/node-imdb-api) [![Coverage Status](https://coveralls.io/repos/github/worr/node-imdb-api/badge.svg?branch=master)](https://coveralls.io/github/worr/node-imdb-api?branch=master) [![Join the chat at https://gitter.im/worr/node-imdb-api](https://badges.gitter.im/worr/node-imdb-api.svg)](https://gitter.im/worr/node-imdb-api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+**NOTE ON GITTER**: I *am* online! I use the [matrix](matrix.org) bridge to talk on Gitter, so you'll see me talking through `MatrixBot`. Feel free to ask questions!
+
 # API Docs
 
 [API docs are now here](https://docs.worrbase.com/node/imdb-api/)
