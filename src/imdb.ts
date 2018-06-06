@@ -366,14 +366,6 @@ export class Client {
         this.opts = opts;
     }
 
-    private merge_opts(opts?: MovieOpts): MovieOpts {
-        if (opts !== undefined) {
-            return Object.assign(Object.create(this.opts), opts);
-        } else {
-            return Object.create(this.opts);
-        }
-    }
-
     public get(req: MovieRequest, opts?: MovieOpts): Promise<Movie> {
         opts = this.merge_opts(opts);
 
@@ -450,5 +442,13 @@ export class Client {
         });
 
         return prom;
+    }
+
+    private merge_opts(opts?: MovieOpts): MovieOpts {
+        if (opts !== undefined) {
+            return Object.assign(Object.create(this.opts), opts);
+        } else {
+            return Object.create(this.opts);
+        }
     }
 }
