@@ -1,3 +1,15 @@
+# Version 3.1.2 -> 4.0.0
+
+* Removed callback api
+* Created a client object so that applications can re-use options (Fixes #61)
+* Added short plot summary (Fixes #55, #37)
+* Episode now inherits from Movie, like everything else
+* Much more data validation on responses
+* Fix broken rating conversion
+* Drop support for unsupported node versions
+* Convert tests to typescript
+* Remove utils module
+
 # Version 3.1.1 -> 3.1.2
 
 * Fixes #54
