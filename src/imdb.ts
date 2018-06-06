@@ -63,7 +63,7 @@ export interface MovieRequest {
     /**
      * Metadata about how we're retrieving the request
      */
-    opts: MovieOpts;
+    opts?: MovieOpts;
 }
 
 /**
@@ -375,89 +375,23 @@ export class ImdbError {
  * @return a promise yielding a movie
  */
 export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episode) => any): Promise<Movie> {
+    try {
+        const ret = new Client(req.opts).getMovie(req);
 
-    if (req.opts === undefined || !req.opts.hasOwnProperty("apiKey")) {
-        const err = new ImdbError("Missing api key in opts");
         if (cb) {
-            return cb(err, undefined);
-        } else {
-            return Promise.reject(err);
+            ret.then((res) => {
+                cb(undefined, res);
+            }).catch((err) => {
+                cb(err, undefined);
+            });
         }
-    }
 
-    const qs = {
-        apikey: req.opts.apiKey,
-        i: undefined,
-        plot: req.short_plot ? "short" : "full",
-        r: "json",
-        t: undefined,
-        y: req.year,
-    };
-
-    if (req.name) {
-        qs.t = req.name;
-    } else if (req.id) {
-        qs.i = req.id;
-    } else {
-        const err = new ImdbError("Missing one of req.id or req.name");
+        return ret;
+    } catch (err) {
         if (cb) {
-            return cb(err, undefined);
-        } else {
-            return Promise.reject(err);
-        }
-    }
-
-    const reqopts = {
-        json: true,
-        qs,
-        timeout: undefined,
-        url: omdbapi,
-        withCredentials: false,
-    };
-
-    if ("timeout" in req.opts) {
-        reqopts.timeout = req.opts.timeout;
-    }
-
-    const prom = rp(reqopts).then((data: OmdbMovie | OmdbError) => {
-        let ret: Movie | Episode;
-        if (isError(data)) {
-            const err = new ImdbError(data.Error + ": " + (req.name ? req.name : req.id));
-            if (cb) {
-                return cb(err, undefined);
-            } else {
-                return Promise.reject(err);
-            }
-        } else {
-            if (isMovie(data)) {
-                ret = new Movie(data);
-            } else if (isTvshow(data)) {
-                ret = new TVShow(data, req.opts);
-            } else if (isEpisode(data)) {
-                ret = new Episode(data, 30);
-            } else {
-                const err = new ImdbError(`type: '${data.Type}' is not valid`);
-                if (cb) {
-                    return cb(err, undefined);
-                } else {
-                    return Promise.reject(err);
-                }
-            }
-
-            if (cb) {
-                return cb(undefined, ret);
-            }
-
-            return Promise.resolve(ret);
-        }
-    });
-
-    if (cb) {
-        prom.catch((err) => {
             cb(err, undefined);
-        });
-    } else {
-        return prom;
+        }
+        return Promise.reject(err);
     }
 }
 
@@ -501,24 +435,92 @@ export function getById(imdbid: string, opts: MovieOpts, cb?: (err: Error, data:
  * @return a promise yielding search results
  */
 export function search(req: SearchRequest, opts: MovieOpts, page?: number): Promise<SearchResults> {
-    if (page === undefined) {
-        page = 1;
-    }
+    return new Client(opts).search(req, page);
+}
 
-    const qs = reqtoqueryobj(req, opts.apiKey, page);
-    const reqopts = { qs, url: omdbapi, json: true, timeout: undefined, withCredentials: false };
-    if ("timeout" in opts) {
-        reqopts.timeout = opts.timeout;
-    }
+export class Client {
+    private opts: MovieOpts;
 
-    const prom = rp(reqopts).then((data: OmdbSearch | OmdbError) => {
-        if (isError(data)) {
-            const err = new ImdbError(`${data.Error}: ${req.title}`);
-            return Promise.reject(err);
-        } else {
-            return Promise.resolve(new SearchResults(data, page, opts, req));
+    constructor(opts: MovieOpts) {
+        if (! opts.hasOwnProperty("apiKey")) {
+            throw new ImdbError("Missing api key in opts");
         }
-    });
+        this.opts = opts;
+    }
 
-    return prom;
+    public getMovie(req: MovieRequest): Promise<Movie> {
+        // XXX: Deal with req.opts
+        const qs = {
+            apikey: req.opts.apiKey,
+            i: undefined,
+            plot: req.short_plot ? "short" : "full",
+            r: "json",
+            t: undefined,
+            y: req.year,
+        };
+
+        if (req.name) {
+            qs.t = req.name;
+        } else if (req.id) {
+            qs.i = req.id;
+        } else {
+            return Promise.reject(new ImdbError("Missing one of req.id or req.name"));
+        }
+
+        const reqopts = {
+            json: true,
+            qs,
+            timeout: undefined,
+            url: omdbapi,
+            withCredentials: false,
+        };
+
+        if ("timeout" in req.opts) {
+            reqopts.timeout = req.opts.timeout;
+        }
+
+        const prom = rp(reqopts).then((data: OmdbMovie | OmdbError) => {
+            let ret: Movie | Episode;
+            if (isError(data)) {
+                return Promise.reject(new ImdbError(data.Error + ": " + (req.name ? req.name : req.id)));
+            } else {
+                if (isMovie(data)) {
+                    ret = new Movie(data);
+                } else if (isTvshow(data)) {
+                    ret = new TVShow(data, req.opts);
+                } else if (isEpisode(data)) {
+                    ret = new Episode(data, 30);
+                } else {
+                    return Promise.reject(new ImdbError(`type: '${data.Type}' is not valid`));
+                }
+
+                return Promise.resolve(ret);
+            }
+        });
+
+        return prom;
+    }
+
+    public search(req: SearchRequest, page?: number): Promise<SearchResults> {
+        if (page === undefined) {
+            page = 1;
+        }
+
+        const qs = reqtoqueryobj(req, this.opts.apiKey, page);
+        const reqopts = { qs, url: omdbapi, json: true, timeout: undefined, withCredentials: false };
+        if ("timeout" in this.opts) {
+            reqopts.timeout = this.opts.timeout;
+        }
+
+        const prom = rp(reqopts).then((data: OmdbSearch | OmdbError) => {
+            if (isError(data)) {
+                const err = new ImdbError(`${data.Error}: ${req.title}`);
+                return Promise.reject(err);
+            } else {
+                return Promise.resolve(new SearchResults(data, page, this.opts, req));
+            }
+        });
+
+        return prom;
+    }
 }
