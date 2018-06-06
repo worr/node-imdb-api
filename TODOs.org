@@ -1,0 +1,6 @@
+#+TITLE: Before 4.x
+
+* TODO 100% test coverage
+* TODO test new imdb client obj
+* TODO add tests for merging ~MovieOpts~
+* TODO update documentation for new ~MovieRequest~ structure
