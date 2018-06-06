@@ -59,11 +59,6 @@ export interface MovieRequest {
      * Whether or not to request a short plot. Default is full plot.
      */
     short_plot?: boolean;
-
-    /**
-     * Metadata about how we're retrieving the request
-     */
-    opts?: MovieOpts;
 }
 
 /**
@@ -113,43 +108,6 @@ const trans_table = {
     imdbVotes: "votes",
 };
 
-export class Episode {
-    public season: number;
-    public name: string;
-    public episode: number;
-    public released: Date;
-    public imdbid: string;
-    public rating: number;
-    public year: number;
-
-    constructor(obj: OmdbEpisode, season: number) {
-        this.season = season;
-        for (const attr of Object.getOwnPropertyNames(obj)) {
-            if (attr === "Released") {
-                const val = new Date(obj[attr]);
-                if (isNaN(val.getTime())) {
-                    throw new TypeError("invalid release date");
-                }
-                this.released = val;
-            } else if (attr === "imdbRating") {
-                this[trans_table[attr]] = parseFloat(obj[attr]);
-            } else if (attr === "Episode" || attr === "Year") {
-                const attr_name = attr.toLowerCase();
-                this[attr_name] = parseInt(obj[attr], 10);
-                if (isNaN(this[attr_name])) {
-                    throw new TypeError(`invalid ${attr_name}`);
-                }
-            } else if (attr === "Title") {
-                this.name = obj[attr];
-            } else if (trans_table[attr] !== undefined) {
-                this[trans_table[attr]] = obj[attr];
-            } else {
-                this[attr.toLowerCase()] = obj[attr];
-            }
-        }
-    }
-}
-
 export class Movie {
     public imdbid: string;
     public imdburl: string;
@@ -172,6 +130,7 @@ export class Movie {
     public writer: string;
     public actors: string;
     public released: Date;
+    public name: string;
 
     protected _year_data: string;
 
@@ -206,8 +165,25 @@ export class Movie {
             }
         }
 
+        this.name = this.title;
         this.series = this.type === "movie" ? false : true;
         this.imdburl = "https://www.imdb.com/title/" + this.imdbid;
+    }
+}
+
+export class Episode extends Movie {
+    public season: number;
+    public episode: number;
+
+    constructor(obj: OmdbEpisode, season: number) {
+        super(obj);
+        this.season = season;
+        if (obj.hasOwnProperty("Episode")) {
+            this.episode = parseInt(obj.Episode, 10);
+            if (isNaN(this.episode)) {
+                throw new TypeError("invalid episode");
+            }
+        }
     }
 }
 
@@ -219,8 +195,8 @@ export class TVShow extends Movie {
     private _episodes: Episode[] = [];
     private opts: MovieOpts;
 
-    constructor(object: OmdbTvshow, opts: MovieOpts) {
-        super(object);
+    constructor(obj: OmdbTvshow, opts: MovieOpts) {
+        super(obj);
         const years = this._year_data.split("-");
         this.start_year = parseInt(years[0], 10);
         this.end_year = parseInt(years[1], 10) ? parseInt(years[1], 10) : null;
@@ -231,17 +207,11 @@ export class TVShow extends Movie {
     /**
      * Fetches episodes of a TV show
      *
-     * @param cb optional callback that gets any errors or episodes
-     *
      * @return Promise yielding list of episodes
      */
-    public episodes(cb?: (err: Error, data: Episode[]) => any): Promise<Episode[]> {
+    public episodes(): Promise<Episode[]> {
         if (this._episodes.length !== 0) {
-            if (cb) {
-                return cb(undefined, this._episodes);
-            } else {
-                return Promise.resolve(this._episodes);
-            }
+            return Promise.resolve(this._episodes);
         }
 
         const tvShow = this;
@@ -275,9 +245,6 @@ export class TVShow extends Movie {
                 for (const datum of ep_data) {
                     if (isError(datum)) {
                         const err = new ImdbError(datum.Error);
-                        if (cb) {
-                            return cb(err, undefined);
-                        }
 
                         throw err;
                     }
@@ -289,20 +256,11 @@ export class TVShow extends Movie {
                 }
 
                 tvShow._episodes = eps;
-                if (cb) {
-                    return cb(undefined, eps);
-                }
 
                 return Promise.resolve(eps);
             });
 
-        if (cb) {
-            prom.catch((err) => {
-                return cb(err, undefined);
-            });
-        } else {
-            return prom;
-        }
+        return prom;
     }
 }
 
@@ -370,59 +328,15 @@ export class ImdbError {
  *
  * @param req set of requirements to search for
  * @param opts options that modify a search
- * @param cb optional callback to execute after fetching data
  *
  * @return a promise yielding a movie
  */
-export function getReq(req: MovieRequest, cb?: (err: Error, data: Movie | Episode) => any): Promise<Movie> {
+export function get(req: MovieRequest, opts: MovieOpts): Promise<Movie> {
     try {
-        const ret = new Client(req.opts).getMovie(req);
-
-        if (cb) {
-            ret.then((res) => {
-                cb(undefined, res);
-            }).catch((err) => {
-                cb(err, undefined);
-            });
-        }
-
-        return ret;
+        return new Client(opts).get(req);
     } catch (err) {
-        if (cb) {
-            cb(err, undefined);
-        }
         return Promise.reject(err);
     }
-}
-
-/**
- * @deprecated use getReq instead
- *
- * Gets a movie by name
- *
- * @param name name of movie to search for
- * @param opts options that modify a search
- * @param cb optional callback to execute after finding results
- *
- * @return a promise yielding a movie
- */
-export function get(name: string, opts: MovieOpts, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
-    return getReq({ id: undefined, opts, name }, cb);
-}
-
-/**
- * @deprecated use getReq instead
- *
- * Gets a movie by id
- *
- * @param imdbid id to search for
- * @param opts options that modify a search
- * @param cb optional callback to execute after finding results
- *
- * @return a promise yielding a movie
- */
-export function getById(imdbid: string, opts: MovieOpts, cb?: (err: Error, data: Movie) => any): Promise<Movie> {
-    return getReq({ id: imdbid, opts, name: undefined }, cb);
 }
 
 /**
@@ -435,7 +349,11 @@ export function getById(imdbid: string, opts: MovieOpts, cb?: (err: Error, data:
  * @return a promise yielding search results
  */
 export function search(req: SearchRequest, opts: MovieOpts, page?: number): Promise<SearchResults> {
-    return new Client(opts).search(req, page);
+    try {
+        return new Client(opts).search(req, page);
+    } catch (err) {
+        return Promise.reject(err);
+    }
 }
 
 export class Client {
@@ -448,10 +366,19 @@ export class Client {
         this.opts = opts;
     }
 
-    public getMovie(req: MovieRequest): Promise<Movie> {
-        // XXX: Deal with req.opts
+    private merge_opts(opts?: MovieOpts): MovieOpts {
+        if (opts !== undefined) {
+            return Object.assign(Object.create(this.opts), opts);
+        } else {
+            return Object.create(this.opts);
+        }
+    }
+
+    public get(req: MovieRequest, opts?: MovieOpts): Promise<Movie> {
+        opts = this.merge_opts(opts);
+
         const qs = {
-            apikey: req.opts.apiKey,
+            apikey: opts.apiKey,
             i: undefined,
             plot: req.short_plot ? "short" : "full",
             r: "json",
@@ -475,8 +402,8 @@ export class Client {
             withCredentials: false,
         };
 
-        if ("timeout" in req.opts) {
-            reqopts.timeout = req.opts.timeout;
+        if ("timeout" in opts) {
+            reqopts.timeout = opts.timeout;
         }
 
         const prom = rp(reqopts).then((data: OmdbMovie | OmdbError) => {
@@ -487,7 +414,7 @@ export class Client {
                 if (isMovie(data)) {
                     ret = new Movie(data);
                 } else if (isTvshow(data)) {
-                    ret = new TVShow(data, req.opts);
+                    ret = new TVShow(data, opts);
                 } else if (isEpisode(data)) {
                     ret = new Episode(data, 30);
                 } else {
@@ -501,7 +428,8 @@ export class Client {
         return prom;
     }
 
-    public search(req: SearchRequest, page?: number): Promise<SearchResults> {
+    public search(req: SearchRequest, page?: number, opts?: MovieOpts): Promise<SearchResults> {
+        opts = this.merge_opts(opts);
         if (page === undefined) {
             page = 1;
         }

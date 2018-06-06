@@ -51,12 +51,26 @@ const orig_tv = {
 
 const orig_episode = {
     Title: "ep 1",
+    Rated: "R",
     Released: "6 May 2001",
+    Runtime: "5 min",
+    Genre: "rom com",
+    Director: "Tilde Swinton",
+    Writer: "Tilde Swinton",
+    Actors: "John, Larry, Curly",
+    Plot: "It good",
+    Language: "Spanish",
+    Country: "USA",
+    Awards: "Lots",
+    Poster: "www.google.com",
+    Metascore: "5.6",
     Episode: "1",
     Type: "series",
     imdbRating: "5.6",
     imdbID: "tt6539212",
-    Year: "2006"
+    imdbVotes: "17",
+    Year: "2006",
+    Response: "ok"
 };
 
 describe("Movie", () => {
