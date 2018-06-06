@@ -9,6 +9,7 @@
 * Drop support for unsupported node versions
 * Convert tests to typescript
 * Remove utils module
+* Remove `MovieOpts` from `MovieRequest` and have it be a separate arg to `get`
 
 # Version 3.1.1 -> 3.1.2
 
