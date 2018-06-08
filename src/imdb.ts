@@ -27,7 +27,7 @@ export interface MovieOpts {
      *
      * Get one [here](https://www.patreon.com/posts/api-is-going-10743518)
      */
-    apiKey: string;
+    apiKey?: string;
 
     /**
      * timeout in milliseconds to wait before giving up on a request
@@ -426,10 +426,10 @@ export class Client {
             page = 1;
         }
 
-        const qs = reqtoqueryobj(req, this.opts.apiKey, page);
+        const qs = reqtoqueryobj(req, opts.apiKey, page);
         const reqopts = { qs, url: omdbapi, json: true, timeout: undefined, withCredentials: false };
-        if ("timeout" in this.opts) {
-            reqopts.timeout = this.opts.timeout;
+        if ("timeout" in opts) {
+            reqopts.timeout = opts.timeout;
         }
 
         const prom = rp(reqopts).then((data: OmdbSearch | OmdbError) => {
@@ -437,7 +437,7 @@ export class Client {
                 const err = new ImdbError(`${data.Error}: ${req.title}`);
                 return Promise.reject(err);
             } else {
-                return Promise.resolve(new SearchResults(data, page, this.opts, req));
+                return Promise.resolve(new SearchResults(data, page, opts, req));
             }
         });
 
@@ -446,9 +446,9 @@ export class Client {
 
     private merge_opts(opts?: MovieOpts): MovieOpts {
         if (opts !== undefined) {
-            return Object.assign(Object.create(this.opts), opts);
+            return Object.assign({...this.opts}, opts);
         } else {
-            return Object.create(this.opts);
+            return {...this.opts};
         }
     }
 }

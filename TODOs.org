@@ -1,6 +1,8 @@
 #+TITLE: Before 4.x
 
 * TODO 100% test coverage
-* TODO test new imdb client obj
-* TODO add tests for merging ~MovieOpts~
+* DONE test new imdb client obj
+  CLOSED: [2018-06-07 Thu 23:08]
+* DONE add tests for merging ~MovieOpts~
+  CLOSED: [2018-06-07 Thu 23:08]
 * TODO update documentation for new ~MovieRequest~ structure
