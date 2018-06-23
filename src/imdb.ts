@@ -244,9 +244,7 @@ export class TVShow extends Movie {
 
                 for (const datum of ep_data) {
                     if (isError(datum)) {
-                        const err = new ImdbError(datum.Error);
-
-                        throw err;
+                        throw new ImdbError(datum.Error);
                     }
 
                     const season = parseInt(datum.Season, 10);
@@ -334,8 +332,8 @@ export class ImdbError {
 export function get(req: MovieRequest, opts: MovieOpts): Promise<Movie> {
     try {
         return new Client(opts).get(req);
-    } catch (err) {
-        return Promise.reject(err);
+    } catch (e) {
+        return Promise.reject(e);
     }
 }
 
@@ -351,8 +349,8 @@ export function get(req: MovieRequest, opts: MovieOpts): Promise<Movie> {
 export function search(req: SearchRequest, opts: MovieOpts, page?: number): Promise<SearchResults> {
     try {
         return new Client(opts).search(req, page);
-    } catch (err) {
-        return Promise.reject(err);
+    } catch (e) {
+        return Promise.reject(e);
     }
 }
 
@@ -360,7 +358,7 @@ export class Client {
     private opts: MovieOpts;
 
     constructor(opts: MovieOpts) {
-        if (! opts.hasOwnProperty("apiKey")) {
+        if (!opts.hasOwnProperty("apiKey")) {
             throw new ImdbError("Missing api key in opts");
         }
         this.opts = opts;
@@ -401,20 +399,20 @@ export class Client {
         const prom = rp(reqopts).then((data: OmdbMovie | OmdbError) => {
             let ret: Movie | Episode;
             if (isError(data)) {
-                return Promise.reject(new ImdbError(data.Error + ": " + (req.name ? req.name : req.id)));
-            } else {
-                if (isMovie(data)) {
-                    ret = new Movie(data);
-                } else if (isTvshow(data)) {
-                    ret = new TVShow(data, opts);
-                } else if (isEpisode(data)) {
-                    ret = new Episode(data, 30);
-                } else {
-                    return Promise.reject(new ImdbError(`type: '${data.Type}' is not valid`));
-                }
-
-                return Promise.resolve(ret);
+                throw new ImdbError(`${data.Error}: ${(req.name ? req.name : req.id)}`);
             }
+
+            if (isMovie(data)) {
+                ret = new Movie(data);
+            } else if (isTvshow(data)) {
+                ret = new TVShow(data, opts);
+            } else if (isEpisode(data)) {
+                ret = new Episode(data, 30);
+            } else {
+                throw new ImdbError(`type: '${data.Type}' is not valid`);
+            }
+
+            return Promise.resolve(ret);
         });
 
         return prom;
@@ -434,11 +432,10 @@ export class Client {
 
         const prom = rp(reqopts).then((data: OmdbSearch | OmdbError) => {
             if (isError(data)) {
-                const err = new ImdbError(`${data.Error}: ${req.title}`);
-                return Promise.reject(err);
-            } else {
-                return Promise.resolve(new SearchResults(data, page, opts, req));
+                throw new ImdbError(`${data.Error}: ${req.title}`);
             }
+
+            return Promise.resolve(new SearchResults(data, page, opts, req));
         });
 
         return prom;
@@ -446,9 +443,9 @@ export class Client {
 
     private merge_opts(opts?: MovieOpts): MovieOpts {
         if (opts !== undefined) {
-            return Object.assign({...this.opts}, opts);
-        } else {
-            return {...this.opts};
+            return Object.assign({ ...this.opts }, opts);
         }
+
+        return { ...this.opts };
     }
 }
