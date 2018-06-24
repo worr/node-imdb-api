@@ -13,7 +13,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p .",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "lint": "tslint --project tsconfig.json",
     "test": "nyc --require ts-node/register --reporter=lcov node_modules/mocha/bin/mocha test/*.ts",
     "check": "npm run lint && npm run test",
