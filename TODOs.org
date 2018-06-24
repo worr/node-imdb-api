@@ -1,6 +1,7 @@
 #+TITLE: Before 4.x
 
-* TODO 100% test coverage
+* DONE 100% test coverage
+  CLOSED: [2018-06-23 Sat 20:37]
 * DONE test new imdb client obj
   CLOSED: [2018-06-07 Thu 23:08]
 * DONE add tests for merging ~MovieOpts~
