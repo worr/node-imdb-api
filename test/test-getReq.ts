@@ -222,4 +222,34 @@ describe('get', () => {
             done();
         });
     });
+
+    it("gets an error from omdb by name", (done: MochaDone) => {
+        let scope = nock("https://www.omdbapi.com").get("/?apikey=foo&plot=full&r=json&t=blah").reply(200, {Error: "bad", Response: "False"});
+
+        imdb.get({
+            name: "blah"
+        }, {
+            apiKey: "foo"
+        }).then((data) => {
+            assert.notExists(data, "unreachable");
+        }).catch((err) => {
+            assert.isOk(err, "got an error");
+            done();
+        });
+    });
+
+    it("gets an error from omdb by id", (done: MochaDone) => {
+        let scope = nock("https://www.omdbapi.com").get("/?apikey=foo&plot=full&r=json&i=tt01").reply(200, {Error: "bad", Response: "False"});
+
+        imdb.get({
+            id: "tt01"
+        }, {
+            apiKey: "foo"
+        }).then((data) => {
+            assert.notExists(data, "unreachable");
+        }).catch((err) => {
+            assert.isOk(err, "got an error");
+            done();
+        });
+    });
 });

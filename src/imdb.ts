@@ -485,11 +485,7 @@ export function get(req: MovieRequest, opts: MovieOpts): Promise<Movie> {
  * @return a promise yielding search results
  */
 export function search(req: SearchRequest, opts: MovieOpts, page?: number): Promise<SearchResults> {
-    try {
-        return new Client(opts).search(req, page);
-    } catch (e) {
-        return Promise.reject(e);
-    }
+    return new Client(opts).search(req, page);
 }
 
 /**

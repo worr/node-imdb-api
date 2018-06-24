@@ -159,4 +159,9 @@ describe("Episode", () => {
         const ep = Object.assign(Object.create(orig_tv), {Year: "foo"});
         assert.throws(() => new imdb.Episode(ep, 30), TypeError);
     });
+
+    it("creates an episode with an invalid number", () => {
+        const ep = Object.assign(Object.create(orig_tv), {Episode: "foo"});
+        assert.throws(() => new imdb.Episode(ep, 30), TypeError);
+    });
 });
