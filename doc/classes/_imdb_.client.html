@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SearchResults | imdb-api</title>
+	<title>Client | imdb-api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,10 +59,10 @@
 					<a href="../modules/_imdb_.html">&quot;imdb&quot;</a>
 				</li>
 				<li>
-					<a href="_imdb_.searchresults.html">SearchResults</a>
+					<a href="_imdb_.client.html">Client</a>
 				</li>
 			</ul>
-			<h1>Class SearchResults</h1>
+			<h1>Class Client</h1>
 		</div>
 	</div>
 </header>
@@ -72,17 +72,33 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A single page of <a href="_imdb_.searchresult.html">SearchResult</a>s. You can call <a href="_imdb_.searchresults.html#next">SearchResults.next</a> to fetch
-							the next page of results. This is not intended to be created by an API consumer, but instead
-						to be returned by <a href="../modules/_imdb_.html#search">search</a> or <a href="_imdb_.client.html#search">Client.search</a>.</p>
+						<p>A client for fetching imdb information.</p>
 					</div>
+					<p>This is primarly useful for making many requests without having
+						to pass a <a href="../interfaces/_imdb_.movieopts.html">MovieOpts</a> object to the same function over and
+					over again.</p>
+					<p>All methods still accept an optional <a href="../interfaces/_imdb_.movieopts.html">MovieOpts</a> object in
+						the case that you want to override one or more of the options.
+						These per-method options are merged with the options that are
+					attached to the object, and override the object-local options.</p>
+					<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cli = <span class="hljs-keyword">new</span> imdb.Client({<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'xxxxxx'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>});
+cli.get({<span class="hljs-attr">name</span>: <span class="hljs-string">"The Toxic Avenger"</span>}).then(<span class="hljs-function">(<span class="hljs-params">movie</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(movie.title);
+});
+
+cli.search({<span class="hljs-attr">name</span>: <span class="hljs-string">"The Toxic Avenger"</span>}).then(<span class="hljs-function">(<span class="hljs-params">search</span>) =&gt;</span> {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> result <span class="hljs-keyword">of</span> search.results) {
+    <span class="hljs-built_in">console</span>.log(result.title);
+  }
+});
+</code></pre>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">SearchResults</span>
+						<span class="target">Client</span>
 					</li>
 				</ul>
 			</section>
@@ -93,20 +109,14 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_imdb_.searchresults.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_imdb_.searchresults.html#results" class="tsd-kind-icon">results</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_imdb_.searchresults.html#totalresults" class="tsd-kind-icon">totalresults</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_imdb_.client.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_imdb_.searchresults.html#next" class="tsd-kind-icon">next</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_imdb_.client.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_imdb_.client.html#search" class="tsd-kind-icon">search</a></li>
 							</ul>
 						</section>
 					</div>
@@ -118,106 +128,123 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Search<wbr>Results<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbsearch.html" class="tsd-signature-type">OmdbSearch</a>, page<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a>, req<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.searchrequest.html" class="tsd-signature-type">SearchRequest</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_imdb_.searchresults.html" class="tsd-signature-type">SearchResults</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Client<span class="tsd-signature-symbol">(</span>opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_imdb_.client.html" class="tsd-signature-type">Client</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L413">imdb.ts:413</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L520">imdb.ts:520</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Builds a new <a href="_imdb_.searchresults.html">SearchResults</a>. Not intended to be called directly by
-									API consumers, as it only creates the object from omdb results.</p>
+									<p>Creates a new <a href="_imdb_.client.html">Client</a> object.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="_imdb_.imdberror.html">ImdbError</a> if an invalid <a href="../interfaces/_imdb_.movieopts.html">MovieOpts</a> is passed</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>obj: <a href="../interfaces/_interfaces_.omdbsearch.html" class="tsd-signature-type">OmdbSearch</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>Search results from omdb</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<h5>page: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>Page number we&#39;re fetching</p>
-										</div>
-									</div>
-								</li>
-								<li>
 									<h5>opts: <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>Stored options from our initial request</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<h5>req: <a href="../interfaces/_imdb_.searchrequest.html" class="tsd-signature-type">SearchRequest</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>A reference to the original request</p>
+											<p>A set of <a href="../interfaces/_imdb_.movieopts.html">MovieOpts</a> that will be applied to all
+											requests made by this object unless overridden.</p>
 										</div>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_imdb_.searchresults.html" class="tsd-signature-type">SearchResults</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_imdb_.client.html" class="tsd-signature-type">Client</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="results" class="tsd-anchor"></a>
-					<h3>results</h3>
-					<div class="tsd-signature tsd-kind-icon">results<span class="tsd-signature-symbol">:</span> <a href="_imdb_.searchresult.html" class="tsd-signature-type">SearchResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L397">imdb.ts:397</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="totalresults" class="tsd-anchor"></a>
-					<h3>totalresults</h3>
-					<div class="tsd-signature tsd-kind-icon">totalresults<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L398">imdb.ts:398</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="next" class="tsd-anchor"></a>
-					<h3>next</h3>
+					<a name="get" class="tsd-anchor"></a>
+					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">next<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_imdb_.searchresults.html" class="tsd-signature-type">SearchResults</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movierequest.html" class="tsd-signature-type">MovieRequest</a>, opts<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L447">imdb.ts:447</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L545">imdb.ts:545</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns the next page of search results</p>
+									<p>Fetches a single movie by arbitrary criteria</p>
 								</div>
 							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>req: <a href="../interfaces/_imdb_.movierequest.html" class="tsd-signature-type">MovieRequest</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>set of requirements to search for</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> opts: <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>options that override the <a href="_imdb_.client.html">Client</a>&#39;s options</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>a promise yielding a movie</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="search" class="tsd-anchor"></a>
+					<h3>search</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">search<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.searchrequest.html" class="tsd-signature-type">SearchRequest</a>, page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, opts<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_imdb_.searchresults.html" class="tsd-signature-type">SearchResults</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L608">imdb.ts:608</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Searches for a movie by arbitrary criteria</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>req: <a href="../interfaces/_imdb_.searchrequest.html" class="tsd-signature-type">SearchRequest</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>set of requirements to search for</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> page: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>page number to return</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> opts: <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>options that override the <a href="_imdb_.client.html">Client</a>&#39;s options</p>
+									</div>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_imdb_.searchresults.html" class="tsd-signature-type">SearchResults</a><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>next page of search results</p>
+							<p>a promise yielding search results</p>
 						</li>
 					</ul>
 				</section>
@@ -245,9 +272,24 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_imdb_.client.html" class="tsd-kind-icon">Client</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_imdb_.client.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_imdb_.client.html#get" class="tsd-kind-icon">get</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_imdb_.client.html#search" class="tsd-kind-icon">search</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_imdb_.episode.html" class="tsd-kind-icon">Episode</a>
 					</li>
@@ -260,27 +302,9 @@
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_imdb_.searchresult.html" class="tsd-kind-icon">Search<wbr>Result</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_imdb_.searchresults.html" class="tsd-kind-icon">Search<wbr>Results</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_imdb_.searchresults.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_imdb_.searchresults.html#results" class="tsd-kind-icon">results</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_imdb_.searchresults.html#totalresults" class="tsd-kind-icon">totalresults</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_imdb_.searchresults.html#next" class="tsd-kind-icon">next</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_imdb_.tvshow.html" class="tsd-kind-icon">TVShow</a>
 					</li>

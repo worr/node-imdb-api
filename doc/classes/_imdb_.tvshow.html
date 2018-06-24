@@ -69,6 +69,15 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A TVShow as returned from <a href="../modules/_imdb_.html#get">get</a>, <a href="../modules/_imdb_.html#search">search</a> or any of the methods from
+							<a href="_imdb_.client.html">Client</a>. This is not intended to be directly created by consumers of this
+						library</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -95,8 +104,6 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_imdb_.tvshow.html#_episodes" class="tsd-kind-icon">_episodes</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_imdb_.tvshow.html#_year_data" class="tsd-kind-icon">_year_<wbr>data</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_imdb_.tvshow.html#actors" class="tsd-kind-icon">actors</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_imdb_.tvshow.html#country" class="tsd-kind-icon">country</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_imdb_.tvshow.html#director" class="tsd-kind-icon">director</a></li>
@@ -106,7 +113,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_imdb_.tvshow.html#imdburl" class="tsd-kind-icon">imdburl</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_imdb_.tvshow.html#languages" class="tsd-kind-icon">languages</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_imdb_.tvshow.html#metascore" class="tsd-kind-icon">metascore</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_imdb_.tvshow.html#opts" class="tsd-kind-icon">opts</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_imdb_.tvshow.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_imdb_.tvshow.html#plot" class="tsd-kind-icon">plot</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_imdb_.tvshow.html#poster" class="tsd-kind-icon">poster</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_imdb_.tvshow.html#rated" class="tsd-kind-icon">rated</a></li>
@@ -138,23 +145,41 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new TVShow<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a>, opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_imdb_.tvshow.html" class="tsd-signature-type">TVShow</a></li>
+						<li class="tsd-signature tsd-kind-icon">new TVShow<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a>, opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_imdb_.tvshow.html" class="tsd-signature-type">TVShow</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L206">imdb.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L286">imdb.ts:286</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a new <a href="_imdb_.tvshow.html">TVShow</a> from omdb results. This isn&#39;t intended to be
+										used by consumers of this library, instead see <a href="../modules/_imdb_.html#get">get</a>, <a href="../modules/_imdb_.html#search">search</a>
+									or any methods from <a href="_imdb_.client.html">Client</a>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>object: <a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a></h5>
+									<h5>obj: <a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>The tv show info we got from omdb</p>
+										</div>
+									</div>
 								</li>
 								<li>
 									<h5>opts: <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Options that we used to fetch this TVShow, so we can use
+											them to fetch episodes</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_imdb_.tvshow.html" class="tsd-signature-type">TVShow</a></h4>
@@ -164,27 +189,6 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_episodes" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _episodes</h3>
-					<div class="tsd-signature tsd-kind-icon">_episodes<span class="tsd-signature-symbol">:</span> <a href="_imdb_.episode.html" class="tsd-signature-type">Episode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L205">imdb.ts:205</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="_year_data" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _year_<wbr>data</h3>
-					<div class="tsd-signature tsd-kind-icon">_year_<wbr>data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#_year_data">_year_data</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L175">imdb.ts:175</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="actors" class="tsd-anchor"></a>
 					<h3>actors</h3>
@@ -192,9 +196,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#actors">actors</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L172">imdb.ts:172</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L176">imdb.ts:176</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>leading actors that starred in the movie</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="country" class="tsd-anchor"></a>
@@ -203,9 +212,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#country">country</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L157">imdb.ts:157</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L147">imdb.ts:147</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>countries this movie was released in</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="director" class="tsd-anchor"></a>
@@ -214,19 +228,29 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#director">director</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L170">imdb.ts:170</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L172">imdb.ts:172</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the directors of the movie</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="end_year" class="tsd-anchor"></a>
-					<h3>end_<wbr>year</h3>
-					<div class="tsd-signature tsd-kind-icon">end_<wbr>year<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> end_<wbr>year</h3>
+					<div class="tsd-signature tsd-kind-icon">end_<wbr>year<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L202">imdb.ts:202</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L274">imdb.ts:274</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>year this show ended if it&#39;s ended</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="genres" class="tsd-anchor"></a>
@@ -235,9 +259,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#genres">genres</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L155">imdb.ts:155</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L143">imdb.ts:143</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the genres that this movie belongs to</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="imdbid" class="tsd-anchor"></a>
@@ -246,9 +275,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#imdbid">imdbid</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L153">imdb.ts:153</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L139">imdb.ts:139</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>id of the movie on imdb</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="imdburl" class="tsd-anchor"></a>
@@ -257,9 +291,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#imdburl">imdburl</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L154">imdb.ts:154</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L141">imdb.ts:141</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>direct URL to the movie on imdb</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="languages" class="tsd-anchor"></a>
@@ -268,9 +307,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#languages">languages</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L156">imdb.ts:156</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L145">imdb.ts:145</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>languages this movie was released in</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="metascore" class="tsd-anchor"></a>
@@ -279,19 +323,30 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#metascore">metascore</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L167">imdb.ts:167</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L166">imdb.ts:166</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>score from a bunch of different review sites</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="opts" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> opts</h3>
-					<div class="tsd-signature tsd-kind-icon">opts<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L206">imdb.ts:206</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L180">imdb.ts:180</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>title of the movie</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="plot" class="tsd-anchor"></a>
@@ -300,9 +355,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#plot">plot</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L168">imdb.ts:168</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L168">imdb.ts:168</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the plot (can either be long or short as specified in <a href="../interfaces/_imdb_.movierequest.html">MovieRequest</a>)</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="poster" class="tsd-anchor"></a>
@@ -311,9 +371,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#poster">poster</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L166">imdb.ts:166</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L164">imdb.ts:164</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>link to the poster for this movie</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="rated" class="tsd-anchor"></a>
@@ -322,9 +387,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#rated">rated</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L169">imdb.ts:169</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L170">imdb.ts:170</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>what the movie was rated in its country of release</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="rating" class="tsd-anchor"></a>
@@ -333,9 +403,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#rating">rating</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L160">imdb.ts:160</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L153">imdb.ts:153</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the rating as it appears on imdb</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="released" class="tsd-anchor"></a>
@@ -344,9 +419,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#released">released</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L173">imdb.ts:173</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L178">imdb.ts:178</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>date that the movie was originally released</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="runtime" class="tsd-anchor"></a>
@@ -355,9 +435,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#runtime">runtime</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L161">imdb.ts:161</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L155">imdb.ts:155</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the runtime of the movie</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="series" class="tsd-anchor"></a>
@@ -366,19 +451,29 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#series">series</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L159">imdb.ts:159</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L151">imdb.ts:151</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>whether or not this is a TV series</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="start_year" class="tsd-anchor"></a>
 					<h3>start_<wbr>year</h3>
-					<div class="tsd-signature tsd-kind-icon">start_<wbr>year<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">start_<wbr>year<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L201">imdb.ts:201</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L272">imdb.ts:272</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>year this show started</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="title" class="tsd-anchor"></a>
@@ -387,19 +482,29 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#title">title</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L162">imdb.ts:162</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L157">imdb.ts:157</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>the title of the movie in English</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="totalseasons" class="tsd-anchor"></a>
 					<h3>totalseasons</h3>
-					<div class="tsd-signature tsd-kind-icon">totalseasons<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">totalseasons<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L203">imdb.ts:203</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L276">imdb.ts:276</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>how many seasons this show ran</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="type" class="tsd-anchor"></a>
@@ -408,9 +513,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L165">imdb.ts:165</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L162">imdb.ts:162</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>type of media (see <a href="../modules/_imdb_.html#requesttype">RequestType</a>)</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="votes" class="tsd-anchor"></a>
@@ -419,9 +529,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#votes">votes</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L158">imdb.ts:158</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L149">imdb.ts:149</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>votes received on imdb</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="writer" class="tsd-anchor"></a>
@@ -430,9 +545,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#writer">writer</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L171">imdb.ts:171</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L174">imdb.ts:174</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>writers of the movie</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="year" class="tsd-anchor"></a>
@@ -441,9 +561,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_imdb_.movie.html">Movie</a>.<a href="_imdb_.movie.html#year">year</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L163">imdb.ts:163</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L159">imdb.ts:159</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>year the movie was released</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -452,13 +577,13 @@
 					<a name="episodes" class="tsd-anchor"></a>
 					<h3>episodes</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">episodes<span class="tsd-signature-symbol">(</span>cb<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_imdb_.episode.html" class="tsd-signature-type">Episode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">episodes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_imdb_.episode.html" class="tsd-signature-type">Episode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L224">imdb.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L311">imdb.ts:311</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -466,36 +591,6 @@
 									<p>Fetches episodes of a TV show</p>
 								</div>
 							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cb: <span class="tsd-signature-type">function</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>optional callback that gets any errors or episodes</p>
-									</div>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span>, data<span class="tsd-signature-symbol">: </span><a href="_imdb_.episode.html" class="tsd-signature-type">Episode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>err: <span class="tsd-signature-type">Error</span></h5>
-														</li>
-														<li>
-															<h5>data: <a href="_imdb_.episode.html" class="tsd-signature-type">Episode</a><span class="tsd-signature-symbol">[]</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_imdb_.episode.html" class="tsd-signature-type">Episode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>Promise yielding list of episodes</p>
 						</li>
@@ -521,13 +616,13 @@
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_interfaces_.html">"interfaces"</a>
 					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="../modules/_util_.html">"util"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_imdb_.client.html" class="tsd-kind-icon">Client</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_imdb_.episode.html" class="tsd-kind-icon">Episode</a>
 					</li>
@@ -550,12 +645,6 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_imdb_.tvshow.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_imdb_.tvshow.html#_episodes" class="tsd-kind-icon">_episodes</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_imdb_.tvshow.html#_year_data" class="tsd-kind-icon">_year_<wbr>data</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_imdb_.tvshow.html#actors" class="tsd-kind-icon">actors</a>
@@ -584,8 +673,8 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_imdb_.tvshow.html#metascore" class="tsd-kind-icon">metascore</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_imdb_.tvshow.html#opts" class="tsd-kind-icon">opts</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_imdb_.tvshow.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="_imdb_.tvshow.html#plot" class="tsd-kind-icon">plot</a>
@@ -648,26 +737,8 @@
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/_imdb_.html#requesttype" class="tsd-kind-icon">Request<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_imdb_.html#promise" class="tsd-kind-icon">Promise</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_imdb_.html#omdbapi" class="tsd-kind-icon">omdbapi</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_imdb_.html#trans_table" class="tsd-kind-icon">trans_<wbr>table</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_imdb_.html#get" class="tsd-kind-icon">get</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_imdb_.html#getbyid" class="tsd-kind-icon">get<wbr>ById</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_imdb_.html#getreq" class="tsd-kind-icon">get<wbr>Req</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_imdb_.html#reqtoqueryobj" class="tsd-kind-icon">reqtoqueryobj</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_imdb_.html#search" class="tsd-kind-icon">search</a>

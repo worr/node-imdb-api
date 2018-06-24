@@ -67,95 +67,48 @@
 				<h1 id="node-imdb-api">node-imdb-api</h1>
 				<p>A non-scraping, functional node.js interface to imdb</p>
 				<h1 id="badges">Badges</h1>
-				<p><a href="http://badge.fury.io/js/imdb-api"><img src="https://badge.fury.io/js/imdb-api.svg" alt="NPM version"></a> <a href="https://travis-ci.org/worr/node-imdb-api"><img src="https://travis-ci.org/worr/node-imdb-api.svg?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/worr/node-imdb-api"><img src="https://david-dm.org/worr/node-imdb-api.svg" alt="Dependency Freshness"></a> <a href="https://flattr.com/submit/auto?user_id=worr&amp;url=https%3A%2F%2Fgithub.com%2Fworr%2Fnode-imdb-api%2F" title="node-imdb-api"><img src="http://api.flattr.com/button/button-compact-static-100x17.png" alt="Flattr Button" title="Flattr This!"></a></p>
+				<p><a href="http://badge.fury.io/js/imdb-api"><img src="https://badge.fury.io/js/imdb-api.svg" alt="NPM version"></a> <a href="https://travis-ci.org/worr/node-imdb-api"><img src="https://travis-ci.org/worr/node-imdb-api.svg?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/worr/node-imdb-api"><img src="https://david-dm.org/worr/node-imdb-api.svg" alt="Dependency Freshness"></a> <a href="https://coveralls.io/github/worr/node-imdb-api?branch=master"><img src="https://coveralls.io/repos/github/worr/node-imdb-api/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://gitter.im/worr/node-imdb-api?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/worr/node-imdb-api.svg" alt="Join the chat at https://gitter.im/worr/node-imdb-api"></a></p>
+				<p><strong>NOTE ON GITTER</strong>: I <em>am</em> online! I use the <a href="matrix.org">matrix</a> bridge to talk on Gitter, so you&#39;ll see me talking through <code>MatrixBot</code>. Feel free to ask questions!</p>
 				<h1 id="api-docs">API Docs</h1>
 				<p><a href="https://docs.worrbase.com/node/imdb-api/">API docs are now here</a></p>
 				<h1 id="installation-">Installation:</h1>
 				<pre><code class="lang-bash">npm install --save imdb-api
 </code></pre>
-				<h1 id="upgrading-from-1-x-or-2-x-">Upgrading from 1.x or 2.x?</h1>
-				<p>Many things have changed. Read the <a href="CHANGELOG.md">changelog</a></p>
 				<h1 id="use">Use</h1>
-				<p>Get an imdb object:</p>
-				<pre><code class="lang-js"><span class="hljs-keyword">const</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb-api'</span>);
+				<p>Import the library</p>
+				<pre><code class="lang-js"><span class="hljs-keyword">import</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb'</span>);
 </code></pre>
-				<p>Call get/getReq/getById</p>
-				<pre><code class="lang-js">imdb.get(<span class="hljs-string">'The Toxic Avenger'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
-imdb.getById(<span class="hljs-string">'tt0090190'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
-imdb.getReq({ <span class="hljs-attr">name</span>: <span class="hljs-string">'The Toxic Avenger'</span>, <span class="hljs-attr">opts</span>: {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>} }).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
-</code></pre>
-				<p>DATA</p>
-				<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(movie);
+				<p>Call <code>get</code> to get a single movie</p>
+				<pre><code class="lang-js">imdb.get({<span class="hljs-attr">name</span>: <span class="hljs-string">'The Toxic Avenger'</span>}, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
 
 Movie {
   <span class="hljs-attr">title</span>: <span class="hljs-string">'The Toxic Avenger'</span>,
-  <span class="hljs-attr">_year_data</span>: <span class="hljs-string">'1984'</span>,
-  <span class="hljs-attr">rated</span>: <span class="hljs-string">'R'</span>,
-  <span class="hljs-attr">released</span>: <span class="hljs-string">'1986-04-11T08:00:00.000Z'</span>,
-  <span class="hljs-attr">runtime</span>: <span class="hljs-string">'82 min'</span>,
-  <span class="hljs-attr">genres</span>: <span class="hljs-string">'Action, Comedy, Horror'</span>,
-  <span class="hljs-attr">director</span>: <span class="hljs-string">'Michael Herz, Lloyd Kaufman'</span>,
-  <span class="hljs-attr">writer</span>: <span class="hljs-string">'Lloyd Kaufman (story), Joe Ritter (screenplay), Lloyd Kaufman (additional material), Gay Partington Terry (additional material), Stuart Strutin (additional material)'</span>,
-  <span class="hljs-attr">actors</span>: <span class="hljs-string">'Andree Maranda, Mitch Cohen, Jennifer Babtist, Cindy Manion'</span>,
-  <span class="hljs-attr">plot</span>: <span class="hljs-string">'This is the story of Melvin, the Tromaville Health Club mop boy, who inadvertently and naively trusts the hedonistic, contemptuous and vain health club members, to the point of accidentally ending up in a vat of toxic waste. The devastating results then have a transmogrification effect, his alter ego is released, and the Toxic Avenger is born, to deadly and comical results. The local mop boy is now the local Superhero, the saviour of corruption, thuggish bullies and indifference. Troma classic with good make-up effects and stunts, a pleasant surprise indeed.'</span>,
-  <span class="hljs-attr">languages</span>: <span class="hljs-string">'English'</span>,
-  <span class="hljs-attr">country</span>: <span class="hljs-string">'USA'</span>,
-  <span class="hljs-attr">awards</span>: <span class="hljs-string">'1 nomination.'</span>,
-  <span class="hljs-attr">poster</span>: <span class="hljs-string">'http://ia.media-imdb.com/images/M/MV5BNzViNmQ5MTYtMmI4Yy00N2Y2LTg4NWUtYWU3MThkMTVjNjk3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'</span>,
-  <span class="hljs-attr">metascore</span>: <span class="hljs-string">'N/A'</span>,
-  <span class="hljs-attr">rating</span>: <span class="hljs-string">'6.2'</span>,
-  <span class="hljs-attr">votes</span>: <span class="hljs-string">'19,306'</span>,
-  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0090190'</span>,
-  <span class="hljs-attr">type</span>: <span class="hljs-string">'movie'</span>,
-  <span class="hljs-attr">response</span>: <span class="hljs-string">'True'</span>,
-  <span class="hljs-attr">series</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">imdburl</span>: <span class="hljs-string">'https://www.imdb.com/title/tt0090190'</span>
+  ...
 }
 </code></pre>
-				<p>Furthermore if you already know the id you can call getReq with different args:</p>
-				<pre><code class="lang-js">imdb.getReq({ <span class="hljs-attr">id</span>: <span class="hljs-string">'tt0090190'</span>, <span class="hljs-attr">opts</span>: {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>} }).then(<span class="hljs-built_in">console</span>.log)
-</code></pre>
-				<p>DATA</p>
-				<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(movie);
+				<p>Furthermore if you already know the id you can call <code>get</code> with different args:</p>
+				<pre><code class="lang-js">imdb.get({<span class="hljs-attr">id</span>: <span class="hljs-string">'tt0090190'</span>}, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>}).then(<span class="hljs-built_in">console</span>.log);
 
 Movie {
   <span class="hljs-attr">title</span>: <span class="hljs-string">'The Toxic Avenger'</span>,
-  <span class="hljs-attr">_year_data</span>: <span class="hljs-string">'1984'</span>,
-  <span class="hljs-attr">rated</span>: <span class="hljs-string">'R'</span>,
-  <span class="hljs-attr">released</span>: <span class="hljs-string">'1986-04-11T08:00:00.000Z'</span>,
-  <span class="hljs-attr">runtime</span>: <span class="hljs-string">'82 min'</span>,
-  <span class="hljs-attr">genres</span>: <span class="hljs-string">'Action, Comedy, Horror'</span>,
-  <span class="hljs-attr">director</span>: <span class="hljs-string">'Michael Herz, Lloyd Kaufman'</span>,
-  <span class="hljs-attr">writer</span>: <span class="hljs-string">'Lloyd Kaufman (story), Joe Ritter (screenplay), Lloyd Kaufman (additional material), Gay Partington Terry (additional material), Stuart Strutin (additional material)'</span>,
-  <span class="hljs-attr">actors</span>: <span class="hljs-string">'Andree Maranda, Mitch Cohen, Jennifer Babtist, Cindy Manion'</span>,
-  <span class="hljs-attr">plot</span>: <span class="hljs-string">'This is the story of Melvin, the Tromaville Health Club mop boy, who inadvertently and naively trusts the hedonistic, contemptuous and vain health club members, to the point of accidentally ending up in a vat of toxic waste. The devastating results then have a transmogrification effect, his alter ego is released, and the Toxic Avenger is born, to deadly and comical results. The local mop boy is now the local Superhero, the saviour of corruption, thuggish bullies and indifference. Troma classic with good make-up effects and stunts, a pleasant surprise indeed.'</span>,
-  <span class="hljs-attr">languages</span>: <span class="hljs-string">'English'</span>,
-  <span class="hljs-attr">country</span>: <span class="hljs-string">'USA'</span>,
-  <span class="hljs-attr">awards</span>: <span class="hljs-string">'1 nomination.'</span>,
-  <span class="hljs-attr">poster</span>: <span class="hljs-string">'http://ia.media-imdb.com/images/M/MV5BNzViNmQ5MTYtMmI4Yy00N2Y2LTg4NWUtYWU3MThkMTVjNjk3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'</span>,
-  <span class="hljs-attr">metascore</span>: <span class="hljs-string">'N/A'</span>,
-  <span class="hljs-attr">rating</span>: <span class="hljs-string">'6.2'</span>,
-  <span class="hljs-attr">votes</span>: <span class="hljs-string">'19,306'</span>,
-  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0090190'</span>,
-  <span class="hljs-attr">type</span>: <span class="hljs-string">'movie'</span>,
-  <span class="hljs-attr">response</span>: <span class="hljs-string">'True'</span>,
-  <span class="hljs-attr">series</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">imdburl</span>: <span class="hljs-string">'https://www.imdb.com/title/tt0090190'</span> }
+  ...
+}
 </code></pre>
-				<p>How do I search for things?</p>
+				<p>You can search for movies, and get multiple results by using the <code>search</code> function.</p>
 				<pre><code class="lang-js">imdb.search({
-  <span class="hljs-attr">title</span>: <span class="hljs-string">'Toxic Avenger'</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Toxic Avenger'</span>
 }, {
   <span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>
 }).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
 </code></pre>
-				<p>How do I get series episodes?</p>
-				<p>Well, it&#39;s a promise:</p>
-				<pre><code class="lang-js">imdb.get(<span class="hljs-string">'How I Met Your Mother'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>}).then(<span class="hljs-function"><span class="hljs-params">things</span> =&gt;</span> {
-    things.episodes().then(<span class="hljs-built_in">console</span>.log);
+				<p>TV shows have an <code>episodes</code> method that you can use to fetch all of the episodes
+				from that TV series.</p>
+				<pre><code class="lang-js">imdb.get(<span class="hljs-string">'How I Met Your Mother'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>}).then(<span class="hljs-function">(<span class="hljs-params">things</span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> things.episodes()
+}).then(<span class="hljs-function">(<span class="hljs-params">eps</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(eps);
 });
 
-...
 Episode {
   <span class="hljs-attr">season</span>: <span class="hljs-number">2</span>,
   <span class="hljs-attr">name</span>: <span class="hljs-string">'The Scorpion and the Toad'</span>,
@@ -163,35 +116,22 @@ Episode {
   <span class="hljs-attr">episode</span>: <span class="hljs-number">2</span>,
   <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.3'</span>,
   <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0869673'</span> },
-Episode {
-  <span class="hljs-attr">season</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'Brunch'</span>,
-  <span class="hljs-attr">released</span>: <span class="hljs-string">'2006-11-01T08:00:00.000Z'</span>,
-  <span class="hljs-attr">episode</span>: <span class="hljs-number">3</span>,
-  <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.6'</span>,
-  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0873024'</span> },
-Episode {
-  <span class="hljs-attr">season</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'Ted Mosby, Architect'</span>,
-  <span class="hljs-attr">released</span>: <span class="hljs-string">'2006-11-09T08:00:00.000Z'</span>,
-  <span class="hljs-attr">episode</span>: <span class="hljs-number">4</span>,
-  <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.9'</span>,
-  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0858000'</span> },
-Episode {
-  <span class="hljs-attr">season</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'World\'s Greatest Couple'</span>,
-  <span class="hljs-attr">released</span>: <span class="hljs-string">'2006-11-16T08:00:00.000Z'</span>,
-  <span class="hljs-attr">episode</span>: <span class="hljs-number">5</span>,
-  <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.8'</span>,
-  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0866188'</span> },
-Episode {
-  <span class="hljs-attr">season</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'Aldrin Justice'</span>,
-  <span class="hljs-attr">released</span>: <span class="hljs-string">'2006-11-23T08:00:00.000Z'</span>,
-  <span class="hljs-attr">episode</span>: <span class="hljs-number">6</span>,
-  <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.2'</span>,
-  <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0865115'</span> },
 ...
+</code></pre>
+				<h1 id="using-a-client-object">Using a <code>Client</code> object</h1>
+				<p><code>imdb-api</code> also exported a <code>Client</code> object that you can use to store options for subsequent requests.</p>
+				<pre><code class="lang-js"><span class="hljs-keyword">import</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb'</span>);
+<span class="hljs-keyword">const</span> cli = <span class="hljs-keyword">new</span> imdb.Client({<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'xxxxxx'</span>});
+cli.get({<span class="hljs-string">'name'</span>: <span class="hljs-string">'The Toxic Avenger'</span>}).then(<span class="hljs-built_in">console</span>.log);
+</code></pre>
+				<p><code>Client</code> also has a <code>search</code> method for searching.</p>
+				<pre><code class="lang-js"><span class="hljs-keyword">import</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb'</span>);
+<span class="hljs-keyword">const</span> cli = <span class="hljs-keyword">new</span> imdb.Client({<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'xxxxxx'</span>});
+cli.search({<span class="hljs-string">'name'</span>: <span class="hljs-string">'The Toxic Avenger'</span>}).then(<span class="hljs-function">(<span class="hljs-params">search</span>) =&gt;</span> {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> result <span class="hljs-keyword">of</span> search.results) {
+    <span class="hljs-built_in">console</span>.log(result.title);
+  }
+});
 </code></pre>
 				<h1 id="faq">FAQ</h1>
 				<h2 id="i-see-an-api-key-in-your-examples-is-it-required-how-do-i-get-one-">I see an API key in your examples? Is it required? How do I get one?</h2>
@@ -231,9 +171,6 @@ Episode {
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/_interfaces_.html">"interfaces"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="modules/_util_.html">"util"</a>
 					</li>
 				</ul>
 			</nav>

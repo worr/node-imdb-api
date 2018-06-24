@@ -92,8 +92,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_imdb_.searchrequest.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_imdb_.searchrequest.html#reqtype" class="tsd-kind-icon">reqtype</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_imdb_.searchrequest.html#title" class="tsd-kind-icon">title</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_imdb_.searchrequest.html#year" class="tsd-kind-icon">year</a></li>
 							</ul>
 						</section>
@@ -103,12 +103,28 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L95">imdb.ts:95</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Title of the media that we&#39;re looking for. Unfortunately, only English
+							names are supported by omdb at the moment.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="reqtype" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> reqtype</h3>
 					<div class="tsd-signature tsd-kind-icon">reqtype<span class="tsd-signature-symbol">:</span> <a href="../modules/_imdb_.html#requesttype" class="tsd-signature-type">RequestType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L97">imdb.ts:97</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L100">imdb.ts:100</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -118,32 +134,17 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="title" class="tsd-anchor"></a>
-					<h3>title</h3>
-					<div class="tsd-signature tsd-kind-icon">title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L92">imdb.ts:92</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Title of the media that we&#39;re looking for</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="year" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> year</h3>
 					<div class="tsd-signature tsd-kind-icon">year<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L102">imdb.ts:102</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L105">imdb.ts:105</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Year that the piece of media was released</p>
+							<p>Year that the media was released</p>
 						</div>
 					</div>
 				</section>
@@ -167,13 +168,13 @@
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_interfaces_.html">"interfaces"</a>
 					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="../modules/_util_.html">"util"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/_imdb_.client.html" class="tsd-kind-icon">Client</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_imdb_.episode.html" class="tsd-kind-icon">Episode</a>
 					</li>
@@ -204,10 +205,10 @@
 						<a href="_imdb_.searchrequest.html" class="tsd-kind-icon">Search<wbr>Request</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_imdb_.searchrequest.html#reqtype" class="tsd-kind-icon">reqtype</a>
+								<a href="_imdb_.searchrequest.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_imdb_.searchrequest.html#title" class="tsd-kind-icon">title</a>
+								<a href="_imdb_.searchrequest.html#reqtype" class="tsd-kind-icon">reqtype</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_imdb_.searchrequest.html#year" class="tsd-kind-icon">year</a>
@@ -219,26 +220,8 @@
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/_imdb_.html#requesttype" class="tsd-kind-icon">Request<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_imdb_.html#promise" class="tsd-kind-icon">Promise</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_imdb_.html#omdbapi" class="tsd-kind-icon">omdbapi</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_imdb_.html#trans_table" class="tsd-kind-icon">trans_<wbr>table</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_imdb_.html#get" class="tsd-kind-icon">get</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_imdb_.html#getbyid" class="tsd-kind-icon">get<wbr>ById</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_imdb_.html#getreq" class="tsd-kind-icon">get<wbr>Req</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_imdb_.html#reqtoqueryobj" class="tsd-kind-icon">reqtoqueryobj</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_imdb_.html#search" class="tsd-kind-icon">search</a>

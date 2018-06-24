@@ -73,6 +73,7 @@
 						<section class="tsd-index-section ">
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_imdb_.client.html" class="tsd-kind-icon">Client</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_imdb_.episode.html" class="tsd-kind-icon">Episode</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_imdb_.imdberror.html" class="tsd-kind-icon">Imdb<wbr>Error</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_imdb_.movie.html" class="tsd-kind-icon">Movie</a></li>
@@ -95,21 +96,10 @@
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_imdb_.html#requesttype" class="tsd-kind-icon">Request<wbr>Type</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_imdb_.html#promise" class="tsd-kind-icon">Promise</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_imdb_.html#omdbapi" class="tsd-kind-icon">omdbapi</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_imdb_.html#trans_table" class="tsd-kind-icon">trans_<wbr>table</a></li>
-							</ul>
-						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_imdb_.html#get" class="tsd-kind-icon">get</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_imdb_.html#getbyid" class="tsd-kind-icon">get<wbr>ById</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_imdb_.html#getreq" class="tsd-kind-icon">get<wbr>Req</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_imdb_.html#reqtoqueryobj" class="tsd-kind-icon">reqtoqueryobj</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_imdb_.html#search" class="tsd-kind-icon">search</a></li>
 							</ul>
 						</section>
@@ -124,7 +114,7 @@
 					<div class="tsd-signature tsd-kind-icon">Request<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"movie"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"series"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"episode"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"game"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L79">imdb.ts:79</a></li>
+							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L81">imdb.ts:81</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -134,193 +124,24 @@
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="promise" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Promise</h3>
-					<div class="tsd-signature tsd-kind-icon">Promise<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol"> =&nbsp;es6promise.Promise</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L24">imdb.ts:24</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="omdbapi" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> omdbapi</h3>
-					<div class="tsd-signature tsd-kind-icon">omdbapi<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"https://www.omdbapi.com/"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;https://www.omdbapi.com/&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L26">imdb.ts:26</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="trans_table" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> trans_<wbr>table</h3>
-					<div class="tsd-signature tsd-kind-icon">trans_<wbr>table<span class="tsd-signature-symbol">:</span> <a href="../classes/_util_.inverter.html" class="tsd-signature-type">Inverter</a><span class="tsd-signature-symbol"> =&nbsp;new Inverter({genres: &quot;Genre&quot;,languages: &quot;Language&quot;,rating: &quot;imdbRating&quot;,votes: &quot;imdbVotes&quot;,})</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L116">imdb.ts:116</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a>, cb<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movierequest.html" class="tsd-signature-type">MovieRequest</a>, opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L454">imdb.ts:454</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>deprecated</dt>
-									<dd><p>use getReq instead</p>
-										<p>Gets a movie by name</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>name: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>name of movie to search for</p>
-									</div>
-								</li>
-								<li>
-									<h5>opts: <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>options that modify a search</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cb: <span class="tsd-signature-type">function</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>optional callback to execute after finding results</p>
-									</div>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span>, data<span class="tsd-signature-symbol">: </span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>err: <span class="tsd-signature-type">Error</span></h5>
-														</li>
-														<li>
-															<h5>data: <a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>a promise yielding a movie</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="getbyid" class="tsd-anchor"></a>
-					<h3>get<wbr>ById</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>ById<span class="tsd-signature-symbol">(</span>imdbid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a>, cb<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L469">imdb.ts:469</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>deprecated</dt>
-									<dd><p>use getReq instead</p>
-										<p>Gets a movie by id</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>imdbid: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>id to search for</p>
-									</div>
-								</li>
-								<li>
-									<h5>opts: <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>options that modify a search</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cb: <span class="tsd-signature-type">function</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>optional callback to execute after finding results</p>
-									</div>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span>, data<span class="tsd-signature-symbol">: </span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>err: <span class="tsd-signature-type">Error</span></h5>
-														</li>
-														<li>
-															<h5>data: <a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>a promise yielding a movie</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="getreq" class="tsd-anchor"></a>
-					<h3>get<wbr>Req</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Req<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movierequest.html" class="tsd-signature-type">MovieRequest</a>, cb<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L363">imdb.ts:363</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L466">imdb.ts:466</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Fetches a movie by arbitrary criteria</p>
+									<p>Fetches a single movie by arbitrary criteria</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -332,64 +153,14 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cb: <span class="tsd-signature-type">function</span></h5>
+									<h5>opts: <a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>optional callback to execute after fetching data</p>
+										<p>options that modify a search</p>
 									</div>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span>, data<span class="tsd-signature-symbol">: </span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_imdb_.episode.html" class="tsd-signature-type">Episode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>err: <span class="tsd-signature-type">Error</span></h5>
-														</li>
-														<li>
-															<h5>data: <a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_imdb_.episode.html" class="tsd-signature-type">Episode</a></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.movie.html" class="tsd-signature-type">Movie</a><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>a promise yielding a movie</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="reqtoqueryobj" class="tsd-anchor"></a>
-					<h3>reqtoqueryobj</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">reqtoqueryobj<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.searchrequest.html" class="tsd-signature-type">SearchRequest</a>, apikey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, page<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L105">imdb.ts:105</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>req: <a href="../interfaces/_imdb_.searchrequest.html" class="tsd-signature-type">SearchRequest</a></h5>
-								</li>
-								<li>
-									<h5>apikey: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>page: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -403,7 +174,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/2ce6b63/src/imdb.ts#L482">imdb.ts:482</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/6b98613/src/imdb.ts#L483">imdb.ts:483</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -457,13 +228,13 @@
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="_interfaces_.html">"interfaces"</a>
 					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_util_.html">"util"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/_imdb_.client.html" class="tsd-kind-icon">Client</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_imdb_.episode.html" class="tsd-kind-icon">Episode</a>
 					</li>
@@ -494,26 +265,8 @@
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="_imdb_.html#requesttype" class="tsd-kind-icon">Request<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_imdb_.html#promise" class="tsd-kind-icon">Promise</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_imdb_.html#omdbapi" class="tsd-kind-icon">omdbapi</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_imdb_.html#trans_table" class="tsd-kind-icon">trans_<wbr>table</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_imdb_.html#get" class="tsd-kind-icon">get</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_imdb_.html#getbyid" class="tsd-kind-icon">get<wbr>ById</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_imdb_.html#getreq" class="tsd-kind-icon">get<wbr>Req</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_imdb_.html#reqtoqueryobj" class="tsd-kind-icon">reqtoqueryobj</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_imdb_.html#search" class="tsd-kind-icon">search</a>
