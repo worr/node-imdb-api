@@ -38,7 +38,7 @@ describe('tests client creation and use', () => {
         const scope = nock("https://www.omdbapi.com").get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger").reply(200, require("./data/toxic-avenger-search.json"));
 
         cli.search({
-            title: 'Toxic Avenger'
+            name: 'Toxic Avenger'
         }).then((data) => {
             assert.isOk(data);
             assert.equal(data.results[0].title, "The Toxic Avenger", "ensuring we got a movie");
@@ -70,7 +70,7 @@ describe('tests client creation and use', () => {
         let scope = nock("https://www.omdbapi.com").get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger").socketDelay(2000).reply(200, require("./data/toxic-avenger-search.json"));
 
         cli.search({
-            title: 'Toxic Avenger'
+            name: 'Toxic Avenger'
         }, 1, {
             timeout: 1000
         }).then((data) => {

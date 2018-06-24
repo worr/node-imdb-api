@@ -367,6 +367,8 @@ export class TVShow extends Movie {
  */
 export class SearchResult {
     /** name of the movie */
+    public title: string;
+    /** name of the movie */
     public name: string;
     /** year the movie was released */
     public year: number;
@@ -385,6 +387,8 @@ export class SearchResult {
                 this[attr.toLowerCase()] = obj[attr];
             }
         }
+
+        this.name = this.title;
     }
 }
 
