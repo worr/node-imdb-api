@@ -10,6 +10,8 @@
 * Convert tests to typescript
 * Remove utils module
 * Remove `MovieOpts` from `MovieRequest` and have it be a separate arg to `get`
+* Changed `SearchRequest.title` to `SearchRequest.name` to unify interface
+* Specify types for `TVShow.totalseasons`, `TVShow.start_year` and `TVShow.end_year`
 
 # Version 3.1.1 -> 3.1.2
 
