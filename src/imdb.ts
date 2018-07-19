@@ -175,7 +175,7 @@ export class Movie {
     /** leading actors that starred in the movie */
     public actors: string;
     /** date that the movie was originally released */
-    public released: Date;
+    public released?: Date;
     /** title of the movie */
     public name: string;
 
@@ -209,15 +209,14 @@ export class Movie {
             } else if (attr === "Released") {
                 const val = new Date(obj[attr]);
                 if (isNaN(val.getTime())) {
-                    throw new TypeError("invalid release date");
+                    this.released = undefined;
+                } else {
+                    this.released = val;
                 }
-                this.released = val;
             } else if (attr === "imdbRating") {
+                const key = trans_table[attr];
                 const val = parseFloat(obj[attr]);
-                if (isNaN(val)) {
-                    throw new TypeError("invalid rating");
-                }
-                this[trans_table[attr]] = parseFloat(obj[attr]);
+                this[key] = isNaN(val) ? 0 : val;
             } else if (trans_table[attr] !== undefined) {
                 this[trans_table[attr]] = obj[attr];
             } else {
