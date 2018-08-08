@@ -298,7 +298,7 @@ export class TVShow extends Movie {
         super(obj);
         const years = this._year_data.split("-");
         this.start_year = parseInt(years[0], 10);
-        this.end_year = parseInt(years[1], 10) ? parseInt(years[1], 10) : null;
+        this.end_year = parseInt(years[1], 10) ? parseInt(years[1], 10) : undefined;
         this.totalseasons = parseInt(obj.totalSeasons, 10);
         this.opts = opts;
     }
