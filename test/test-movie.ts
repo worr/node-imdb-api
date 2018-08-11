@@ -87,13 +87,13 @@ describe("Movie", () => {
         assert.deepEqual(mov.series, false, "not a series");
         assert.deepEqual(mov.imdburl, "https://www.imdb.com/title/tt653921", "url formulated correctly");
     });
-    it("creates a movie with invalid score", () => {
-        const mov = Object.assign(Object.create(orig_movie), {imdbRating: "foo"});
-        assert.throws(() => new imdb.Movie(mov), TypeError);
+    it("creates a movie with invalid rating", () => {
+        const mov = Object.assign(Object.create(orig_movie), {imdbRating: "N/A"});
+        assert.equal(new imdb.Movie(mov).rating, 0);
     });
-    it("creates a movie with bad release data", () => {
-        const mov = Object.assign(Object.create(orig_movie), {Released: "foo"});
-        assert.throws(() => new imdb.Movie(mov), TypeError);
+    it("creates a movie with bad release date", () => {
+        const mov = Object.assign(Object.create(orig_movie), {Released: "N/A"});
+        assert.isUndefined(new imdb.Movie(mov).released);
     });
     it("creates a movie with no year", () => {
         let mov = Object.assign(Object.create(orig_movie));
@@ -152,7 +152,7 @@ describe("Episode", () => {
 
     it("creates an episode with an invalid release", () => {
         const ep = Object.assign(Object.create(orig_tv), {Released: "foo"});
-        assert.throws(() => new imdb.Episode(ep, 30), TypeError);
+        assert.isUndefined(new imdb.Episode(ep, 30).released);
     });
 
     it("creates an episode with an invalid year", () => {
