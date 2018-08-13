@@ -1,3 +1,7 @@
+# Version 4.0.0 -> 4.0.1
+
+* Fixes #63, #65 - Be more tolerant of bad data
+
 # Version 3.1.2 -> 4.0.0
 
 * Removed callback api
