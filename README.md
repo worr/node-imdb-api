@@ -107,7 +107,7 @@ You can get one by going [here](https://www.patreon.com/posts/api-is-going-10743
 
 ## Why? There are like 3 other interfaces to imdb in npm
 
-Most of them scrape imdb. imdb explicitly forbids scarping.
+Most of them scrape imdb. imdb explicitly forbids scraping.
 
 And what happens when the site layout changes? Well then your screen scraping
 solution fails in interesting ways. Screen scraping is also pretty slow,
