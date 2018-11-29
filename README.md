@@ -19,9 +19,16 @@ npm install --save imdb-api
 
 # Use
 
-Import the library
+Import the library using `require`
+
 ```js
-import imdb = require('imdb');
+const imdb = require('imdb-api')
+```
+
+or ES6 `import`
+
+```js
+import imdb from 'imdb-api'
 ```
 
 Call `get` to get a single movie
