@@ -1,1 +1,7 @@
-
+coverage
+doc
+test
+TODOS.org
+CHANGELOG.md
+README.md
+yarn-error.log
