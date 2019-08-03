@@ -17,13 +17,14 @@
     "prepublish": "npm run build",
     "prepublishOnly": "npm run build",
     "lint": "tslint --project tsconfig.json",
-    "test": "nyc --require ts-node/register --reporter=lcov node_modules/mocha/bin/mocha test/*.ts",
+    "test": "nyc --reporter lcov mocha",
     "check": "npm run lint && npm run test",
     "ci": "npm run check && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "typedoc --out ./doc --ignoreCompilerErrors src/imdb.ts",
     "clean": "rm -rf node_modules lib"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^0.1.3",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
@@ -32,6 +33,7 @@
     "mocha": "^6.2.0",
     "nock": "^10.0.6",
     "nyc": "^14.1.1",
+    "source-map-support": "^0.5.13",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "typedoc": "^0.15.0",
