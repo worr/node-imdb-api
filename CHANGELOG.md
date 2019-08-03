@@ -1,4 +1,9 @@
-# Version 4.0.0 -> 4.0.1
+# Version 4.0.3
+
+* Documentation fixes
+* Dependency bumps
+
+# Version 4.0.0 -> 4.0.1/4.0.2
 
 * Fixes #63, #65 - Be more tolerant of bad data
 

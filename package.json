@@ -2,7 +2,7 @@
   "author": "William Orr <will@worrbase.com> (http://worrbase.com/)",
   "name": "imdb-api",
   "description": "Queries unofficial imdb APIs to get movie and television information from imdb",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "main": "./lib/imdb.js",
   "types": "./lib/imdb.d.ts",
   "homepage": "https://github.com/worr/node-imdb-api",
@@ -24,18 +24,18 @@
     "clean": "rm -rf node_modules lib"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.4",
-    "@types/mocha": "^5.2.5",
-    "chai": "^4.1.2",
-    "coveralls": "^3.0.2",
-    "js-beautify": "^1.7.5",
-    "mocha": "^5.2.0",
-    "nock": "^9.6.1",
-    "nyc": "^13.0.1",
-    "ts-node": "^7.0.0",
-    "tslint": "^5.11.0",
-    "typedoc": "^0.11.1",
-    "typescript": "^3.0.1"
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.5",
+    "js-beautify": "^1.10.1",
+    "mocha": "^6.2.0",
+    "nock": "^10.0.6",
+    "nyc": "^14.1.1",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.5.3"
   },
   "optionalDependencies": {},
   "engines": {
@@ -49,9 +49,9 @@
     "television"
   ],
   "dependencies": {
-    "@types/request": "^2.47.1",
-    "@types/request-promise-native": "^1.0.15",
-    "request": "^2.87.0",
-    "request-promise-native": "^1.0.5"
+    "@types/request": "^2.48.2",
+    "@types/request-promise-native": "^1.0.16",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
   }
 }
