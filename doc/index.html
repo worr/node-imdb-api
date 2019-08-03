@@ -64,46 +64,53 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<h1 id="node-imdb-api">node-imdb-api</h1>
+				<a href="#node-imdb-api" id="node-imdb-api" style="color: inherit; text-decoration: none;">
+					<h1>node-imdb-api</h1>
+				</a>
 				<p>A non-scraping, functional node.js interface to imdb</p>
-				<h1 id="badges">Badges</h1>
+				<a href="#badges" id="badges" style="color: inherit; text-decoration: none;">
+					<h1>Badges</h1>
+				</a>
 				<p><a href="http://badge.fury.io/js/imdb-api"><img src="https://badge.fury.io/js/imdb-api.svg" alt="NPM version"></a> <a href="https://travis-ci.org/worr/node-imdb-api"><img src="https://travis-ci.org/worr/node-imdb-api.svg?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/worr/node-imdb-api"><img src="https://david-dm.org/worr/node-imdb-api.svg" alt="Dependency Freshness"></a> <a href="https://coveralls.io/github/worr/node-imdb-api?branch=master"><img src="https://coveralls.io/repos/github/worr/node-imdb-api/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://gitter.im/worr/node-imdb-api?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/worr/node-imdb-api.svg" alt="Join the chat at https://gitter.im/worr/node-imdb-api"></a></p>
 				<p><strong>NOTE ON GITTER</strong>: I <em>am</em> online! I use the <a href="matrix.org">matrix</a> bridge to talk on Gitter, so you&#39;ll see me talking through <code>MatrixBot</code>. Feel free to ask questions!</p>
-				<h1 id="api-docs">API Docs</h1>
+				<a href="#api-docs" id="api-docs" style="color: inherit; text-decoration: none;">
+					<h1>API Docs</h1>
+				</a>
 				<p><a href="https://docs.worrbase.com/node/imdb-api/">API docs are now here</a></p>
-				<h1 id="installation-">Installation:</h1>
-				<pre><code class="lang-bash">npm install --save imdb-api
-</code></pre>
-				<h1 id="use">Use</h1>
-				<p>Import the library</p>
-				<pre><code class="lang-js"><span class="hljs-keyword">import</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb'</span>);
-</code></pre>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h1>Installation:</h1>
+				</a>
+				<pre><code class="language-bash">npm install --save imdb-api</code></pre>
+				<a href="#use" id="use" style="color: inherit; text-decoration: none;">
+					<h1>Use</h1>
+				</a>
+				<p>Import the library using <code>require</code></p>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb-api'</span>)</code></pre>
+				<p>or ES6 <code>import</code></p>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> imdb <span class="hljs-keyword">from</span> <span class="hljs-string">'imdb-api'</span></code></pre>
 				<p>Call <code>get</code> to get a single movie</p>
-				<pre><code class="lang-js">imdb.get({<span class="hljs-attr">name</span>: <span class="hljs-string">'The Toxic Avenger'</span>}, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
+				<pre><code class="language-js">imdb.get({<span class="hljs-attr">name</span>: <span class="hljs-string">'The Toxic Avenger'</span>}, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
 
 Movie {
   <span class="hljs-attr">title</span>: <span class="hljs-string">'The Toxic Avenger'</span>,
   ...
-}
-</code></pre>
+}</code></pre>
 				<p>Furthermore if you already know the id you can call <code>get</code> with different args:</p>
-				<pre><code class="lang-js">imdb.get({<span class="hljs-attr">id</span>: <span class="hljs-string">'tt0090190'</span>}, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>}).then(<span class="hljs-built_in">console</span>.log);
+				<pre><code class="language-js">imdb.get({<span class="hljs-attr">id</span>: <span class="hljs-string">'tt0090190'</span>}, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>}).then(<span class="hljs-built_in">console</span>.log);
 
 Movie {
   <span class="hljs-attr">title</span>: <span class="hljs-string">'The Toxic Avenger'</span>,
   ...
-}
-</code></pre>
+}</code></pre>
 				<p>You can search for movies, and get multiple results by using the <code>search</code> function.</p>
-				<pre><code class="lang-js">imdb.search({
+				<pre><code class="language-js">imdb.search({
   <span class="hljs-attr">name</span>: <span class="hljs-string">'Toxic Avenger'</span>
 }, {
   <span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>
-}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);
-</code></pre>
+}).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);</code></pre>
 				<p>TV shows have an <code>episodes</code> method that you can use to fetch all of the episodes
 				from that TV series.</p>
-				<pre><code class="lang-js">imdb.get(<span class="hljs-string">'How I Met Your Mother'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>}).then(<span class="hljs-function">(<span class="hljs-params">things</span>) =&gt;</span> {
+				<pre><code class="language-js">imdb.get(<span class="hljs-string">'How I Met Your Mother'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>}).then(<span class="hljs-function">(<span class="hljs-params">things</span>) =&gt;</span> {
     <span class="hljs-keyword">return</span> things.episodes()
 }).then(<span class="hljs-function">(<span class="hljs-params">eps</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(eps);
@@ -116,41 +123,50 @@ Episode {
   <span class="hljs-attr">episode</span>: <span class="hljs-number">2</span>,
   <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.3'</span>,
   <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0869673'</span> },
-...
-</code></pre>
-				<h1 id="using-a-client-object">Using a <code>Client</code> object</h1>
+...</code></pre>
+				<a href="#using-a-codeclientcode-object" id="using-a-codeclientcode-object" style="color: inherit; text-decoration: none;">
+					<h1>Using a <code>Client</code> object</h1>
+				</a>
 				<p><code>imdb-api</code> also exported a <code>Client</code> object that you can use to store options for subsequent requests.</p>
-				<pre><code class="lang-js"><span class="hljs-keyword">import</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb'</span>);
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb'</span>);
 <span class="hljs-keyword">const</span> cli = <span class="hljs-keyword">new</span> imdb.Client({<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'xxxxxx'</span>});
-cli.get({<span class="hljs-string">'name'</span>: <span class="hljs-string">'The Toxic Avenger'</span>}).then(<span class="hljs-built_in">console</span>.log);
-</code></pre>
+cli.get({<span class="hljs-string">'name'</span>: <span class="hljs-string">'The Toxic Avenger'</span>}).then(<span class="hljs-built_in">console</span>.log);</code></pre>
 				<p><code>Client</code> also has a <code>search</code> method for searching.</p>
-				<pre><code class="lang-js"><span class="hljs-keyword">import</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb'</span>);
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> imdb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'imdb'</span>);
 <span class="hljs-keyword">const</span> cli = <span class="hljs-keyword">new</span> imdb.Client({<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'xxxxxx'</span>});
 cli.search({<span class="hljs-string">'name'</span>: <span class="hljs-string">'The Toxic Avenger'</span>}).then(<span class="hljs-function">(<span class="hljs-params">search</span>) =&gt;</span> {
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> result <span class="hljs-keyword">of</span> search.results) {
     <span class="hljs-built_in">console</span>.log(result.title);
   }
-});
-</code></pre>
-				<h1 id="faq">FAQ</h1>
-				<h2 id="i-see-an-api-key-in-your-examples-is-it-required-how-do-i-get-one-">I see an API key in your examples? Is it required? How do I get one?</h2>
+});</code></pre>
+				<a href="#faq" id="faq" style="color: inherit; text-decoration: none;">
+					<h1>FAQ</h1>
+				</a>
+				<a href="#i-see-an-api-key-in-your-examples-is-it-required-how-do-i-get-one" id="i-see-an-api-key-in-your-examples-is-it-required-how-do-i-get-one" style="color: inherit; text-decoration: none;">
+					<h2>I see an API key in your examples? Is it required? How do I get one?</h2>
+				</a>
 				<p>Yes, it is required! omdb made this a requirement as of May 8, 2017. This is unfortunate,
 					but totally understandable. While I plan on working on finding an alternative to provide
 				the movie info you crave, I&#39;ve enabled you to pass in an apikey.</p>
 				<p>You can get one by going <a href="https://www.patreon.com/posts/api-is-going-10743518">here</a>.</p>
-				<h2 id="why-there-are-like-3-other-interfaces-to-imdb-in-npm">Why? There are like 3 other interfaces to imdb in npm</h2>
-				<p>Most of them scrape imdb. imdb explicitly forbids scarping.</p>
+				<a href="#why-there-are-like-3-other-interfaces-to-imdb-in-npm" id="why-there-are-like-3-other-interfaces-to-imdb-in-npm" style="color: inherit; text-decoration: none;">
+					<h2>Why? There are like 3 other interfaces to imdb in npm</h2>
+				</a>
+				<p>Most of them scrape imdb. imdb explicitly forbids scraping.</p>
 				<p>And what happens when the site layout changes? Well then your screen scraping
 					solution fails in interesting ways. Screen scraping is also pretty slow,
 				and we can&#39;t have that.</p>
-				<h2 id="woah-i-looked-at-your-code-and-you-re-using-unofficial-apis-">WOAH I looked at your code and you&#39;re using unofficial APIs!</h2>
+				<a href="#woah-i-looked-at-your-code-and-you39re-using-unofficial-apis" id="woah-i-looked-at-your-code-and-you39re-using-unofficial-apis" style="color: inherit; text-decoration: none;">
+					<h2>WOAH I looked at your code and you&#39;re using unofficial APIs!</h2>
+				</a>
 				<p>There isn&#39;t an official API to imdb. As soon as one is released (and I
 				notice), I&#39;ll update the module.</p>
 				<p>imdb DOES release all of their data in text files nightly, so unofficial sites
 				have popped up providing RESTful APIs against that data.</p>
 				<p>I have to use a few, since none of them are complete.</p>
-				<h2 id="what-if-one-of-the-unofficial-apis-disappears-">What if one of the unofficial APIs disappears?</h2>
+				<a href="#what-if-one-of-the-unofficial-apis-disappears" id="what-if-one-of-the-unofficial-apis-disappears" style="color: inherit; text-decoration: none;">
+					<h2>What if one of the unofficial APIs disappears?</h2>
+				</a>
 				<p>File a bug. I&#39;ll get creative.</p>
 			</div>
 		</div>
@@ -193,6 +209,7 @@ cli.search({<span class="hljs-string">'name'</span>: <span class="hljs-string">'
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -241,7 +258,7 @@ cli.search({<span class="hljs-string">'name'</span>: <span class="hljs-string">'
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>

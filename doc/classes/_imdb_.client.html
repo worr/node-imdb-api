@@ -81,7 +81,7 @@
 						the case that you want to override one or more of the options.
 						These per-method options are merged with the options that are
 					attached to the object, and override the object-local options.</p>
-					<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cli = <span class="hljs-keyword">new</span> imdb.Client({<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'xxxxxx'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>});
+					<pre><code class="language-javascript"><span class="hljs-keyword">const</span> cli = <span class="hljs-keyword">new</span> imdb.Client({<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'xxxxxx'</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">30000</span>});
 cli.get({<span class="hljs-attr">name</span>: <span class="hljs-string">"The Toxic Avenger"</span>}).then(<span class="hljs-function">(<span class="hljs-params">movie</span>) =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(movie.title);
 });
@@ -90,8 +90,7 @@ cli.search({<span class="hljs-attr">name</span>: <span class="hljs-string">"The 
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> result <span class="hljs-keyword">of</span> search.results) {
     <span class="hljs-built_in">console</span>.log(result.title);
   }
-});
-</code></pre>
+});</code></pre>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -134,7 +133,7 @@ cli.search({<span class="hljs-attr">name</span>: <span class="hljs-string">"The 
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/b13c6df/src/imdb.ts#L519">imdb.ts:519</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/9081b41/src/imdb.ts#L519">imdb.ts:519</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -176,7 +175,7 @@ cli.search({<span class="hljs-attr">name</span>: <span class="hljs-string">"The 
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/b13c6df/src/imdb.ts#L544">imdb.ts:544</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/9081b41/src/imdb.ts#L544">imdb.ts:544</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -214,7 +213,7 @@ cli.search({<span class="hljs-attr">name</span>: <span class="hljs-string">"The 
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/b13c6df/src/imdb.ts#L607">imdb.ts:607</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/9081b41/src/imdb.ts#L607">imdb.ts:607</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -343,6 +342,7 @@ cli.search({<span class="hljs-attr">name</span>: <span class="hljs-string">"The 
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -391,7 +391,7 @@ cli.search({<span class="hljs-attr">name</span>: <span class="hljs-string">"The 
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
