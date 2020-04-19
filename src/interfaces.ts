@@ -50,6 +50,7 @@ export interface OmdbEpisode {
     Title: string;
     Released: string;
     Episode: string;
+    Season: string;
     Type: string;
     imdbRating: string;
     imdbID: string;
