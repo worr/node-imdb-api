@@ -1,6 +1,6 @@
 {
   "author": "William Orr <will@worrbase.com> (http://worrbase.com/)",
-  "name": "@universalmediaserver/imdb-api",
+  "name": "@universalmediaserver/node-imdb-api",
   "description": "Queries unofficial imdb APIs to get movie and television information from imdb",
   "version": "4.1.0",
   "main": "./lib/imdb.js",
@@ -8,7 +8,7 @@
   "homepage": "https://github.com/UniversalMediaServer/node-imdb-api",
   "repository": {
     "type": "git",
-    "url": "https://github.com/UniversalMediaServer/node-imdb-api"
+    "url": "git+https://github.com/UniversalMediaServer/node-imdb-api.git"
   },
   "license": "MIT",
   "scripts": {
@@ -55,5 +55,13 @@
     "@types/request-promise-native": "^1.0.16",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7"
+  },
+  "bugs": {
+    "url": "https://github.com/UniversalMediaServer/node-imdb-api/issues"
+  },
+  "directories": {
+    "doc": "doc",
+    "lib": "lib",
+    "test": "test"
   }
 }
