@@ -37,6 +37,14 @@ export interface MovieOpts {
      * Timeout in milliseconds to wait before giving up on a request
      */
     timeout?: number;
+    usePrivateServer?: boolean;
+}
+
+export interface ClientOpts {
+    apiKey?: string;
+    timeout?: number
+    usePrivateServer?: boolean;
+    url?: string;
 }
 
 /**
@@ -282,7 +290,7 @@ export class TVShow extends Movie {
     /**
      * @hidden
      */
-    private opts: MovieOpts;
+    private opts: ClientOpts;
 
     /**
      * Creates a new {@link TVShow} from omdb results. This isn't intended to be
@@ -293,7 +301,7 @@ export class TVShow extends Movie {
      * @param opts Options that we used to fetch this TVShow, so we can use
      * them to fetch episodes
      */
-    constructor(obj: OmdbTvshow, opts: MovieOpts) {
+    constructor(obj: OmdbTvshow, opts: ClientOpts) {
         super(obj);
         const years = this._year_data.split("-");
         this.start_year = parseInt(years[0], 10);
@@ -325,7 +333,7 @@ export class TVShow extends Movie {
                     r: "json",
                 },
                 timeout: undefined,
-                url: omdbapi,
+                url: tvShow.opts.url,
                 withCredentials: false,
             };
 
@@ -516,7 +524,7 @@ export class Client {
     /**
      * @hidden
      */
-    private opts: MovieOpts;
+    private opts: ClientOpts;
 
     /**
      * Creates a new {@link Client} object.
@@ -526,11 +534,12 @@ export class Client {
      *
      * @throws {@link ImdbError} if an invalid {@link MovieOpts} is passed
      */
-    constructor(opts: MovieOpts) {
+    constructor(opts: ClientOpts) {
         if (!opts.hasOwnProperty("apiKey")) {
             throw new ImdbError("Missing api key in opts");
         }
         this.opts = opts;
+        this.opts.url = opts.usePrivateServer ? 'https://private.omdbapi.com/' : omdbapi;
     }
 
     /**
@@ -541,7 +550,7 @@ export class Client {
      *
      * @return a promise yielding a movie
      */
-    public get(req: MovieRequest, opts?: MovieOpts): Promise<Movie> {
+    public get(req: MovieRequest, opts?: ClientOpts): Promise<Movie> {
         opts = this.merge_opts(opts);
 
         const qs = {
@@ -565,7 +574,7 @@ export class Client {
             json: true,
             qs,
             timeout: undefined,
-            url: omdbapi,
+            url: opts.url,
             withCredentials: false,
         };
 
@@ -604,14 +613,14 @@ export class Client {
      *
      * @return a promise yielding search results
      */
-    public search(req: SearchRequest, page?: number, opts?: MovieOpts): Promise<SearchResults> {
+    public search(req: SearchRequest, page?: number, opts?: ClientOpts): Promise<SearchResults> {
         opts = this.merge_opts(opts);
         if (page === undefined) {
             page = 1;
         }
 
         const qs = reqtoqueryobj(req, opts.apiKey, page);
-        const reqopts = { qs, url: omdbapi, json: true, timeout: undefined, withCredentials: false };
+        const reqopts = { qs, url: opts.url, json: true, timeout: undefined, withCredentials: false };
         if ("timeout" in opts) {
             reqopts.timeout = opts.timeout;
         }
