@@ -584,7 +584,7 @@ export class Client {
             } else if (isTvshow(data)) {
                 ret = new TVShow(data, opts);
             } else if (isEpisode(data)) {
-                ret = new Episode(data, 30);
+                ret = new Episode(data, parseInt(data.Season));
             } else {
                 throw new ImdbError(`type: '${data.Type}' is not valid`);
             }
