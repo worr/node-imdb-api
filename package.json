@@ -14,8 +14,6 @@
   "scripts": {
     "build": "tsc -p .",
     "prepare": "npm run build",
-    "prepublish": "npm run build",
-    "prepublishOnly": "npm run build",
     "lint": "tslint --project tsconfig.json",
     "test": "nyc --reporter lcov mocha",
     "check": "npm run lint && npm run test",
@@ -25,19 +23,19 @@
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^0.1.3",
-    "@types/chai": "^4.1.7",
+    "@types/chai": "^4.2.11",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
-    "coveralls": "^3.0.5",
-    "js-beautify": "^1.10.1",
-    "mocha": "^6.2.0",
+    "coveralls": "^3.1.0",
+    "js-beautify": "^1.11.0",
+    "mocha": "^6.2.3",
     "nock": "^10.0.6",
     "nyc": "^14.1.1",
-    "source-map-support": "^0.5.13",
-    "ts-node": "^8.3.0",
-    "tslint": "^5.18.0",
-    "typedoc": "^0.15.0",
-    "typescript": "^3.5.3"
+    "source-map-support": "^0.5.19",
+    "ts-node": "^8.9.1",
+    "tslint": "^5.20.1",
+    "typedoc": "^0.15.8",
+    "typescript": "^3.8.3"
   },
   "optionalDependencies": {},
   "engines": {
@@ -51,9 +49,9 @@
     "television"
   ],
   "dependencies": {
-    "@types/request": "^2.48.2",
-    "@types/request-promise-native": "^1.0.16",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.7"
+    "@types/request": "^2.48.4",
+    "@types/request-promise-native": "^1.0.17",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8"
   }
 }
