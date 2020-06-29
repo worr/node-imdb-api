@@ -64,7 +64,7 @@ TV shows have an `episodes` method that you can use to fetch all of the episodes
 from that TV series.
 
 ```js
-imdb.get('How I Met Your Mother', {apiKey: 'foo'}).then((things) => {
+imdb.get({name: 'How I Met Your Mother'}, {apiKey: 'foo'}).then((things) => {
     return things.episodes()
 }).then((eps) => {
     console.log(eps);
