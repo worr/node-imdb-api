@@ -252,9 +252,8 @@ export class Episode extends Movie {
     constructor(obj: OmdbEpisode, season?: number) {
         super(obj);
 
-
         if (season !== undefined) {
-            this.season = season
+            this.season = season;
         } else {
             this.season = parseInt(obj.Season, 10);
             if (isNaN(this.season)) {
