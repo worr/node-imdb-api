@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>imdb-api</title>
-	<meta name="description" content="Documentation for imdb-api">
+	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1>imdb-api</h1>
+			<h1> imdb-api</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 				<a href="#badges" id="badges" style="color: inherit; text-decoration: none;">
 					<h1>Badges</h1>
 				</a>
-				<p><a href="http://badge.fury.io/js/imdb-api"><img src="https://badge.fury.io/js/imdb-api.svg" alt="NPM version"></a> <a href="https://travis-ci.org/worr/node-imdb-api"><img src="https://travis-ci.org/worr/node-imdb-api.svg?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/worr/node-imdb-api"><img src="https://david-dm.org/worr/node-imdb-api.svg" alt="Dependency Freshness"></a> <a href="https://coveralls.io/github/worr/node-imdb-api?branch=master"><img src="https://coveralls.io/repos/github/worr/node-imdb-api/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://gitter.im/worr/node-imdb-api?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/worr/node-imdb-api.svg" alt="Join the chat at https://gitter.im/worr/node-imdb-api"></a></p>
+				<p><a href="http://badge.fury.io/js/imdb-api"><img src="https://badge.fury.io/js/imdb-api.svg" alt="NPM version"></a> <a href="https://travis-ci.com/worr/node-imdb-api"><img src="https://travis-ci.com/worr/node-imdb-api.svg?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/worr/node-imdb-api"><img src="https://david-dm.org/worr/node-imdb-api.svg" alt="Dependency Freshness"></a> <a href="https://coveralls.io/github/worr/node-imdb-api?branch=master"><img src="https://coveralls.io/repos/github/worr/node-imdb-api/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://gitter.im/worr/node-imdb-api?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/worr/node-imdb-api.svg" alt="Join the chat at https://gitter.im/worr/node-imdb-api"></a></p>
 				<p><strong>NOTE ON GITTER</strong>: I <em>am</em> online! I use the <a href="matrix.org">matrix</a> bridge to talk on Gitter, so you&#39;ll see me talking through <code>MatrixBot</code>. Feel free to ask questions!</p>
 				<a href="#api-docs" id="api-docs" style="color: inherit; text-decoration: none;">
 					<h1>API Docs</h1>
@@ -110,7 +110,7 @@ Movie {
 }).then(<span class="hljs-built_in">console</span>.log).catch(<span class="hljs-built_in">console</span>.log);</code></pre>
 				<p>TV shows have an <code>episodes</code> method that you can use to fetch all of the episodes
 				from that TV series.</p>
-				<pre><code class="language-js">imdb.get(<span class="hljs-string">'How I Met Your Mother'</span>, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>}).then(<span class="hljs-function">(<span class="hljs-params">things</span>) =&gt;</span> {
+				<pre><code class="language-js">imdb.get({<span class="hljs-attr">name</span>: <span class="hljs-string">'How I Met Your Mother'</span>}, {<span class="hljs-attr">apiKey</span>: <span class="hljs-string">'foo'</span>}).then(<span class="hljs-function">(<span class="hljs-params">things</span>) =&gt;</span> {
     <span class="hljs-keyword">return</span> things.episodes()
 }).then(<span class="hljs-function">(<span class="hljs-params">eps</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(eps);
@@ -124,7 +124,7 @@ Episode {
   <span class="hljs-attr">rating</span>: <span class="hljs-string">'8.3'</span>,
   <span class="hljs-attr">imdbid</span>: <span class="hljs-string">'tt0869673'</span> },
 ...</code></pre>
-				<a href="#using-a-client-object" id="using-a-client-object" style="color: inherit; text-decoration: none;">
+				<a href="#using-a-codeclientcode-object" id="using-a-codeclientcode-object" style="color: inherit; text-decoration: none;">
 					<h1>Using a <code>Client</code> object</h1>
 				</a>
 				<p><code>imdb-api</code> also exported a <code>Client</code> object that you can use to store options for subsequent requests.</p>
@@ -179,14 +179,14 @@ cli.search({<span class="hljs-string">'name'</span>: <span class="hljs-string">'
 					<li class="label tsd-is-external">
 						<span>Internals</span>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_imdb_.html">&quot;imdb&quot;</a>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_imdb_.html">"imdb"</a>
 					</li>
 					<li class="label tsd-is-external">
 						<span>Externals</span>
 					</li>
-					<li class=" tsd-kind-module tsd-is-external">
-						<a href="modules/_interfaces_.html">&quot;interfaces&quot;</a>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_interfaces_.html">"interfaces"</a>
 					</li>
 				</ul>
 			</nav>
@@ -202,15 +202,57 @@ cli.search({<span class="hljs-string">'name'</span>: <span class="hljs-string">'
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
