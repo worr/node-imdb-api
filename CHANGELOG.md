@@ -1,3 +1,7 @@
+# Version 4.1.0
+
+* Fix #73, #74 - where season was in some cases returned as '30'
+
 # Version 4.0.3
 
 * Documentation fixes
