@@ -49,6 +49,7 @@ export interface OmdbTvshow {
 export interface OmdbEpisode {
     Title: string;
     Released: string;
+    Season: string;
     Episode: string;
     Type: string;
     imdbRating: string;

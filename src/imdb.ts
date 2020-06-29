@@ -249,9 +249,19 @@ export class Episode extends Movie {
      *
      * @throws TypeError when the episode number is invalid
      */
-    constructor(obj: OmdbEpisode, season: number) {
+    constructor(obj: OmdbEpisode, season?: number) {
         super(obj);
-        this.season = season;
+
+
+        if (season !== undefined) {
+            this.season = season
+        } else {
+            this.season = parseInt(obj.Season, 10);
+            if (isNaN(this.season)) {
+                throw new TypeError("invalid season");
+            }
+        }
+
         if (obj.hasOwnProperty("Episode")) {
             this.episode = parseInt(obj.Episode, 10);
             if (isNaN(this.episode)) {
@@ -584,7 +594,7 @@ export class Client {
             } else if (isTvshow(data)) {
                 ret = new TVShow(data, opts);
             } else if (isEpisode(data)) {
-                ret = new Episode(data, 30);
+                ret = new Episode(data);
             } else {
                 throw new ImdbError(`type: '${data.Type}' is not valid`);
             }
