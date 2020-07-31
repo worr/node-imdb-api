@@ -14,12 +14,13 @@ import {
     OmdbTvshow,
 } from "./interfaces";
 
-import rp = require("request-promise-native");
+import * as ky from "ky-universal";
+import { URLSearchParams } from "url";
 
 /**
  * @hidden
  */
-const omdbapi = "https://www.omdbapi.com/";
+const omdbapi = "https://www.omdbapi.com";
 
 /**
  * Options to manipulate movie fetching. These can be passed to {@link get}, {@link search}
@@ -108,15 +109,23 @@ export interface SearchRequest {
 /**
  * @hidden
  */
-function reqtoqueryobj(req: SearchRequest, apikey: string, page: number): object {
-    return {
+function reqtoqueryobj(req: SearchRequest, apikey: string, page: number): URLSearchParams {
+    const r = new URLSearchParams({
         apikey,
-        page,
-        r: "json",
         s: req.name,
-        type: req.reqtype,
-        y: req.year,
-    };
+        page: String(page),
+        r: "json",
+    });
+
+    if (req.year !== undefined) {
+        r.append("y", String(req.year));
+    }
+
+    if (req.reqtype !== undefined) {
+        r.append("type", String(req.reqtype));
+    }
+
+    return r;
 }
 
 /**
@@ -326,23 +335,23 @@ export class TVShow extends Movie {
         const funcs = [];
         for (let i = 1; i <= tvShow.totalseasons; i++) {
             const reqopts = {
-                json: true,
-                qs: {
-                    Season: i,
-                    apikey: tvShow.opts.apiKey,
-                    i: tvShow.imdbid,
-                    r: "json",
+                searchParams: {
+                    "Season": i,
+                    "apikey": tvShow.opts.apiKey,
+                    "i": tvShow.imdbid,
+                    "r": "json",
+                },
+                headers: {
+                    "Content-Type": "application/json",
                 },
                 timeout: undefined,
-                url: omdbapi,
-                withCredentials: false,
             };
 
             if ("timeout" in this.opts) {
                 reqopts.timeout = this.opts.timeout;
             }
 
-            funcs.push(rp(reqopts));
+            funcs.push(ky(omdbapi, reqopts).json());
         }
 
         const prom = Promise.all(funcs)
@@ -553,36 +562,37 @@ export class Client {
     public get(req: MovieRequest, opts?: MovieOpts): Promise<Movie> {
         opts = this.merge_opts(opts);
 
-        const qs = {
-            apikey: opts.apiKey,
-            i: undefined,
-            plot: req.short_plot ? "short" : "full",
-            r: "json",
-            t: undefined,
-            y: req.year,
-        };
+        const qs = [
+            ["apikey", opts.apiKey],
+            ["plot", req.short_plot ? "short" : "full"],
+            ["r", "json"],
+        ];
+
+        if (req.year !== undefined) {
+            qs.push(["y", String(req.year)])
+        }
 
         if (req.name) {
-            qs.t = req.name;
+            qs.push(["t", req.name])
         } else if (req.id) {
-            qs.i = req.id;
+            qs.push(["i", req.id])
         } else {
             return Promise.reject(new ImdbError("Missing one of req.id or req.name"));
         }
 
         const reqopts = {
-            json: true,
-            qs,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            searchParams: qs,
             timeout: undefined,
-            url: omdbapi,
-            withCredentials: false,
         };
 
         if ("timeout" in opts) {
             reqopts.timeout = opts.timeout;
         }
 
-        const prom = rp(reqopts).then((data: OmdbMovie | OmdbError) => {
+        const prom = ky(omdbapi, reqopts).json().then((data: OmdbMovie | OmdbError) => {
             let ret: Movie | Episode;
             if (isError(data)) {
                 throw new ImdbError(`${data.Error}: ${(req.name ? req.name : req.id)}`);
@@ -620,12 +630,19 @@ export class Client {
         }
 
         const qs = reqtoqueryobj(req, opts.apiKey, page);
-        const reqopts = { qs, url: omdbapi, json: true, timeout: undefined, withCredentials: false };
+        const reqopts = {
+            searchParams: qs,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            timeout: undefined,
+        };
+
         if ("timeout" in opts) {
             reqopts.timeout = opts.timeout;
         }
 
-        const prom = rp(reqopts).then((data: OmdbSearch | OmdbError) => {
+        const prom = ky(omdbapi, reqopts).json().then((data: OmdbSearch | OmdbError) => {
             if (isError(data)) {
                 throw new ImdbError(`${data.Error}: ${req.name}`);
             }

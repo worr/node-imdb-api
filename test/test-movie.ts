@@ -1,6 +1,8 @@
-import mocha = require("mocha");
-let assert = require("chai").assert;
-import imdb = require("../lib/imdb.js");
+import * as mocha from "mocha";
+import * as chai from 'chai';
+import * as imdb from "../lib/imdb.js";
+
+const assert = chai.assert;
 
 const orig_movie = {
     Title: "Foo",
