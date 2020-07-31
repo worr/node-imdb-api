@@ -1,4 +1,4 @@
-#+TITLE: Before 4.x
+* Before 4.x
 
 * DONE 100% test coverage
   CLOSED: [2018-06-23 Sat 20:37]
@@ -8,3 +8,12 @@
   CLOSED: [2018-06-07 Thu 23:08]
 * DONE update documentation for new ~MovieRequest~ structure
   CLOSED: [2018-06-23 Sat 18:09]
+
+* Planned for 5.x
+
+** TODO Change class hierarchy, since Movie is no longer top-level
+** TODO Add movie-specific types
+
+This is apparently filed in #79, but this isn't appearing for me since the
+user is too new to file issues that I can see or whatever.
+** TODO Rename all non-camelcase public members to camelcase

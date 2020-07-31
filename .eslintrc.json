@@ -1,0 +1,22 @@
+{
+    "env": {
+        "browser": false,
+        "es2020": true
+    },
+    "extends": [
+        "semistandard",
+        "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "no-unused-vars": [0],
+        "no-useless-constructor": [0]
+    }
+}
