@@ -267,6 +267,9 @@ export class Episode extends Movie {
   /** what number episode in the season this episode is */
   public episode: number;
 
+  /** what series this episode is a part of (imdbid) */
+  public seriesid: string;
+
   /**
    * Creates an epsiode from results from omdb. This is not intended for consumer use.
    * Please prefer {@link TVShow.epsiodes}.

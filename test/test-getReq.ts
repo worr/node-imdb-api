@@ -118,7 +118,12 @@ describe("get", () => {
             "The Scorpion and the Toad",
             "testing returned title"
           );
-          assert.deepEqual(data.year, 2006, "testing correct year");
+          if (!(data instanceof imdb.Episode)) {
+            assert.fail("not an episode");
+          } else {
+            assert.equal(data.seriesid, "tt0460649", "testing seriesid");
+            assert.deepEqual(data.year, 2006, "testing correct year");
+          }
         })
     );
   });
