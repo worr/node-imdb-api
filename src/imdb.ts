@@ -137,6 +137,17 @@ const transTable = {
 };
 
 /**
+ * Rating for a piece of media.
+ */
+export class Rating {
+  /** Site where the rating came from */
+  public source: string;
+
+  /** Rating that the media got from the @{link Rating.source} */
+  public value: string;
+}
+
+/**
  * A movie as returned by {@link get}, {@link search}, or any of the methods
  * from {@link Client}. This is not meant to be created directly by consumers of
  * this lib, but instead through querying omdb.
@@ -205,6 +216,24 @@ export class Movie {
   /** title of the movie */
   public name: string;
 
+  /** awards won */
+  public awards: string;
+
+  /** website for the movie */
+  public website?: string;
+
+  /** ratings for the media from various sources */
+  public ratings: Rating[];
+
+  /** date of the DVD release */
+  public dvd?: Date;
+
+  /** Production studio */
+  public production?: string;
+
+  /** Box office earnings */
+  public boxoffice?: string;
+
   /**
    * @hidden
    */
@@ -221,6 +250,8 @@ export class Movie {
    * @param obj Results from omdb
    */
   constructor(obj: OmdbMovie) {
+    this.ratings = [];
+
     for (const attr of Object.getOwnPropertyNames(obj)) {
       if (attr === "Year") {
         this._yearData = obj[attr];
@@ -239,12 +270,23 @@ export class Movie {
         } else {
           this.released = val;
         }
+      } else if (attr === "DVD") {
+        const val = new Date(obj[attr]);
+        if (isNaN(val.getTime())) {
+          this.dvd = undefined;
+        } else {
+          this.dvd = val;
+        }
       } else if (attr === "imdbRating") {
         const key = transTable[attr];
         const val = parseFloat(obj[attr]);
         this[key] = isNaN(val) ? 0 : val;
       } else if (transTable[attr] !== undefined) {
         this[transTable[attr]] = obj[attr];
+      } else if (attr === "Ratings") {
+        for (const rating of obj[attr]) {
+          this.ratings.push({ source: rating.Source, value: rating.Value });
+        }
       } else {
         this[attr.toLowerCase()] = obj[attr];
       }

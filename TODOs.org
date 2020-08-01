@@ -17,3 +17,4 @@
 This is apparently filed in #79, but this isn't appearing for me since the
 user is too new to file issues that I can see or whatever.
 ** TODO Rename all non-camelcase public members to camelcase
+** TODO ~N/A~ -> ~undefined~ translation

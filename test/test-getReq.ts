@@ -35,6 +35,12 @@ describe("get", () => {
             "should not have episodes"
           );
           assert.deepEqual(data.rating, 6.2, "testing rating conversion");
+          assert.deepEqual(data.website, "N/A", "testing fetching website");
+          assert.deepEqual(data.ratings[0].value, "6.2/10");
+          assert.deepEqual(data.ratings[1].value, "70%");
+          assert.deepEqual(data.boxoffice, "N/A");
+          assert.deepEqual(data.dvd, new Date(1997, 10, 10));
+          assert.deepEqual(data.production, "Troma");
         })
     );
   });
@@ -123,6 +129,7 @@ describe("get", () => {
           } else {
             assert.equal(data.seriesid, "tt0460649", "testing seriesid");
             assert.deepEqual(data.year, 2006, "testing correct year");
+            assert.deepEqual(data.website, undefined);
           }
         })
     );

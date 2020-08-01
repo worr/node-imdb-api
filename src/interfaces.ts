@@ -1,3 +1,8 @@
+export interface OmdbRating {
+  Source: string;
+  Value: string;
+}
+
 export interface OmdbMovie {
   Title: string;
   Year: string;
@@ -17,6 +22,11 @@ export interface OmdbMovie {
   imdbRating: string;
   imdbVotes: string;
   imdbID: string;
+  Website?: string;
+  Ratings?: OmdbRating[];
+  DVD?: string;
+  BoxOffice?: string;
+  Production?: string;
   Type: string;
   Response: string;
 }
@@ -40,6 +50,7 @@ export interface OmdbTvshow {
   imdbRating: string;
   imdbVotes: string;
   imdbID: string;
+  Ratings?: OmdbRating[];
   Type: string;
   Response: string;
 
@@ -67,6 +78,7 @@ export interface OmdbEpisode {
   Country: string;
   Awards: string;
   Poster: string;
+  Ratings?: OmdbRating[];
   Metascore: string;
   Response: string;
 }
