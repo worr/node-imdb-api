@@ -1,3 +1,24 @@
+# Version 4.2.0
+
+* Added the following fields:
+
+All types:
+  * `ratings` (different than `rating`)
+  * `awards`
+
+`Movie`:
+  * `production`
+  * `boxoffice`
+  * `dvd`
+  * `website`
+  
+`Episode`:
+  * `seriesid`
+  
+* Migration to [ky](https://github.com/sindresorhus/ky) from [requests](https://github.com/request/request)
+* Migration to eslint from tslint
+* Prettifier
+
 # Version 4.1.0
 
 * Fix #73, #74 - where season was in some cases returned as '30'
