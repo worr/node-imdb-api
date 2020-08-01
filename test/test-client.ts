@@ -1,6 +1,6 @@
 import "https";
 import * as nock from "nock";
-import { it, describe } from "mocha";
+import { Done, it, describe } from "mocha";
 import * as chai from "chai";
 import * as chaiAsPromised from "chai-as-promised";
 
@@ -10,14 +10,14 @@ chai.use(chaiAsPromised);
 const { assert } = chai;
 
 describe("tests client creation and use", () => {
-  it("creates a new client with one options", (done: MochaDone) => {
+  it("creates a new client with one options", (done: Done) => {
     const cli = new imdb.Client({ apiKey: "foo" });
 
     assert.isOk(cli, "ensure client is created");
     done();
   });
 
-  it("creates a new client without an apikey", (done: MochaDone) => {
+  it("creates a new client without an apikey", (done: Done) => {
     assert.throws(() => {
       new imdb.Client({} as imdb.MovieOpts); // eslint-disable-line no-new
     }, /Missing api key/);
