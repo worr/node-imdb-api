@@ -3,11 +3,12 @@ import { URLSearchParams } from "url";
 import {
   isEpisode,
   isError,
+  isGame,
   isMovie,
   isTvshow,
   OmdbEpisode,
   OmdbError,
-  OmdbMovie,
+  OmdbGetResponse,
   OmdbSearch,
   OmdbSearchResult,
   OmdbSeason,
@@ -249,7 +250,7 @@ export class Movie {
    *
    * @param obj Results from omdb
    */
-  constructor(obj: OmdbMovie) {
+  constructor(obj: OmdbGetResponse) {
     this.ratings = [];
 
     for (const attr of Object.getOwnPropertyNames(obj)) {
@@ -443,6 +444,8 @@ export class TVShow extends Movie {
     return prom;
   }
 }
+
+export class Game extends Movie {}
 
 /**
  * A single search result from either {@link search} or {@link Client.search}.
@@ -675,7 +678,7 @@ export class Client {
 
     const prom = ky(omdbapi, reqopts)
       .json()
-      .then((data: OmdbMovie | OmdbError) => {
+      .then((data: OmdbGetResponse | OmdbError) => {
         let ret: Movie | Episode;
         if (isError(data)) {
           throw new ImdbError(`${data.Error}: ${req.name ? req.name : req.id}`);
@@ -683,6 +686,8 @@ export class Client {
 
         if (isMovie(data)) {
           ret = new Movie(data);
+        } else if (isGame(data)) {
+          ret = new Game(data);
         } else if (isTvshow(data)) {
           ret = new TVShow(data, opts);
         } else if (isEpisode(data)) {

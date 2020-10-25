@@ -76,6 +76,34 @@ const origEpisode = {
   Response: "ok",
 };
 
+const origGame = {
+  Title: "The Legend of Heroes: Trails of Cold Steel",
+  Year: "2015",
+  Rated: "N/A",
+  Released: "22 Dec 2015",
+  Runtime: "N/A",
+  Genre: "Adventure",
+  Director: "Valerie Arem",
+  Writer: "N/A",
+  Actors: "Edward Bosco, Ben Diskin, Lucien Dodge, D.C. Douglas",
+  Plot: "N/A",
+  Language: "English",
+  Country: "USA",
+  Awards: "N/A",
+  Poster: "N/A",
+  Ratings: [],
+  Metascore: "N/A",
+  imdbRating: "N/A",
+  imdbVotes: "N/A",
+  imdbID: "tt5591880",
+  Type: "game",
+  DVD: "N/A",
+  BoxOffice: "N/A",
+  Production: "N/A",
+  Website: "N/A",
+  Response: "True",
+};
+
 describe("Movie", () => {
   it("creates a normal movie", () => {
     const mov = new imdb.Movie(origMovie);
@@ -195,5 +223,17 @@ describe("Episode", () => {
   it("creates an episode with an invalid number", () => {
     const ep = Object.assign(Object.create(origTv), { Episode: "foo" });
     assert.throws(() => new imdb.Episode(ep, 30), TypeError);
+  });
+});
+
+describe("Game", () => {
+  it("creates a basic game", () => {
+    const game = new imdb.Game(origGame);
+
+    assert.isOk(game, "game exists");
+    assert.deepEqual(game.name, "The Legend of Heroes: Trails of Cold Steel");
+    assert.deepEqual(game.rating, 0);
+    assert.deepEqual(game.imdbid, "tt5591880");
+    assert.deepEqual(game.released, new Date(2015, 11, 22));
   });
 });

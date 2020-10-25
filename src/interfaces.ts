@@ -3,7 +3,7 @@ export interface OmdbRating {
   Value: string;
 }
 
-export interface OmdbMovie {
+export interface OmdbGetResponse {
   Title: string;
   Year: string;
   Rated: string;
@@ -31,56 +31,13 @@ export interface OmdbMovie {
   Response: string;
 }
 
-export interface OmdbTvshow {
-  Title: string;
-  Year: string;
-  Rated: string;
-  Released: string;
-  Runtime: string;
-  Genre: string;
-  Director: string;
-  Writer: string;
-  Actors: string;
-  Plot: string;
-  Language: string;
-  Country: string;
-  Awards: string;
-  Poster: string;
-  Metascore: string;
-  imdbRating: string;
-  imdbVotes: string;
-  imdbID: string;
-  Ratings?: OmdbRating[];
-  Type: string;
-  Response: string;
-
+export interface OmdbTvshow extends OmdbGetResponse {
   totalSeasons: string;
 }
 
-export interface OmdbEpisode {
-  Title: string;
-  Released: string;
+export interface OmdbEpisode extends OmdbGetResponse {
   Season: string;
   Episode: string;
-  Type: string;
-  imdbRating: string;
-  imdbID: string;
-  imdbVotes: string;
-  Year: string;
-  Rated: string;
-  Runtime: string;
-  Genre: string;
-  Director: string;
-  Writer: string;
-  Actors: string;
-  Plot: string;
-  Language: string;
-  Country: string;
-  Awards: string;
-  Poster: string;
-  Ratings?: OmdbRating[];
-  Metascore: string;
-  Response: string;
 }
 
 export interface OmdbSeason {
@@ -111,25 +68,23 @@ export interface OmdbError {
 }
 
 export function isError(
-  response: OmdbSearch | OmdbSeason | OmdbTvshow | OmdbMovie | OmdbError
+  response: OmdbSearch | OmdbSeason | OmdbTvshow | OmdbGetResponse | OmdbError
 ): response is OmdbError {
   return response.Response === "False";
 }
 
-export function isTvshow(
-  response: OmdbMovie | OmdbTvshow | OmdbEpisode
-): response is OmdbTvshow {
+export function isTvshow(response: OmdbGetResponse): response is OmdbTvshow {
   return response.Type === "series";
 }
 
-export function isMovie(
-  response: OmdbMovie | OmdbTvshow | OmdbEpisode
-): response is OmdbTvshow {
+export function isMovie(response: OmdbGetResponse): boolean {
   return response.Type === "movie";
 }
 
-export function isEpisode(
-  response: OmdbMovie | OmdbTvshow | OmdbEpisode
-): response is OmdbEpisode {
+export function isEpisode(response: OmdbGetResponse): response is OmdbEpisode {
   return response.Type === "episode";
+}
+
+export function isGame(response: OmdbGetResponse): boolean {
+  return response.Type === "game";
 }
