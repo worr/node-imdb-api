@@ -65,7 +65,7 @@
   ],
   "dependencies": {
     "ky": "^0.23.0",
-    "ky-universal": "^0.8.1"
+    "ky-universal": "^0.8.2"
   },
   "mocha": {
     "require": [
