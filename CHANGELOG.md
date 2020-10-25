@@ -1,3 +1,7 @@
+# Version 4.3.0
+
+* Added support for `Game` type from omdb (Fixes #81)
+
 # Version 4.2.0
 
 * Added the following fields:

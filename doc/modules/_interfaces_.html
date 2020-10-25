@@ -75,7 +75,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-external"><a href="../interfaces/_interfaces_.omdbepisode.html" class="tsd-kind-icon">Omdb<wbr>Episode</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-external"><a href="../interfaces/_interfaces_.omdberror.html" class="tsd-kind-icon">Omdb<wbr>Error</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-external"><a href="../interfaces/_interfaces_.omdbmovie.html" class="tsd-kind-icon">Omdb<wbr>Movie</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-external"><a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-kind-icon">Omdb<wbr>Get<wbr>Response</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-external"><a href="../interfaces/_interfaces_.omdbrating.html" class="tsd-kind-icon">Omdb<wbr>Rating</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-external"><a href="../interfaces/_interfaces_.omdbsearch.html" class="tsd-kind-icon">Omdb<wbr>Search</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-external"><a href="../interfaces/_interfaces_.omdbsearchresult.html" class="tsd-kind-icon">Omdb<wbr>Search<wbr>Result</a></li>
@@ -88,6 +88,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-external"><a href="_interfaces_.html#isepisode" class="tsd-kind-icon">is<wbr>Episode</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-external"><a href="_interfaces_.html#iserror" class="tsd-kind-icon">is<wbr>Error</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-external"><a href="_interfaces_.html#isgame" class="tsd-kind-icon">is<wbr>Game</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-external"><a href="_interfaces_.html#ismovie" class="tsd-kind-icon">is<wbr>Movie</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-external"><a href="_interfaces_.html#istvshow" class="tsd-kind-icon">is<wbr>Tvshow</a></li>
 							</ul>
@@ -101,19 +102,19 @@
 					<a name="isepisode" class="tsd-anchor"></a>
 					<h3>is<wbr>Episode</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Episode<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbmovie.html" class="tsd-signature-type">OmdbMovie</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbepisode.html" class="tsd-signature-type">OmdbEpisode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbEpisode</span></li>
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Episode<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-signature-type">OmdbGetResponse</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbEpisode</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/c1e79ed/src/interfaces.ts#L131">interfaces.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/51a40d9/src/interfaces.ts#L84">interfaces.ts:84</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>response: <a href="../interfaces/_interfaces_.omdbmovie.html" class="tsd-signature-type">OmdbMovie</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbepisode.html" class="tsd-signature-type">OmdbEpisode</a></h5>
+									<h5>response: <a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-signature-type">OmdbGetResponse</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbEpisode</span></h4>
@@ -124,19 +125,19 @@
 					<a name="iserror" class="tsd-anchor"></a>
 					<h3>is<wbr>Error</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Error<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbsearch.html" class="tsd-signature-type">OmdbSearch</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbseason.html" class="tsd-signature-type">OmdbSeason</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbmovie.html" class="tsd-signature-type">OmdbMovie</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdberror.html" class="tsd-signature-type">OmdbError</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbError</span></li>
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Error<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbsearch.html" class="tsd-signature-type">OmdbSearch</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbseason.html" class="tsd-signature-type">OmdbSeason</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-signature-type">OmdbGetResponse</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdberror.html" class="tsd-signature-type">OmdbError</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbError</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/c1e79ed/src/interfaces.ts#L113">interfaces.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/51a40d9/src/interfaces.ts#L70">interfaces.ts:70</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>response: <a href="../interfaces/_interfaces_.omdbsearch.html" class="tsd-signature-type">OmdbSearch</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbseason.html" class="tsd-signature-type">OmdbSeason</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbmovie.html" class="tsd-signature-type">OmdbMovie</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdberror.html" class="tsd-signature-type">OmdbError</a></h5>
+									<h5>response: <a href="../interfaces/_interfaces_.omdbsearch.html" class="tsd-signature-type">OmdbSearch</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbseason.html" class="tsd-signature-type">OmdbSeason</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-signature-type">OmdbGetResponse</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdberror.html" class="tsd-signature-type">OmdbError</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbError</span></h4>
@@ -144,25 +145,48 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-external">
-					<a name="ismovie" class="tsd-anchor"></a>
-					<h3>is<wbr>Movie</h3>
+					<a name="isgame" class="tsd-anchor"></a>
+					<h3>is<wbr>Game</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Movie<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbmovie.html" class="tsd-signature-type">OmdbMovie</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbepisode.html" class="tsd-signature-type">OmdbEpisode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbTvshow</span></li>
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Game<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-signature-type">OmdbGetResponse</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/c1e79ed/src/interfaces.ts#L125">interfaces.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/51a40d9/src/interfaces.ts#L88">interfaces.ts:88</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>response: <a href="../interfaces/_interfaces_.omdbmovie.html" class="tsd-signature-type">OmdbMovie</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbepisode.html" class="tsd-signature-type">OmdbEpisode</a></h5>
+									<h5>response: <a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-signature-type">OmdbGetResponse</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbTvshow</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-external">
+					<a name="ismovie" class="tsd-anchor"></a>
+					<h3>is<wbr>Movie</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Movie<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-signature-type">OmdbGetResponse</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/51a40d9/src/interfaces.ts#L80">interfaces.ts:80</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>response: <a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-signature-type">OmdbGetResponse</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -170,19 +194,19 @@
 					<a name="istvshow" class="tsd-anchor"></a>
 					<h3>is<wbr>Tvshow</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Tvshow<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbmovie.html" class="tsd-signature-type">OmdbMovie</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbepisode.html" class="tsd-signature-type">OmdbEpisode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbTvshow</span></li>
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Tvshow<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-signature-type">OmdbGetResponse</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbTvshow</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/c1e79ed/src/interfaces.ts#L119">interfaces.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/51a40d9/src/interfaces.ts#L76">interfaces.ts:76</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>response: <a href="../interfaces/_interfaces_.omdbmovie.html" class="tsd-signature-type">OmdbMovie</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbtvshow.html" class="tsd-signature-type">OmdbTvshow</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_interfaces_.omdbepisode.html" class="tsd-signature-type">OmdbEpisode</a></h5>
+									<h5>response: <a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-signature-type">OmdbGetResponse</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">response</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">OmdbTvshow</span></h4>
@@ -220,7 +244,7 @@
 						<a href="../interfaces/_interfaces_.omdberror.html" class="tsd-kind-icon">Omdb<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
-						<a href="../interfaces/_interfaces_.omdbmovie.html" class="tsd-kind-icon">Omdb<wbr>Movie</a>
+						<a href="../interfaces/_interfaces_.omdbgetresponse.html" class="tsd-kind-icon">Omdb<wbr>Get<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
 						<a href="../interfaces/_interfaces_.omdbrating.html" class="tsd-kind-icon">Omdb<wbr>Rating</a>
@@ -242,6 +266,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-external">
 						<a href="_interfaces_.html#iserror" class="tsd-kind-icon">is<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-external">
+						<a href="_interfaces_.html#isgame" class="tsd-kind-icon">is<wbr>Game</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-external">
 						<a href="_interfaces_.html#ismovie" class="tsd-kind-icon">is<wbr>Movie</a>
