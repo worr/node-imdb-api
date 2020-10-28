@@ -1,0 +1,68 @@
+.build_default:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - node_modules/
+      - lib/
+
+.test_default:
+  stage: test
+  script:
+    - npm run ci
+
+cache:
+  paths:
+  - node_modules/
+
+"node build v10":
+  image: node:10-alpine
+  extends: .build_default
+
+"node test v10":
+  image: node:10-alpine
+  extends: .test_default
+  dependencies:
+    - node build v10
+
+"node build v12":
+  image: node:12-alpine
+  extends: .build_default
+
+"node test v12":
+  image: node:12-alpine
+  extends: .test_default
+  dependencies:
+    - node build v12
+
+"node build v13":
+  image: node:13-alpine
+  extends: .build_default
+
+"node test v13":
+  image: node:13-alpine
+  extends: .test_default
+  dependencies:
+    - node build v13
+
+"node build v14":
+  image: node:14-alpine
+  extends: .build_default
+
+"node test v14":
+  image: node:14-alpine
+  extends: .test_default
+  dependencies:
+    - node build v14
+
+"node build v15":
+  image: node:15-alpine
+  extends: .build_default
+
+"node test v15":
+  image: node:15-alpine
+  extends: .test_default
+  dependencies:
+    - node build v15
