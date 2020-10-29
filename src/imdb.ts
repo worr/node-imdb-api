@@ -1,6 +1,9 @@
 import * as ky from "ky-universal";
 import { URLSearchParams } from "url";
 import {
+  assertGetResponse,
+  assertSearchResponse,
+  assertEpisodeSeasonResponse,
   isEpisode,
   isError,
   isGame,
@@ -79,6 +82,19 @@ export interface MovieRequest {
  */
 export type RequestType = "movie" | "series" | "episode" | "game";
 
+function isRequestType(reqtype: string): reqtype is RequestType {
+  if (
+    reqtype === "movie" ||
+    reqtype === "series" ||
+    reqtype === "episode" ||
+    reqtype === "game"
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 /**
  * A search for a movie. This will fetch multiple results based on fuzzy matches
  * for a particular piece of media.
@@ -146,6 +162,11 @@ export class Rating {
 
   /** Rating that the media got from the @{link Rating.source} */
   public value: string;
+
+  constructor(source: string, value: string) {
+    this.source = source;
+    this.value = value;
+  }
 }
 
 /**
@@ -188,7 +209,7 @@ export class Movie {
   public year: number;
 
   /** type of media (see {@link RequestType}) */
-  public type: string;
+  public type: RequestType;
 
   /** link to the poster for this movie */
   public poster: string;
@@ -253,48 +274,81 @@ export class Movie {
   constructor(obj: OmdbGetResponse) {
     this.ratings = [];
 
-    for (const attr of Object.getOwnPropertyNames(obj)) {
-      if (attr === "Year") {
-        this._yearData = obj[attr];
-        // check for emdash as well
-        if (!obj[attr].match(/\d{4}[-–](?:\d{4})?/)) {
-          const val = parseInt(obj[attr], 10);
-          if (isNaN(val)) {
-            throw new TypeError("invalid year");
-          }
-          this[attr.toLowerCase()] = val;
+    this.title = obj.Title;
+
+    this.year = 0;
+    this._yearData = "";
+    if (obj.Year !== undefined) {
+      this._yearData = obj.Year;
+      // check for emdash as well
+      if (!obj.Year.match(/\d{4}[-–](?:\d{4})?/)) {
+        const rawYear = parseInt(obj.Year, 10);
+        if (isNaN(rawYear)) {
+          throw new TypeError("invalid year");
         }
-      } else if (attr === "Released") {
-        const val = new Date(obj[attr]);
-        if (isNaN(val.getTime())) {
-          this.released = undefined;
-        } else {
-          this.released = val;
-        }
-      } else if (attr === "DVD") {
-        const val = new Date(obj[attr]);
-        if (isNaN(val.getTime())) {
-          this.dvd = undefined;
-        } else {
-          this.dvd = val;
-        }
-      } else if (attr === "imdbRating") {
-        const key = transTable[attr];
-        const val = parseFloat(obj[attr]);
-        this[key] = isNaN(val) ? 0 : val;
-      } else if (transTable[attr] !== undefined) {
-        this[transTable[attr]] = obj[attr];
-      } else if (attr === "Ratings") {
-        for (const rating of obj[attr]) {
-          this.ratings.push({ source: rating.Source, value: rating.Value });
-        }
+        this.year = rawYear;
       } else {
-        this[attr.toLowerCase()] = obj[attr];
+        this.year = 0;
       }
     }
 
+    this.rated = obj.Rated;
+
+    const rawReleased = new Date(obj.Released);
+    if (isNaN(rawReleased.getTime())) {
+      this.released = undefined;
+    } else {
+      this.released = rawReleased;
+    }
+
+    this.runtime = obj.Runtime;
+    this.genres = obj.Genre;
+    this.director = obj.Director;
+    this.writer = obj.Writer;
+    this.actors = obj.Actors;
+    this.plot = obj.Plot;
+    this.languages = obj.Language;
+    this.country = obj.Country;
+    this.awards = obj.Awards;
+    this.poster = obj.Poster;
+    this.metascore = obj.Metascore;
+
+    const rawRating = parseFloat(obj.imdbRating);
+    this.rating = isNaN(rawRating) ? 0 : rawRating;
+
+    this.votes = obj.imdbVotes;
+    this.imdbid = obj.imdbID;
+
+    // obj.Type only undefined on episodes
+    this.type = "episode";
+    if (obj.Type !== undefined) {
+      if (!isRequestType(obj.Type)) {
+        throw new TypeError(`${obj.Type} is not a valid RequestType`);
+      }
+      this.type = obj.Type;
+    }
+
+    if (obj.Ratings !== undefined) {
+      for (const rating of obj.Ratings) {
+        this.ratings.push(new Rating(rating.Source, rating.Value));
+      }
+    }
+
+    if (obj.DVD !== undefined) {
+      const rawDvd = new Date(obj.DVD);
+      if (isNaN(rawDvd.getTime())) {
+        this.dvd = undefined;
+      } else {
+        this.dvd = rawDvd;
+      }
+    }
+
+    this.boxoffice = obj.BoxOffice;
+    this.production = obj.Production;
+    this.website = obj.Website;
+
     this.name = this.title;
-    this.series = this.type !== "movie";
+    this.series = this.type === "series";
     this.imdburl = `https://www.imdb.com/title/${this.imdbid}`;
   }
 }
@@ -334,11 +388,15 @@ export class Episode extends Movie {
       }
     }
 
-    if (Object.prototype.hasOwnProperty.call(obj, "Episode")) {
+    this.seriesid = obj.seriesID;
+
+    if ("Episode" in obj) {
       this.episode = parseInt(obj.Episode, 10);
       if (isNaN(this.episode)) {
         throw new TypeError("invalid episode");
       }
+    } else {
+      this.episode = 0;
     }
   }
 }
@@ -400,28 +458,36 @@ export class TVShow extends Movie {
 
     const funcs = [];
     for (let i = 1; i <= tvShow.totalseasons; i++) {
+      const qs = new URLSearchParams({
+        Season: String(i),
+        apikey: tvShow.opts.apiKey,
+        i: tvShow.imdbid,
+        r: "json",
+      });
       const reqopts = {
-        searchParams: {
-          Season: i,
-          apikey: tvShow.opts.apiKey,
-          i: tvShow.imdbid,
-          r: "json",
-        },
+        searchParams: qs,
         headers: {
           "Content-Type": "application/json",
         },
-        timeout: undefined,
+        timeout: undefined as number | undefined,
       };
 
-      if ("timeout" in this.opts) {
+      if (this.opts.timeout !== undefined) {
         reqopts.timeout = this.opts.timeout;
       }
 
       funcs.push(ky(omdbapi, reqopts).json());
     }
 
-    const prom = Promise.all(funcs).then(
-      (epData: OmdbSeason[] | OmdbError[]) => {
+    const prom = Promise.all(funcs)
+      .then((result: unknown) => {
+        if (assertEpisodeSeasonResponse(result)) {
+          return Promise.resolve(result);
+        }
+
+        return Promise.reject(new TypeError("Invalid response from server"));
+      })
+      .then((epData: OmdbSeason[] | OmdbError[]) => {
         const eps: Episode[] = [];
 
         for (const datum of epData) {
@@ -430,16 +496,15 @@ export class TVShow extends Movie {
           }
 
           const season = parseInt(datum.Season, 10);
-          for (const ep of Object.getOwnPropertyNames(datum.Episodes)) {
-            eps.push(new Episode(datum.Episodes[ep], season));
+          for (const ep of datum.Episodes) {
+            eps.push(new Episode(ep, season));
           }
         }
 
         tvShow._episodes = eps;
 
         return Promise.resolve(eps);
-      }
-    );
+      });
 
     return prom;
   }
@@ -471,14 +536,17 @@ export class SearchResult {
   public poster: string;
 
   constructor(obj: OmdbSearchResult) {
-    for (const attr of Object.getOwnPropertyNames(obj)) {
-      if (attr === "Year") {
-        this[attr.toLowerCase()] = parseInt(obj[attr], 10);
-      } else {
-        this[attr.toLowerCase()] = obj[attr];
-      }
+    this.title = obj.Title;
+    this.year = parseInt(obj.Year, 10);
+    this.imdbid = obj.imdbID;
+
+    if (!isRequestType(obj.Type)) {
+      throw new TypeError(`${obj.Type} is not a valid RequestType`);
     }
 
+    this.type = obj.Type;
+
+    this.poster = obj.Poster;
     this.name = this.title;
   }
 }
@@ -527,17 +595,11 @@ export class SearchResults {
     this.req = req;
     this.opts = opts;
 
-    for (const attr of Object.getOwnPropertyNames(obj)) {
-      if (attr === "Search") {
-        for (const result of obj.Search) {
-          this.results.push(new SearchResult(result));
-        }
-      } else if (attr === "totalResults") {
-        this[attr.toLowerCase()] = parseInt(obj[attr], 10);
-      } else {
-        this[attr.toLowerCase()] = obj[attr];
-      }
+    for (const result of obj.Search) {
+      this.results.push(new SearchResult(result));
     }
+
+    this.totalresults = parseInt(obj.totalResults, 10);
   }
 
   /**
@@ -644,22 +706,25 @@ export class Client {
    * @return a promise yielding a movie
    */
   public get(req: MovieRequest, opts?: MovieOpts): Promise<Movie> {
-    opts = this.mergeOpts(opts);
+    const mergedOpts = this.mergeOpts(opts);
+    if (mergedOpts.apiKey === undefined) {
+      throw new ImdbError("Missing api key in opts");
+    }
 
-    const qs = [
-      ["apikey", opts.apiKey],
-      ["plot", req.short_plot ? "short" : "full"],
-      ["r", "json"],
-    ];
+    const qs = new URLSearchParams({
+      apikey: mergedOpts.apiKey,
+      plot: req.short_plot ? "short" : "full",
+      r: "json",
+    });
 
     if (req.year !== undefined) {
-      qs.push(["y", String(req.year)]);
+      qs.append("y", String(req.year));
     }
 
     if (req.name) {
-      qs.push(["t", req.name]);
+      qs.append("t", req.name);
     } else if (req.id) {
-      qs.push(["i", req.id]);
+      qs.append("i", req.id);
     } else {
       return Promise.reject(new ImdbError("Missing one of req.id or req.name"));
     }
@@ -669,15 +734,22 @@ export class Client {
         "Content-Type": "application/json",
       },
       searchParams: qs,
-      timeout: undefined,
+      timeout: undefined as number | undefined,
     };
 
-    if ("timeout" in opts) {
-      reqopts.timeout = opts.timeout;
+    if ("timeout" in mergedOpts) {
+      reqopts.timeout = mergedOpts.timeout;
     }
 
     const prom = ky(omdbapi, reqopts)
       .json()
+      .then((response: unknown) => {
+        if (assertGetResponse(response)) {
+          return Promise.resolve(response);
+        }
+
+        return Promise.reject(new TypeError("Invalid response from server"));
+      })
       .then((data: OmdbGetResponse | OmdbError) => {
         let ret: Movie | Episode;
         if (isError(data)) {
@@ -689,7 +761,7 @@ export class Client {
         } else if (isGame(data)) {
           ret = new Game(data);
         } else if (isTvshow(data)) {
-          ret = new TVShow(data, opts);
+          ret = new TVShow(data, mergedOpts);
         } else if (isEpisode(data)) {
           ret = new Episode(data);
         } else {
@@ -716,32 +788,47 @@ export class Client {
     page?: number,
     opts?: MovieOpts
   ): Promise<SearchResults> {
-    opts = this.mergeOpts(opts);
+    const mergedOpts = this.mergeOpts(opts);
     if (page === undefined) {
       page = 1;
     }
 
-    const qs = reqtoqueryobj(req, opts.apiKey, page);
+    if (mergedOpts.apiKey === undefined) {
+      throw new ImdbError("Missing api key in opts");
+    }
+
+    const qs = reqtoqueryobj(req, mergedOpts.apiKey, page);
     const reqopts = {
       searchParams: qs,
       headers: {
         "Content-Type": "application/json",
       },
-      timeout: undefined,
+      timeout: undefined as number | undefined,
     };
 
-    if ("timeout" in opts) {
-      reqopts.timeout = opts.timeout;
+    if (mergedOpts.timeout) {
+      reqopts.timeout = mergedOpts.timeout;
     }
 
     const prom = ky(omdbapi, reqopts)
       .json()
+      .then((response: unknown) => {
+        if (assertSearchResponse(response)) {
+          return Promise.resolve(response);
+        }
+
+        return Promise.reject(new TypeError("Invalid response from server"));
+      })
       .then((data: OmdbSearch | OmdbError) => {
         if (isError(data)) {
           throw new ImdbError(`${data.Error}: ${req.name}`);
         }
 
-        return Promise.resolve(new SearchResults(data, page, opts, req));
+        if (page === undefined) {
+          page = 0;
+        }
+
+        return Promise.resolve(new SearchResults(data, page, mergedOpts, req));
       });
 
     return prom;

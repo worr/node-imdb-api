@@ -38,12 +38,13 @@ export interface OmdbTvshow extends OmdbGetResponse {
 export interface OmdbEpisode extends OmdbGetResponse {
   Season: string;
   Episode: string;
+  seriesID: string;
 }
 
 export interface OmdbSeason {
   Title: string;
   Season: string;
-  totalEpisodes: string;
+  totalSeasons: string;
   Episodes: OmdbEpisode[];
   Response: string;
 }
@@ -87,4 +88,74 @@ export function isEpisode(response: OmdbGetResponse): response is OmdbEpisode {
 
 export function isGame(response: OmdbGetResponse): boolean {
   return response.Type === "game";
+}
+
+export function assertEpisodeSeasonResponse(
+  response: unknown
+): response is OmdbSeason[] | OmdbError[] {
+  if (!Array.isArray(response)) {
+    return false;
+  }
+
+  for (const res of response) {
+    if (typeof res !== "object") {
+      return false;
+    }
+
+    if ("Response" in res) {
+      if (res.Response === "False") {
+        return true;
+      }
+
+      if ("Season" in res && "totalSeasons" in res) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+export function assertGetResponse(
+  response: unknown
+): response is OmdbGetResponse | OmdbError {
+  if (typeof response !== "object") {
+    return false;
+  }
+
+  const res: any = response;
+  if (res === null) {
+    return false;
+  }
+
+  if ("Response" in res) {
+    return true;
+  }
+
+  return false;
+}
+
+export function assertSearchResponse(
+  response: unknown
+): response is OmdbSearch | OmdbError {
+  if (typeof response !== "object") {
+    return false;
+  }
+
+  const res: any = response;
+  if (res === null) {
+    return false;
+  }
+
+  if ("Response" in res) {
+    if (res.Response === "False") {
+      return true;
+    }
+  }
+
+  if ("Search" in res) {
+    return true;
+  }
+
+  return false;
 }

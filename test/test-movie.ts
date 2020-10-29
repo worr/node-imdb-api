@@ -46,7 +46,7 @@ const origTv = {
   imdbRating: "6.7",
   imdbVotes: "5",
   imdbID: "tt653921",
-  Type: "tvshow",
+  Type: "series",
   totalSeasons: "5",
   Response: "ok",
 };
@@ -67,13 +67,14 @@ const origEpisode = {
   Poster: "www.google.com",
   Metascore: "5.6",
   Episode: "1",
-  Type: "series",
+  Type: "episode",
   imdbRating: "5.6",
   imdbID: "tt6539212",
   imdbVotes: "17",
   Year: "2006",
   Season: "5",
   Response: "ok",
+  seriesID: "tt1480055",
 };
 
 const origGame = {
@@ -143,8 +144,9 @@ describe("Movie", () => {
     assert.isUndefined(new imdb.Movie(mov).released);
   });
   it("creates a movie with no year", () => {
-    const mov = Object.assign(Object.create(origMovie));
-    delete mov.Year;
+    const mov = Object.assign(Object.create(origMovie), {
+      Year: undefined,
+    });
     assert.isNotOk(new imdb.Movie(mov).year);
   });
   it("creates a movie with invalid year", () => {

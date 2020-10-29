@@ -285,7 +285,7 @@ describe("get", () => {
           apiKey: "foo",
         }
       ),
-      /type: 'undefined' is not valid/
+      /Invalid response from server/
     );
   });
 
