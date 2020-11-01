@@ -1,5 +1,5 @@
 import { describe, it } from "mocha";
-import * as chai from "chai";
+import chai from "chai";
 import * as imdb from "../lib/imdb";
 
 const { assert } = chai;

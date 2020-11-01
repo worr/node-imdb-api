@@ -1,4 +1,4 @@
-import * as ky from "ky-universal";
+import ky from "ky-universal";
 import { URLSearchParams } from "url";
 import {
   assertGetResponse,
