@@ -1,5 +1,5 @@
 import ky from "ky-universal";
-import { URLSearchParams } from "url";
+import URLSearchParams from "@ungap/url-search-params";
 import {
   assertGetResponse,
   assertSearchResponse,
@@ -444,14 +444,16 @@ export class TVShow extends Movie {
       return Promise.resolve(this._episodes);
     }
 
-    const tvShow = this;
+    if (this.opts.apiKey === undefined) {
+      throw new ImdbError("Missing api key in opts");
+    }
 
     const funcs = [];
-    for (let i = 1; i <= tvShow.totalseasons; i++) {
+    for (let i = 1; i <= this.totalseasons; i++) {
       const qs = new URLSearchParams({
         Season: String(i),
-        apikey: tvShow.opts.apiKey,
-        i: tvShow.imdbid,
+        apikey: this.opts.apiKey,
+        i: this.imdbid,
         r: "json",
       });
       const reqopts = {
@@ -491,7 +493,7 @@ export class TVShow extends Movie {
           }
         }
 
-        tvShow._episodes = eps;
+        this._episodes = eps;
 
         return Promise.resolve(eps);
       });

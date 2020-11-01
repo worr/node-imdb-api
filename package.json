@@ -62,6 +62,7 @@
     "television"
   ],
   "dependencies": {
+    "@ungap/url-search-params": "^0.2.2",
     "ky": "^0.24.0",
     "ky-universal": "^0.8.2"
   },
