@@ -21,7 +21,7 @@ import {
 /**
  * @hidden
  */
-const omdbapi = "https://www.omdbapi.com";
+const omdbapi = new URL("https://www.omdbapi.com");
 
 /**
  * Options to manipulate movie fetching. These can be passed to {@link get}, {@link search}
@@ -39,6 +39,11 @@ export interface MovieOpts {
    * Timeout in milliseconds to wait before giving up on a request
    */
   timeout?: number;
+
+  /**
+   * Base URL to connect to (default: https://www.omdbapi.com)
+   */
+  baseURL?: string | URL;
 }
 
 /**
@@ -417,6 +422,11 @@ export class TVShow extends Movie {
   private opts: MovieOpts;
 
   /**
+   * @hidden
+   */
+  private baseURL: URL;
+
+  /**
    * Creates a new {@link TVShow} from omdb results. This isn't intended to be
    * used by consumers of this library, instead see {@link get}, {@link search}
    * or any methods from {@link Client}.
@@ -432,6 +442,14 @@ export class TVShow extends Movie {
     this.end_year = parseInt(years[1], 10) ? parseInt(years[1], 10) : undefined;
     this.totalseasons = parseInt(obj.totalSeasons, 10);
     this.opts = opts;
+    if (opts.baseURL && typeof opts.baseURL === "string") {
+      opts.baseURL = new URL(opts.baseURL);
+      this.baseURL = opts.baseURL;
+    } else if (opts.baseURL && opts.baseURL instanceof URL) {
+      this.baseURL = opts.baseURL;
+    } else {
+      this.baseURL = omdbapi;
+    }
   }
 
   /**
@@ -462,13 +480,14 @@ export class TVShow extends Movie {
           "Content-Type": "application/json",
         },
         timeout: undefined as number | undefined,
+        prefixUrl: this.baseURL,
       };
 
       if (this.opts.timeout !== undefined) {
         reqopts.timeout = this.opts.timeout;
       }
 
-      funcs.push(ky(omdbapi, reqopts).json());
+      funcs.push(ky("", reqopts).json());
     }
 
     const prom = Promise.all(funcs)
@@ -675,6 +694,11 @@ export class Client {
   private opts: MovieOpts;
 
   /**
+   * @hidden
+   */
+  private baseURL: URL;
+
+  /**
    * Creates a new {@link Client} object.
    *
    * @param opts A set of {@link MovieOpts} that will be applied to all
@@ -687,6 +711,14 @@ export class Client {
       throw new ImdbError("Missing api key in opts");
     }
     this.opts = opts;
+    if (opts.baseURL && typeof opts.baseURL === "string") {
+      opts.baseURL = new URL(opts.baseURL);
+      this.baseURL = opts.baseURL;
+    } else if (opts.baseURL && opts.baseURL instanceof URL) {
+      this.baseURL = opts.baseURL;
+    } else {
+      this.baseURL = omdbapi;
+    }
   }
 
   /**
@@ -727,13 +759,14 @@ export class Client {
       },
       searchParams: qs,
       timeout: undefined as number | undefined,
+      prefixUrl: this.baseURL,
     };
 
     if ("timeout" in mergedOpts) {
       reqopts.timeout = mergedOpts.timeout;
     }
 
-    const prom = ky(omdbapi, reqopts)
+    const prom = ky("", reqopts)
       .json()
       .then((response: unknown) => {
         if (assertGetResponse(response)) {
@@ -796,13 +829,14 @@ export class Client {
         "Content-Type": "application/json",
       },
       timeout: undefined as number | undefined,
+      prefixUrl: this.baseURL,
     };
 
     if (mergedOpts.timeout) {
       reqopts.timeout = mergedOpts.timeout;
     }
 
-    const prom = ky(omdbapi, reqopts)
+    const prom = ky("", reqopts)
       .json()
       .then((response: unknown) => {
         if (assertSearchResponse(response)) {

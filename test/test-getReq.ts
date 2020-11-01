@@ -4,6 +4,7 @@ import nock from "nock";
 import { describe, it } from "mocha";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
+import { URL } from "url";
 
 import * as imdb from "../lib/imdb";
 
@@ -359,6 +360,76 @@ describe("get", () => {
         }
       ),
       /bad/
+    );
+  });
+
+  it("gets an episode when we use a string baseURL", () => {
+    nock("https://bar.com")
+      .get("/?apikey=foo&plot=full&r=json&t=How%20I%20Met%20Your%20Mother")
+      .replyWithFile(
+        200,
+        path.join(__dirname, "/data/how-I-met-your-mother.json")
+      )
+      .get("/?Season=1&apikey=foo&i=tt0460649&r=json")
+      .replyWithFile(
+        200,
+        path.join(__dirname, "/data/how-I-met-your-mother-episodes.json")
+      );
+
+    return assert.eventually.nestedPropertyVal(
+      imdb
+        .get(
+          {
+            name: "How I Met Your Mother",
+          },
+          {
+            apiKey: "foo",
+            baseURL: "https://bar.com/",
+          }
+        )
+        .then((data) => {
+          if (data instanceof imdb.TVShow) {
+            return data.episodes();
+          }
+          throw new Error("failure");
+        }),
+      "[0].title",
+      "Pilot"
+    );
+  });
+
+  it("gets an episode when we use a URL baseURL", () => {
+    nock("https://bar.com")
+      .get("/?apikey=foo&plot=full&r=json&t=How%20I%20Met%20Your%20Mother")
+      .replyWithFile(
+        200,
+        path.join(__dirname, "/data/how-I-met-your-mother.json")
+      )
+      .get("/?Season=1&apikey=foo&i=tt0460649&r=json")
+      .replyWithFile(
+        200,
+        path.join(__dirname, "/data/how-I-met-your-mother-episodes.json")
+      );
+
+    return assert.eventually.nestedPropertyVal(
+      imdb
+        .get(
+          {
+            name: "How I Met Your Mother",
+          },
+          {
+            apiKey: "foo",
+            baseURL: new URL("https://bar.com/"),
+          }
+        )
+        .then((data) => {
+          if (data instanceof imdb.TVShow) {
+            return data.episodes();
+          }
+          throw new Error("failure");
+        }),
+      "[0].title",
+      "Pilot"
     );
   });
 });
