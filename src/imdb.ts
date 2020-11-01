@@ -144,16 +144,6 @@ function reqtoqueryobj(
 }
 
 /**
- * @hidden
- */
-const transTable = {
-  Genre: "genres",
-  Language: "languages",
-  imdbRating: "rating",
-  imdbVotes: "votes",
-};
-
-/**
  * Rating for a piece of media.
  */
 export class Rating {
