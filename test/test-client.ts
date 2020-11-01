@@ -1,4 +1,5 @@
 import "https";
+import * as path from "path";
 import * as nock from "nock";
 import { Done, it, describe } from "mocha";
 import * as chai from "chai";
@@ -28,7 +29,7 @@ describe("tests client creation and use", () => {
     const cli = new imdb.Client({ apiKey: "foo" });
     nock("https://www.omdbapi.com")
       .get("/?apikey=foo&plot=full&r=json&t=The%20Toxic%20Avenger")
-      .replyWithFile(200, `${__dirname}/data/toxic-avenger.json`);
+      .replyWithFile(200, path.join(__dirname, "/data/toxic-avenger.json"));
 
     return assert.eventually.propertyVal(
       cli.get({
@@ -44,7 +45,10 @@ describe("tests client creation and use", () => {
     const cli = new imdb.Client({ apiKey: "foo" });
     nock("https://www.omdbapi.com")
       .get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger")
-      .replyWithFile(200, `${__dirname}/data/toxic-avenger-search.json`);
+      .replyWithFile(
+        200,
+        path.join(__dirname, "/data/toxic-avenger-search.json")
+      );
 
     return assert.eventually.nestedPropertyVal(
       cli.search({
@@ -61,7 +65,7 @@ describe("tests client creation and use", () => {
     nock("https://www.omdbapi.com")
       .get("/?apikey=foo&plot=full&r=json&t=The%20Toxic%20Avenger")
       .delay(2000)
-      .replyWithFile(200, `${__dirname}/data/toxic-avenger.json`);
+      .replyWithFile(200, path.join(__dirname, "/data/toxic-avenger.json"));
 
     return assert.isRejected(
       cli.get(
@@ -81,7 +85,10 @@ describe("tests client creation and use", () => {
     nock("https://www.omdbapi.com")
       .get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger")
       .delay(2000)
-      .replyWithFile(200, `${__dirname}/data/toxic-avenger-search.json`);
+      .replyWithFile(
+        200,
+        path.join(__dirname, "/data/toxic-avenger-search.json")
+      );
 
     return assert.isRejected(
       cli.search(

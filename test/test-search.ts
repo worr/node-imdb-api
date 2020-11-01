@@ -1,4 +1,5 @@
 import "https";
+import * as path from "path";
 import * as nock from "nock";
 import { describe, it } from "mocha";
 import * as chai from "chai";
@@ -13,7 +14,10 @@ describe("searching", () => {
   it("searches successfully", () => {
     nock("https://www.omdbapi.com")
       .get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger")
-      .replyWithFile(200, `${__dirname}/data/toxic-avenger-search.json`);
+      .replyWithFile(
+        200,
+        path.join(__dirname, "/data/toxic-avenger-search.json")
+      );
 
     return assert.isFulfilled(
       imdb
@@ -61,7 +65,10 @@ describe("searching", () => {
     nock("https://www.omdbapi.com")
       .get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger")
       .delay(3000)
-      .replyWithFile(200, `${__dirname}/data/toxic-avenger-search.json`);
+      .replyWithFile(
+        200,
+        path.join(__dirname, "/data/toxic-avenger-search.json")
+      );
 
     return assert.isRejected(
       imdb.search(
@@ -79,9 +86,15 @@ describe("searching", () => {
   it("gets the next page in a search", () => {
     nock("https://www.omdbapi.com")
       .get("/?apikey=foo&page=1&r=json&s=Toxic%20Avenger")
-      .replyWithFile(200, `${__dirname}/data/toxic-avenger-search.json`)
+      .replyWithFile(
+        200,
+        path.join(__dirname, "/data/toxic-avenger-search.json")
+      )
       .get("/?apikey=foo&page=2&r=json&s=Toxic%20Avenger")
-      .replyWithFile(200, `${__dirname}/data/toxic-avenger-search.json`);
+      .replyWithFile(
+        200,
+        path.join(__dirname, "/data/toxic-avenger-search.json")
+      );
 
     return assert.isFulfilled(
       imdb
