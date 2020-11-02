@@ -15,7 +15,7 @@
     "build": "tsc -p .",
     "prepare": "npm run build",
     "format": "prettier --write --parser typescript src/*.ts test/*.ts",
-    "lint": "eslint --ignore-path .gitignore --ext .ts . && prettier --check --parser typescript src/*.ts test/*.ts",
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern examples --ext .ts . && prettier --check --parser typescript src/*.ts test/*.ts",
     "test": "nyc mocha",
     "check": "npm run lint && npm run test",
     "ci": "npm run check",
