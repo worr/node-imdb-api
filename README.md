@@ -8,14 +8,15 @@ A non-scraping, functional node.js interface to imdb
 
 **NOTE ON GITTER**: I *am* online! I use the [matrix](matrix.org) bridge to talk on Gitter, so you'll see me talking through `MatrixBot`. Feel free to ask questions!
 
+# Github / Gitlab
+
+[Gitlab](https://gitlab.com/worr/node-imdb-api) is the official upstream, and
+commits are mirrored to [Github](https://github.com/worr/node-imdb-api). I look
+at issues and PRs/MRs on both. Feel free to contribute on either.
+
 # API Docs
 
 [API docs are now here](https://docs.worrbase.com/node/imdb-api/)
-
-# Installation:
-```bash
-npm install --save imdb-api
-```
 
 # Use
 
