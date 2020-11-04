@@ -14,7 +14,7 @@ class App extends Component<MyProps, MyState> {
 
     async componentDidMount() {
         try {
-            const results = await imdb.get({name: 'The Toxic Avenger'}, {apiKey: 'use your api key here'});
+            const results = await imdb.get({name: 'Toxic Avenger'}, {apiKey: 'use your api key here', baseURL: "http://localhost:3000"});
             this.setState({movie: results, error: ""});
         } catch (e) {
             this.setState({movie: undefined, error: e.message});
@@ -24,6 +24,7 @@ class App extends Component<MyProps, MyState> {
     render() {
         return (
             <div className="top">
+                <h1>Movie</h1>
                 <div className="content">
                     {this.state.movie?.title}
                 </div>

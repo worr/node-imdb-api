@@ -13,6 +13,11 @@
   script:
     - npm run ci
 
+stages:
+  - build
+  - test
+  - integration
+
 cache:
   paths:
   - node_modules/
@@ -66,3 +71,14 @@ cache:
   extends: .test_default
   dependencies:
     - node build v15
+
+"example integration testing":
+  stage: integration
+  image: node:14-alpine
+  dependencies:
+    - node build v14
+  before_script:
+    - "npx ts-node test/util/server.ts &"
+  script:
+    - "cd examples/imdb-api-react && yarn && yarn test; cd ../.."
+    - "cd examples/imdb-api-node && npm install && node index.js; cd ../.."
