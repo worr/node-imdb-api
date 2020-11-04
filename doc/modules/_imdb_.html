@@ -102,6 +102,7 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_imdb_.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_imdb_.html#isrequesttype" class="tsd-kind-icon">is<wbr>Request<wbr>Type</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_imdb_.html#search" class="tsd-kind-icon">search</a></li>
 							</ul>
 						</section>
@@ -116,7 +117,7 @@
 					<div class="tsd-signature tsd-kind-icon">Request<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"movie"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"series"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"episode"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"game"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/51a40d9/src/imdb.ts#L80">imdb.ts:80</a></li>
+							<li>Defined in imdb.ts:88</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -138,7 +139,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/51a40d9/src/imdb.ts#L567">imdb.ts:567</a></li>
+									<li>Defined in imdb.ts:640</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -166,17 +167,40 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="search" class="tsd-anchor"></a>
-					<h3>search</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">search<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.searchrequest.html" class="tsd-signature-type">SearchRequest</a>, opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a>, page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.searchresults.html" class="tsd-signature-type">SearchResults</a><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="isrequesttype" class="tsd-anchor"></a>
+					<h3>is<wbr>Request<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Request<wbr>Type<span class="tsd-signature-symbol">(</span>reqtype<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">reqtype</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">RequestType</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/worr/node-imdb-api/blob/51a40d9/src/imdb.ts#L584">imdb.ts:584</a></li>
+									<li>Defined in imdb.ts:90</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>reqtype: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">reqtype</span><span class="tsd-signature-symbol"> is </span><span class="tsd-signature-type">RequestType</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="search" class="tsd-anchor"></a>
+					<h3>search</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">search<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.searchrequest.html" class="tsd-signature-type">SearchRequest</a>, opts<span class="tsd-signature-symbol">: </span><a href="../interfaces/_imdb_.movieopts.html" class="tsd-signature-type">MovieOpts</a>, page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_imdb_.searchresults.html" class="tsd-signature-type">SearchResults</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in imdb.ts:657</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -199,7 +223,7 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> page: <span class="tsd-signature-type">number</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> page: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>page number to return</p>
 									</div>
@@ -275,6 +299,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_imdb_.html#get" class="tsd-kind-icon">get</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_imdb_.html#isrequesttype" class="tsd-kind-icon">is<wbr>Request<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_imdb_.html#search" class="tsd-kind-icon">search</a>
