@@ -1,3 +1,12 @@
+# Version 4.4.0
+
+* Turned on strict typescript checks
+* Add `baseURL` option so that folks can use their own omdb implementations, or
+  the private Patreon instance
+* Added examples
+* Fix bug where module was unusable in frontend code (Github #84, Gitlab #1)
+* Migrated code to gitlab
+
 # Version 4.3.0
 
 * Added support for `Game` type from omdb (Fixes #81)
