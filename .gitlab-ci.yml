@@ -71,6 +71,8 @@ cache:
   extends: .test_default
   dependencies:
     - node build v15
+  # allow failure because of https://github.com/node-fetch/node-fetch/pull/1001
+  allow_failure: true
 
 "example integration testing":
   stage: integration
