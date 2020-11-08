@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "target": "es5",
+        "lib": ["es6"],
+        "module": "umd",
+        "moduleResolution": "node",
+        "removeComments": true,
+        "outDir": "umd",
+        "sourceMap": true,
+        "declaration": true,
+        "strict": true
+    },
+    "include": [
+        "src/*"
+    ]
+}
