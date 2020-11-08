@@ -18,3 +18,4 @@ lib
 typings/
 coverage/
 .nyc_output/
+umd

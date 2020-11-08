@@ -1,3 +1,7 @@
+# Version 4.4.1
+
+* Added building to umd for unpkg
+
 # Version 4.4.0
 
 * Turned on strict typescript checks

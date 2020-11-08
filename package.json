@@ -2,7 +2,7 @@
   "author": "William Orr <will@worrbase.com> (http://worrbase.com/)",
   "name": "imdb-api",
   "description": "Queries unofficial imdb APIs to get movie and television information from imdb",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "main": "./lib/imdb.js",
   "types": "./lib/imdb.d.ts",
   "homepage": "https://gitlab.com/worr/node-imdb-api",
@@ -13,7 +13,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p .",
-    "prepare": "npm run build",
+    "prepare": "npm run build && tsc -p tsconfig-umd.json",
     "format": "prettier --write --parser typescript src/*.ts test/*.ts",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern examples --ext .ts . && prettier --check --parser typescript src/*.ts test/*.ts",
     "test": "nyc mocha",
@@ -22,6 +22,11 @@
     "docs": "typedoc --out ./doc --ignoreCompilerErrors src/imdb.ts",
     "clean": "rm -rf node_modules lib"
   },
+  "files": [
+    "lib/*",
+    "src/*",
+    "umd/*"
+  ],
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.12",
