@@ -45,6 +45,10 @@ export interface MovieOpts {
    */
   baseURL?: string | URL;
 }
+/**
+ * Type of media we're searching for
+ */
+export type RequestType = "movie" | "series" | "episode" | "game";
 
 /**
  * An explicit request for a movie. Does not do searching, this is meant
@@ -86,11 +90,6 @@ export interface MovieRequest {
    */
   reqtype?: RequestType;
 }
-
-/**
- * Type of media we're searching for
- */
-export type RequestType = "movie" | "series" | "episode" | "game";
 
 function isRequestType(reqtype: string): reqtype is RequestType {
   if (
