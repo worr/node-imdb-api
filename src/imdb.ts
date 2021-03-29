@@ -80,6 +80,11 @@ export interface MovieRequest {
    * Whether or not to request a short plot. Default is full plot.
    */
   short_plot?: boolean; // eslint-disable-line camelcase
+
+  /**
+   * The type to request
+   */
+  reqtype?: RequestType;
 }
 
 /**
@@ -743,6 +748,10 @@ export class Client {
 
     if (req.year !== undefined) {
       qs.append("y", String(req.year));
+    }
+
+    if (req.reqtype !== undefined) {
+      qs.append("type", String(req.reqtype));
     }
 
     if (req.name) {
