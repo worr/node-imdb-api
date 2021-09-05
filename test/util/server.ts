@@ -42,14 +42,18 @@ app.get("/", async (req: express.Request, res: express.Response) => {
       try {
         ret = await getByTitle(title);
       } catch (e) {
-        ret = { error: e.message };
+        if (e instanceof Error) {
+          ret = { error: e.message };
+        }
       }
     } else if (req.query.i !== undefined && typeof req.query.i === "string") {
       const id = req.query.i;
       try {
         ret = await getByTitle(id);
       } catch (e) {
-        ret = { error: e.message };
+        if (e instanceof Error) {
+          ret = { error: e.message };
+        }
       }
     }
   } else if (isSearch) {
@@ -58,7 +62,9 @@ app.get("/", async (req: express.Request, res: express.Response) => {
       try {
         ret = await search(searchTerm);
       } catch (e) {
-        ret = { error: e.message };
+        if (e instanceof Error) {
+          ret = { error: e.message };
+        }
       }
     }
   }
