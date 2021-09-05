@@ -6,8 +6,6 @@ A non-scraping, functional node.js interface to imdb
 
 [![NPM version](https://badge.fury.io/js/imdb-api.svg)](http://badge.fury.io/js/imdb-api) [![pipeline status](https://gitlab.com/worr/node-imdb-api/badges/master/pipeline.svg)](https://gitlab.com/worr/node-imdb-api/-/commits/master)  [![Dependency Freshness](https://david-dm.org/worr/node-imdb-api.svg)](https://david-dm.org/worr/node-imdb-api) [![coverage report](https://gitlab.com/worr/node-imdb-api/badges/master/coverage.svg)](https://gitlab.com/worr/node-imdb-api/-/commits/master) [![Join the chat at https://gitter.im/worr/node-imdb-api](https://badges.gitter.im/worr/node-imdb-api.svg)](https://gitter.im/worr/node-imdb-api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-**NOTE ON GITTER**: I *am* online! I use the [matrix](matrix.org) bridge to talk on Gitter, so you'll see me talking through `MatrixBot`. Feel free to ask questions!
-
 # Github / Gitlab
 
 [Gitlab](https://gitlab.com/worr/node-imdb-api) is the official upstream, and
