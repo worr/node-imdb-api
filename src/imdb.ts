@@ -437,7 +437,7 @@ export class TVShow extends Movie {
    */
   constructor(obj: OmdbTvshow, opts: MovieOpts) {
     super(obj);
-    const years = this._yearData.split("-");
+    const years = this._yearData.split(/[–-]/);
     this.start_year = parseInt(years[0], 10);
     this.end_year = parseInt(years[1], 10) ? parseInt(years[1], 10) : undefined;
     this.totalseasons = parseInt(obj.totalSeasons, 10);
