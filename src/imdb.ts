@@ -383,7 +383,7 @@ export class Episode extends Movie {
     } else {
       this.season = parseInt(obj.Season, 10);
       if (isNaN(this.season)) {
-        throw new TypeError("invalid season: " + obj.Season);
+        throw new TypeError("invalid season: " + (obj ? JSON.stringify(obj) : obj));
       }
     }
 
@@ -392,7 +392,7 @@ export class Episode extends Movie {
     if ("Episode" in obj) {
       this.episode = parseInt(obj.Episode, 10);
       if (isNaN(this.episode)) {
-        throw new TypeError("invalid episode: " + obj.Episode);
+        throw new TypeError("invalid episode: " + (obj ? JSON.stringify(obj) : obj));
       }
     } else {
       this.episode = 0;
