@@ -358,10 +358,10 @@ export class Movie {
  */
 export class Episode extends Movie {
   /** what season this episode is a part of */
-  public season: number;
+  public season: number | null = null;
 
   /** what number episode in the season this episode is */
-  public episode: number;
+  public episode: number | null = null;
 
   /** what series this episode is a part of (imdbid) */
   public seriesid: string;
@@ -395,7 +395,7 @@ export class Episode extends Movie {
         throw new TypeError("invalid episode: " + (obj ? JSON.stringify(obj) : obj));
       }
     } else {
-      this.episode = 0;
+      this.episode = null;
     }
   }
 }
