@@ -500,7 +500,7 @@ export class TVShow extends Movie {
           return Promise.resolve(result);
         }
 
-        return Promise.reject(new TypeError("Invalid response from server"));
+        return Promise.reject(new TypeError("Invalid response from server: " + (result ? JSON.stringify(result) : "")));
       })
       .then((epData: OmdbSeason[] | OmdbError[]) => {
         const eps: Episode[] = [];
